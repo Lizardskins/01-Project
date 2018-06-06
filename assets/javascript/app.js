@@ -168,6 +168,22 @@ window.onload = function () {
     initApp();
 };
 //end firebase
+
 $(document).ready(function () {
     $('.collapsible').collapsible();
+});
+
+// Fandango API
+
+var fandangoApiKey = "35cy3hs5nebuedxktkaebzzr"
+var userZipCode = "84003";
+var fandangoQueryURL = "http://api.fandango.com/v1/?op=theatersbypostalcodesearch&postalcode=" + userZipCode + "&apikey=" + fandangoApiKey
+
+$.ajax({
+    URL: fandangoQueryURL,
+    Method: "GET",
+}).then(function (response) {
+
+    console.log(response)
+
 });

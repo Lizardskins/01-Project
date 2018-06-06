@@ -80,18 +80,19 @@
         <div class="col m9">
             <div class="row">
                 <!-- header buttons and stuff -->
+                <input type="text" class="datepicker">
                 <br>
-                <a class="waves-effect waves-light btn z-depth-5">Button</a>
-                <a class="waves-effect waves-light btn-small z-depth-5">Button</a>
-                <a class="waves-effect waves-light btn-large z-depth-5">Button</a>
-                <a class="waves-effect waves-light btn-large z-depth-5">Button</a>
+                <a class="waves-effect waves-red btn z-depth-5" id="btn" data-name="activity">Activity</a>
+                <a class="waves-effect waves-dark btn z-depth-5" id="btn" data-name="resturaunt">Resturaunt</a>
+                <a class="waves-effect waves-dark btn z-depth-5" id="btn" data-name="movie">Movie</a>
+                <!-- <a class="waves-effect waves-light btn z-depth-5">Button</a> -->
 
             </div>
             <div class="row">
                 <!-- Activity -->
 
                 <ul class="collapsible expandable popout">
-                    <li>
+                    <li id="activity">
                         <div class="collapsible-header">Activity</div>
 
                         <div class="collapsible-body">
@@ -100,21 +101,16 @@
                                 labore natus similique nemo quaerat?</span>
                         </div>
                     </li>
-                    <li>
-
+                    <li id="resturaunt">
                         <div class="collapsible-header">Resturaunt</div>
-
-
                         <div class="collapsible-body">
                             <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorem odio recusandae dolore veritatis
                                 animi quia hic. Eius vitae labore libero amet, voluptate sapiente pariatur, nam est quisquam
                                 ea, fugit et.</span>
                         </div>
                     </li>
-                    <li>
-
+                    <li id="movie">
                         <div class="collapsible-header">Movie</div>
-
                         <div class="collapsible-body">
                             <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem optio accusantium provident,
                                 consectetur delectus eum odit quasi possimus modi reprehenderit ratione neque. Repudiandae

@@ -71,7 +71,7 @@
                         <span id="quickstart-sign-in-status">Unknown</span>
                         <div>Firebase auth
                             <code>currentUser</code> object value:</div>
-                        <pre><code id="quickstart-account-details">null</code></pre>
+                        <pre><code class="truncate" id="quickstart-account-details">null</code></pre>
                     </div>
                 </div>
             </div>
@@ -79,19 +79,32 @@
         <!-- <div class="container"> -->
         <div class="col m9">
             <div class="row">
+                <div class="col m6">
+                    <!-- datepicker -->
+                    <input id="datepicker" type="text" class="datepicker">
+                    <label for="datepicker">
+                        Select-A-Date Above! ^^^
+                    </label>
+                </div>
+                <div class="col m6">
+                    <!-- Zipcode can go here -->
+                </div>
+            </div>
+            <div class="row">
                 <!-- header buttons and stuff -->
+
                 <br>
-                <a class="waves-effect waves-light btn z-depth-5">Button</a>
-                <a class="waves-effect waves-light btn-small z-depth-5">Button</a>
-                <a class="waves-effect waves-light btn-large z-depth-5">Button</a>
-                <a class="waves-effect waves-light btn-large z-depth-5">Button</a>
+                <a class="waves-effect waves-red btn z-depth-5" id="btn" data-name="activity">Activity</a>
+                <a class="waves-effect waves-dark btn z-depth-5" id="btn" data-name="resturaunt">Resturaunt</a>
+                <a class="waves-effect waves-dark btn z-depth-5" id="btn" data-name="movie">Movie</a>
+                <!-- <a class="waves-effect waves-light btn z-depth-5">Button</a> -->
 
             </div>
             <div class="row">
                 <!-- Activity -->
 
                 <ul class="collapsible expandable popout">
-                    <li>
+                    <li id="activity">
                         <div class="collapsible-header">Activity</div>
 
                         <div class="collapsible-body">
@@ -100,21 +113,16 @@
                                 labore natus similique nemo quaerat?</span>
                         </div>
                     </li>
-                    <li>
-
+                    <li id="resturaunt">
                         <div class="collapsible-header">Resturaunt</div>
-
-
                         <div class="collapsible-body">
                             <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorem odio recusandae dolore veritatis
                                 animi quia hic. Eius vitae labore libero amet, voluptate sapiente pariatur, nam est quisquam
                                 ea, fugit et.</span>
                         </div>
                     </li>
-                    <li>
-
+                    <li id="movie">
                         <div class="collapsible-header">Movie</div>
-
                         <div class="collapsible-body">
 
                             <div class="input-field col s2">

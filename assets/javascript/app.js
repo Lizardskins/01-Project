@@ -143,7 +143,7 @@ function initApp() {
             document.getElementById('quickstart-sign-in').textContent = 'Sign out';
             document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
             if (!emailVerified) {
-                document.getElementById('quickstart-verify-email').disabled = false;
+                //document.getElementById('quickstart-verify-email').disabled = false;
             }
             // [END_EXCLUDE]
         } else {
@@ -169,5 +169,9 @@ window.onload = function () {
 };
 //end firebase
 $(document).ready(function () {
-    $('.collapsible').collapsible();
+    var elem = document.querySelector('.collapsible.expandable');
+    var instance = M.Collapsible.init(elem, {
+        accordion: false
+    });
+    //$('.collapsible').collapsible();
 });

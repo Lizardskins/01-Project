@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Make-A-Date</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
@@ -89,47 +90,29 @@
             <div class="row">
                 <!-- Activity -->
 
-                <div class="card blue-grey darken-1 z-depth-5 hoverable">
-                    <div class="card-content white-text">
-                        <span class="card-title">Activity</span>
-                        <p>I am a very simple card. I am good at containing small bits of information. I am convenient because
-                            I require little markup to use effectively.</p>
-                    </div>
-                    <!-- <div class="card-action">
-                            <a href="#">This is a link</a>
-                            <a href="#">This is a link</a>
-                        </div> -->
-                </div>
-
-            </div>
-            <div class="row">
-                <!-- Resturaunts -->
-                <div class="card blue-grey darken-1 z-depth-5 hoverable">
-                    <div class="card-content white-text">
-                        <span class="card-title">Resturaunts</span>
-                        <p>I am a very simple card. I am good at containing small bits of information. I am convenient because
-                            I require little markup to use effectively.</p>
-                    </div>
-                    <!-- <div class="card-action">
-                            <a href="#">This is a link</a>
-                            <a href="#">This is a link</a>
-                        </div> -->
-                </div>
-
-            </div>
-            <div class="row">
-                <!-- Movies -->
-                <div class="card blue-grey darken-1 z-depth-5 hoverable">
-                    <div class="card-content white-text">
-                        <span class="card-title">Movies</span>
-                        <p>I am a very simple card. I am good at containing small bits of information. I am convenient because
-                            I require little markup to use effectively.</p>
-                    </div>
-                    <!-- <div class="card-action">
-                            <a href="#">This is a link</a>
-                            <a href="#">This is a link</a>
-                        </div> -->
-                </div>
+                <ul class="collapsible">
+                    <li>
+                        <div class="collapsible-header">
+                            <i class="material-icons">filter_drama</i>First</div>
+                        <div class="collapsible-body">
+                            <span>Lorem ipsum dolor sit amet.</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header">
+                            <i class="material-icons">place</i>Second</div>
+                        <div class="collapsible-body">
+                            <span>Lorem ipsum dolor sit amet.</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header">
+                            <i class="material-icons">whatshot</i>Third</div>
+                        <div class="collapsible-body">
+                            <span>Lorem ipsum dolor sit amet.</span>
+                        </div>
+                    </li>
+                </ul>
 
             </div>
         </div>

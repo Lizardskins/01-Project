@@ -1,3 +1,6 @@
+//firebase
+
+
 var config = {
     apiKey: "AIzaSyC1Vh8DGZDc3j6Sv7QT8bMtsko-uKCU63M",
     authDomain: "make-a-date-58d62.firebaseapp.com",
@@ -164,5 +167,7 @@ function initApp() {
 window.onload = function () {
     initApp();
 };
-
-
+//end firebase
+$(document).ready(function () {
+    $('.collapsible').collapsible();
+});

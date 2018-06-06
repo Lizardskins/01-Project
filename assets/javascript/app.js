@@ -179,6 +179,19 @@ $(document).ready(function () {
     $('.collapsible').collapsible();
 });
 
+//Yelp API
+
+var yelpApiKey = "6VZ6C3_6qNkbcS8HSEhSHHh8_lS0BHi0TM8ClTiJoGP4q_-Ufp15wfJq6pP2BKfFUAC5uRwu_XFW0gSNDMAzSK-bsXk10QP5-lTpM-Ep0C2MfEbIK3rgwTaukMcSW3Yx"
+var yelpQueryURL = "https://api.yelp.com/v3/businesses/search?location=CITY&term=TERM"
+var clientId = "UElyjnDy2hmjnnI9kg612A"
+
+$.ajax({
+    url: yelpQueryURL,
+    method: "GET"
+  })
+
+
+
 // Fandango API
 
 var fandangoApiKey = "35cy3hs5nebuedxktkaebzzr"

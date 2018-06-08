@@ -1,5 +1,13 @@
 //firebase
 
+var acitivityBodyRow = 0;
+var activityBodyCol = 0;
+var resturauntBodyRow = 0;
+var resturauntBodyCol = 0;
+var movieBodyRow = 0;
+var movieBodyCol = 0;
+
+
 var config = {
     apiKey: "AIzaSyC1Vh8DGZDc3j6Sv7QT8bMtsko-uKCU63M",
     authDomain: "make-a-date-58d62.firebaseapp.com",
@@ -163,9 +171,9 @@ function initApp() {
     //document.getElementById('quickstart-verify-email').addEventListener('click', sendEmailVerification, false);
     //document.getElementById('quickstart-password-reset').addEventListener('click', sendPasswordReset, false);
 }
-window.onload = function () {
-    initApp();
-};
+// window.onload = function () {
+//     initApp();
+// };
 //end firebase
 
 $(document).ready(function () {
@@ -188,6 +196,7 @@ $(document).ready(function () {
 
 
 //Yelp API
+
 
 var yelpApiKey = "6VZ6C3_6qNkbcS8HSEhSHHh8_lS0BHi0TM8ClTiJoGP4q_-Ufp15wfJq6pP2BKfFUAC5uRwu_XFW0gSNDMAzSK-bsXk10QP5-lTpM-Ep0C2MfEbIK3rgwTaukMcSW3Yx"
 var yelpQueryURL = "https://api.yelp.com/v3/businesses/search?term=delis&radius=8000&limit=5&location=" + userZipCode + "&sort_by=rating" + yelpApiKey;
@@ -246,30 +255,9 @@ $.ajax(settings).done(function (response) {
 
 
 
-// Fandango API
-
-// function movieResponse() {
-//     ;
-
-//     var fandangoApiKey = "35cy3hs5nebuedxktkaebzzr";
-//     var userZipCode = "84003";
-//     var sharedSecret = "2UQChprwaT";
-//     var fandangoQueryURL = "http://api.fandango.com/v1/?op=theatersbypostalcodesearch&postalcode=" + userZipCode + "&apikey=" + fandangoApiKey;
-
-//     $.ajax({
-//         URL: fandangoQueryURL,
-//         Method: "GET",
-//     }).then(function (response) {
-
-//         console.log(response)
-
-//     });
 
 
-// }
-// movieResponse();
 
-//});
 
 
 //Show/Hide date stuff!
@@ -286,5 +274,51 @@ function selectDateParam() {
     };
 };
 
+function createRow(dateSection) {
+
+}
+function createColumn(dateSection) {
+
+}
+
+function createCard(dateSection, cardTitle, apiImageURL, cardBodyContent) {
+
+    //build card
+    var card = $("<div>");
+    card.attr("class", "card");
+    card.attr("id", "movie-card");
+    card.attr("data-name", cardTitle);
+
+    var cardImage = $("<div>");
+    cardImage.attr("class", "card-image");
+
+    var cardImgTag = $("<img>")
+    cardImgTag.attr("src", apiImageURL);
+
+    var imageTitle = $("<span>");
+    imageTitle.attr("class", "card-title");
+    imageTitle.text(cardTitle)
+
+
+    var cardContent = $("<div>");
+    cardContent.attr("class", "card-content");
+
+    var cardBody = $("<p>");
+    cardBody.text(cardBodyContent);
+
+    console.log(card)
+
+    $("#" + dateSection + "-body").append(card);
+    card.append(cardImage);
+    cardImage.append(cardImgTag);
+    cardImage.append(imageTitle);
+    cardImage.append("<a class='btn-floating halfway-fab waves-effect waves-light red' data-name=" + cardTitle + "><i class='material-icons'>add</i></a>").appendTo(cardImage);
+    card.append(cardContent);
+    cardContent.append(cardBody);
+
+};
+
+
 $(document).on("click", "#btn", selectDateParam);
+//$(document).on("click", "#btn-floating", console.log("button"));
 

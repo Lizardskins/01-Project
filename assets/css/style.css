@@ -2,3 +2,21 @@
 #activity, #resturaunt, #movie{
     visibility: hidden;
 }
+
+img{
+    height: 100px;
+    width: 100px;
+}
+
+#movie-card{
+    width: 25%;
+
+}
+
+#activity-body{
+    display: flex;
+    flex-wrap: wrap;
+}
+.card{
+    margin: 0.5rem 5px 1rem 5px;
+}

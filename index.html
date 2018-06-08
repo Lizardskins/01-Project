@@ -7,6 +7,7 @@
     <title>Make-A-Date</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
@@ -108,6 +109,7 @@
 
             </div>
             <div class="row">
+
                 <!-- Activity -->
 
                 <ul class="collapsible expandable popout">
@@ -115,23 +117,23 @@
                         <div class="collapsible-header">Activity</div>
 
                         <div class="collapsible-body">
-                            <span>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga nostrum vel laborum similique
-                                hic aliquam minima, maxime, ducimus dolorum voluptatem repellat ad odit. Quasi exercitationem
-                                labore natus similique nemo quaerat?</span>
+                            <div class="row">
+                                <div class="col s12 m12" id="activity-body">
+
+                                </div>
+                            </div>
                         </div>
                     </li>
-                    <<<<<<< HEAD <li id="restaurant">
-                        <div class="collapsible-header">Restaurant</div>
-                        <div class="collapsible-body" id="restaurant-info">
-                            >>>>>>> f91c4c0fd897e65cb3a1561eabdcc2ff2e52f76b
-                            <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorem odio recusandae dolore veritatis
-                                animi quia hic. Eius vitae labore libero amet, voluptate sapiente pariatur, nam est quisquam
-                                ea, fugit et.</span>
+
+                    <li id="resturaunt">
+                        <div class="collapsible-header">Resturaunt</div>
+                        <div class="collapsible-body" id="resturaunt-body">
+                            <p>this is some sweet text</p>
                         </div>
-                        </li>
-                        <li id="movie">
-                            <div class="collapsible-header">Movie</div>
-                            <div class="collapsible-body">
+                    </li>
+                    <li id="movie">
+                        <div class="collapsible-header">Movie</div>
+                        <div class="collapsible-body" id="movie-body">
 
                                 <div class="input-field col s2">
                                     <select multiple>
@@ -166,5 +168,8 @@
     <!-- </div> -->
 
 </body>
+<script>
+    initApp();
+</script>
 
 </html>

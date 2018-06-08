@@ -1,5 +1,12 @@
 //firebase
 
+var acitivityBodyRow = 0;
+var activityBodyCol = 0;
+var resturauntBodyRow = 0;
+var resturauntBodyCol = 0;
+var movieBodyRow = 0;
+var movieBodyCol = 0;
+
 
 var config = {
     apiKey: "AIzaSyC1Vh8DGZDc3j6Sv7QT8bMtsko-uKCU63M",
@@ -164,9 +171,9 @@ function initApp() {
     //document.getElementById('quickstart-verify-email').addEventListener('click', sendEmailVerification, false);
     //document.getElementById('quickstart-password-reset').addEventListener('click', sendPasswordReset, false);
 }
-window.onload = function () {
-    initApp();
-};
+// window.onload = function () {
+//     initApp();
+// };
 //end firebase
 
 $(document).ready(function () {
@@ -210,6 +217,7 @@ function movieResponse() {
     //     }
     // }
 
+
     // $.ajax(settings).done(function (response) {
     //     console.log(response);
 
@@ -251,6 +259,67 @@ function movieResponse() {
 }
 movieResponse();
 
+//Yelp API
+
+
+var yelpApiKey = "6VZ6C3_6qNkbcS8HSEhSHHh8_lS0BHi0TM8ClTiJoGP4q_-Ufp15wfJq6pP2BKfFUAC5uRwu_XFW0gSNDMAzSK-bsXk10QP5-lTpM-Ep0C2MfEbIK3rgwTaukMcSW3Yx"
+var yelpQueryURL = "https://api.yelp.com/v3/businesses/search?term=delis&radius=8000&limit=5&location=" + userZipCode + "&sort_by=rating" + yelpApiKey;
+var clientId = "UElyjnDy2hmjnnI9kg612A"
+
+function runQuery(yelpQueryURL) {
+
+}
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://api.yelp.com/v3/businesses/search?term=delis&radius=8000&limit=5&location=" + userZipCode + "&sort_by=rating",
+    "method": "GET",
+    "headers": {
+        "Authorization": "Bearer",
+        "Cache-Control": "no-cache",
+        "Postman-Token": "d7b8520f-832a-45db-bd86-066bfa4db9eb"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+
+
+
+// $("#user-zip").keypress(function (event) {
+//     if (event.which == 13) {
+//         alert("test")
+//     }
+// });
+
+//var userZipCode = $("#user-zip").val()
+
+//create var = restaurant image_url
+// var bizPhotoUrl = businesses.image_url;
+
+// var bizPhoto = $("<img>").attr("src", bizPhotoUrl);
+// var bizName = $("<li>").text(businesses.name);
+// var bizCategories = $("<li>").text(businesses.categories[1].title);
+// var bizRating = $("<li>").text(businesses.rating);
+// var bizPrice = $("<li>").text(businesses.price);
+// var bizAddr = $("<li>").text(businesses.location[7].display_address);
+// var bizPhone = $("<li>").text(businesses.display_phone);
+
+
+
+//$("restaurant-info").append(bizPhoto, bizName, bizCategories, bizRating, bizPrice, bizAddr, bizPhone);
+
+// create a variable that will store the results from userZipCode
+// rstrntOptions = yelpQueryUrl + userZipCode
+
+// append results to div id="restaurant"
+// $("#restaurant").append(rstrntOptions);
+
+
+
+
+
 
 
 
@@ -269,5 +338,51 @@ function selectDateParam() {
     };
 };
 
+function createRow(dateSection) {
+
+}
+function createColumn(dateSection) {
+
+}
+
+function createCard(dateSection, cardTitle, apiImageURL, cardBodyContent) {
+
+    //build card
+    var card = $("<div>");
+    card.attr("class", "card");
+    card.attr("id", "movie-card");
+    card.attr("data-name", cardTitle);
+
+    var cardImage = $("<div>");
+    cardImage.attr("class", "card-image");
+
+    var cardImgTag = $("<img>")
+    cardImgTag.attr("src", apiImageURL);
+
+    var imageTitle = $("<span>");
+    imageTitle.attr("class", "card-title");
+    imageTitle.text(cardTitle)
+
+
+    var cardContent = $("<div>");
+    cardContent.attr("class", "card-content");
+
+    var cardBody = $("<p>");
+    cardBody.text(cardBodyContent);
+
+    console.log(card)
+
+    $("#" + dateSection + "-body").append(card);
+    card.append(cardImage);
+    cardImage.append(cardImgTag);
+    cardImage.append(imageTitle);
+    cardImage.append("<a class='btn-floating halfway-fab waves-effect waves-light red' data-name=" + cardTitle + "><i class='material-icons'>add</i></a>").appendTo(cardImage);
+    card.append(cardContent);
+    cardContent.append(cardBody);
+
+};
+
+
 $(document).on("click", "#btn", selectDateParam);
+//$(document).on("click", "#btn-floating", console.log("button"));
 

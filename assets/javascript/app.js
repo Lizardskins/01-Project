@@ -185,33 +185,74 @@ $(document).ready(function () {
         autoClose: true,
         format: "mm/dd/yy"
     });
+
+
 });
 
+// iShowTime API
 
-// Fandango API
+function movieResponse() {
 
-// function movieResponse() {
-//     ;
+    var iShowTimeApiKey = "U0AkE0yt6yBUiOOb8s9CiGEgK574ZMKD";
+    var Latlng = "40.5650,-111.8390";
+    var radius = "5";
+    var time_from = "2018-06-07T00:00:00-06:00";
+    var time_to = "2018-06-07T23:59:00-06:00";
 
-//     var fandangoApiKey = "35cy3hs5nebuedxktkaebzzr";
-//     var userZipCode = "84003";
-//     var sharedSecret = "2UQChprwaT";
-//     var fandangoQueryURL = "http://api.fandango.com/v1/?op=theatersbypostalcodesearch&postalcode=" + userZipCode + "&apikey=" + fandangoApiKey;
+    // var settings = {
+    //     "async": true,
+    //     "crossDomain": true,
+    //     "url": "https://api.internationalshowtimes.com/v4/showtimes?location=40.5650,-111.8390&distance=100&time_from=2018-06-07T19:30:00-06:00&time_to=2018-06-08T19:30:00-06:00&apikey=U0AkE0yt6yBUiOOb8s9CiGEgK574ZMKD",
+    //     "method": "GET",
+    //     "headers": {
+    //         "Cache-Control": "no-cache",
+    //         "Postman-Token": "335b76b8-5a61-47b9-92b2-d1797b067cfc"
+    //     }
+    // }
 
-//     $.ajax({
-//         URL: fandangoQueryURL,
-//         Method: "GET",
-//     }).then(function (response) {
+    // $.ajax(settings).done(function (response) {
+    //     console.log(response);
 
-//         console.log(response)
+    // });
 
-//     });
+    $.ajax({
+        url: `https://api.internationalshowtimes.com/v4/showtimes?location=${Latlng}&distance=${radius}&time_from=${time_from}&time_to=${time_to}`,
+        method: "GET",
+        headers: {
+            "X-API-Key": iShowTimeApiKey
+        },
+    }).then(function (movieResponse) {
+
+        var showtimeArray = (movieResponse.showtimes);
+        var allMovieTitlesArr = [];
+        var movieTitle = "";
+        var uniqueMovieTitlesArr = [];
+
+        for (var i = 0; i < showtimeArray.length; i++) {
+
+            console.log(showtimeArray[i].cinema_movie_title);
+            movieTitle = (showtimeArray[i].cinema_movie_title);
+
+            allMovieTitlesArr.push(movieTitle);
+
+        }
+
+        console.log(allMovieTitlesArr);
+
+        $.each(allMovieTitlesArr, function (i, el) {
+            if ($.inArray(el, uniqueMovieTitlesArr) === -1) uniqueMovieTitlesArr.push(el);
+        });
+
+        console.log(uniqueMovieTitlesArr);
+
+    });
 
 
-// }
-// movieResponse();
+}
+movieResponse();
 
-//});
+
+
 
 
 //Show/Hide date stuff!

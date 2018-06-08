@@ -175,9 +175,18 @@ $(document).ready(function () {
     var instance = M.Collapsible.init(elem, {
         accordion: false
     });
-    //$('.collapsible').collapsible();
-    $('.collapsible').collapsible();
+
+
+    $('select').formSelect();
+
+
+    var elems = document.querySelectorAll('.datepicker');
+    var instances = M.Datepicker.init(elems, {
+        autoClose: true,
+        format: "mm/dd/yy"
+    });
 });
+
 
 //Yelp API
 
@@ -191,18 +200,45 @@ $.ajax({
   })
 
 
-
 // Fandango API
 
-var fandangoApiKey = "35cy3hs5nebuedxktkaebzzr"
-var userZipCode = "84003";
-var fandangoQueryURL = "http://api.fandango.com/v1/?op=theatersbypostalcodesearch&postalcode=" + userZipCode + "&apikey=" + fandangoApiKey
+// function movieResponse() {
+//     ;
 
-$.ajax({
-    URL: fandangoQueryURL,
-    Method: "GET",
-}).then(function (response) {
+//     var fandangoApiKey = "35cy3hs5nebuedxktkaebzzr";
+//     var userZipCode = "84003";
+//     var sharedSecret = "2UQChprwaT";
+//     var fandangoQueryURL = "http://api.fandango.com/v1/?op=theatersbypostalcodesearch&postalcode=" + userZipCode + "&apikey=" + fandangoApiKey;
 
-    console.log(response)
+//     $.ajax({
+//         URL: fandangoQueryURL,
+//         Method: "GET",
+//     }).then(function (response) {
 
-});
+//         console.log(response)
+
+//     });
+
+
+// }
+// movieResponse();
+
+//});
+
+
+//Show/Hide date stuff!
+function selectDateParam() {
+    var section = "#" + $(this).data("name");
+    var state = $(section).css("visibility")
+    //console.log(section);
+    if (state === "visible") {
+        //console.log(state);
+        $(section).css("visibility", "hidden")
+    } else {
+        //console.log(state);
+        $(section).css("visibility", "visible")
+    };
+};
+
+$(document).on("click", "#btn", selectDateParam);
+

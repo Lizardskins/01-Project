@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <!-- Google Material Design Icon -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
     <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
@@ -37,6 +39,14 @@
                 </li>
                 <li class="tab">
                     <a href="#test4">Test 4</a>
+                </li>
+                <li> 
+                    <form>
+                        <div class="input-field col s6">
+                        <input id="user-zip" type="text" class="form-control">
+                        <label for="icon_prefix">Location</label>
+                        </div>
+                     </form>
                 </li>
             </ul>
         </div>
@@ -102,10 +112,10 @@
                     </li>
                     <li>
 
-                        <div class="collapsible-header">Resturaunt</div>
+                        <div class="collapsible-header">Restaurant</div>
 
 
-                        <div class="collapsible-body">
+                        <div class="collapsible-body" id="restaurant-section">
                             <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorem odio recusandae dolore veritatis
                                 animi quia hic. Eius vitae labore libero amet, voluptate sapiente pariatur, nam est quisquam
                                 ea, fugit et.</span>

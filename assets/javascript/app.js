@@ -174,52 +174,117 @@ $(document).ready(function () {
     var instance = M.Collapsible.init(elem, {
         accordion: false
     });
-    //$('.collapsible').collapsible();
-    $('.collapsible').collapsible();
+
+
+    $('select').formSelect();
+
+
+    var elems = document.querySelectorAll('.datepicker');
+    var instances = M.Datepicker.init(elems, {
+        autoClose: true,
+        format: "mm/dd/yy"
+    });
 });
+
 
 //Yelp API
 
 var yelpApiKey = "6VZ6C3_6qNkbcS8HSEhSHHh8_lS0BHi0TM8ClTiJoGP4q_-Ufp15wfJq6pP2BKfFUAC5uRwu_XFW0gSNDMAzSK-bsXk10QP5-lTpM-Ep0C2MfEbIK3rgwTaukMcSW3Yx"
-var yelpQueryURL = "https://api.yelp.com/v3/businesses/search?location=CITY&term=TERM" + yelpApiKey;
+var yelpQueryURL = "https://api.yelp.com/v3/businesses/search?term=delis&radius=8000&limit=5&location=" + userZipCode + "&sort_by=rating" + yelpApiKey;
 var clientId = "UElyjnDy2hmjnnI9kg612A"
 
-function runQuery(yelpQueryURL){
+function runQuery(yelpQueryURL) {
 
-    //headers:{Authorization: "Bearer" + yelpApiKey}
-    //auth: {"bearer": yelpApiKey}
-  }
+}
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://api.yelp.com/v3/businesses/search?term=delis&radius=8000&limit=5&location=" + userZipCode + "&sort_by=rating",
+    "method": "GET",
+    "headers": {
+        "Authorization": "Bearer",
+        "Cache-Control": "no-cache",
+        "Postman-Token": "d7b8520f-832a-45db-bd86-066bfa4db9eb"
+    }
+}
 
-    $.ajax({
-        url: yelpQueryURL,
-        method: "GET"
-    })
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
 
 
 
-var userLocation = $("#user-zip").val()
+// $("#user-zip").keypress(function (event) {
+//     if (event.which == 13) {
+//         alert("test")
+//     }
+// });
 
-// create a variable that will store the results from userLocations
-// rstrntOptions = yelpQueryUrl + userLocation
+//var userZipCode = $("#user-zip").val()
 
-// append results to div id="restaurant-section"
-// $("#restaurant-section").append(rstrntOptions);
+//create var = restaurant image_url
+// var bizPhotoUrl = businesses.image_url;
 
+// var bizPhoto = $("<img>").attr("src", bizPhotoUrl);
+// var bizName = $("<li>").text(businesses.name);
+// var bizCategories = $("<li>").text(businesses.categories[1].title);
+// var bizRating = $("<li>").text(businesses.rating);
+// var bizPrice = $("<li>").text(businesses.price);
+// var bizAddr = $("<li>").text(businesses.location[7].display_address);
+// var bizPhone = $("<li>").text(businesses.display_phone);
+
+
+
+//$("restaurant-info").append(bizPhoto, bizName, bizCategories, bizRating, bizPrice, bizAddr, bizPhone);
+
+// create a variable that will store the results from userZipCode
+// rstrntOptions = yelpQueryUrl + userZipCode
+
+// append results to div id="restaurant"
+// $("#restaurant").append(rstrntOptions);
 
 
 
 
 // Fandango API
 
-var fandangoApiKey = "35cy3hs5nebuedxktkaebzzr"
-var userZipCode = "84003";
-var fandangoQueryURL = "http://api.fandango.com/v1/?op=theatersbypostalcodesearch&postalcode=" + userZipCode + "&apikey=" + fandangoApiKey
+// function movieResponse() {
+//     ;
 
-$.ajax({
-    URL: fandangoQueryURL,
-    Method: "GET",
-}).then(function (response) {
+//     var fandangoApiKey = "35cy3hs5nebuedxktkaebzzr";
+//     var userZipCode = "84003";
+//     var sharedSecret = "2UQChprwaT";
+//     var fandangoQueryURL = "http://api.fandango.com/v1/?op=theatersbypostalcodesearch&postalcode=" + userZipCode + "&apikey=" + fandangoApiKey;
 
-    console.log(response)
+//     $.ajax({
+//         URL: fandangoQueryURL,
+//         Method: "GET",
+//     }).then(function (response) {
 
-});
+//         console.log(response)
+
+//     });
+
+
+// }
+// movieResponse();
+
+//});
+
+
+//Show/Hide date stuff!
+function selectDateParam() {
+    var section = "#" + $(this).data("name");
+    var state = $(section).css("visibility")
+    //console.log(section);
+    if (state === "visible") {
+        //console.log(state);
+        $(section).css("visibility", "hidden")
+    } else {
+        //console.log(state);
+        $(section).css("visibility", "visible")
+    };
+};
+
+$(document).on("click", "#btn", selectDateParam);
+

@@ -6,6 +6,7 @@ var resturauntBodyRow = 0;
 var resturauntBodyCol = 0;
 var movieBodyRow = 0;
 var movieBodyCol = 0;
+var userZipCode = "";
 
 
 var config = {
@@ -204,23 +205,23 @@ var clientId = "UElyjnDy2hmjnnI9kg612A"
 
 function runQuery(yelpQueryURL) {
 
-}
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "https://api.yelp.com/v3/businesses/search?term=delis&radius=8000&limit=5&location=" + userZipCode + "&sort_by=rating",
-    "method": "GET",
-    "headers": {
-        "Authorization": "Bearer",
-        "Cache-Control": "no-cache",
-        "Postman-Token": "d7b8520f-832a-45db-bd86-066bfa4db9eb"
+
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://api.yelp.com/v3/businesses/search?term=delis&radius=8000&limit=5&location=" + userZipCode + "&sort_by=rating",
+        "method": "GET",
+        "headers": {
+            "Authorization": "Bearer",
+            "Cache-Control": "no-cache",
+            "Postman-Token": "d7b8520f-832a-45db-bd86-066bfa4db9eb"
+        }
     }
-}
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
-
+    $.ajax(settings).done(function (response) {
+        console.log(response);
+    });
+};
 
 
 // $("#user-zip").keypress(function (event) {
@@ -320,5 +321,6 @@ function createCard(dateSection, cardTitle, apiImageURL, cardBodyContent) {
 
 
 $(document).on("click", "#btn", selectDateParam);
+
 //$(document).on("click", "#btn-floating", console.log("button"));
 

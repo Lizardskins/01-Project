@@ -1,10 +1,12 @@
 //firebase
+
 var acitivityBodyRow = 0;
 var activityBodyCol = 0;
 var resturauntBodyRow = 0;
 var resturauntBodyCol = 0;
 var movieBodyRow = 0;
 var movieBodyCol = 0;
+
 
 var config = {
     apiKey: "AIzaSyC1Vh8DGZDc3j6Sv7QT8bMtsko-uKCU63M",
@@ -195,14 +197,64 @@ $(document).ready(function () {
 
 //Yelp API
 
-// var yelpApiKey = "6VZ6C3_6qNkbcS8HSEhSHHh8_lS0BHi0TM8ClTiJoGP4q_-Ufp15wfJq6pP2BKfFUAC5uRwu_XFW0gSNDMAzSK-bsXk10QP5-lTpM-Ep0C2MfEbIK3rgwTaukMcSW3Yx"
-// var yelpQueryURL = "https://api.yelp.com/v3/businesses/search?location=CITY&term=TERM"
-// var clientId = "UElyjnDy2hmjnnI9kg612A"
 
-// $.ajax({
-//     url: yelpQueryURL,
-//     method: "GET"
-// })
+var yelpApiKey = "6VZ6C3_6qNkbcS8HSEhSHHh8_lS0BHi0TM8ClTiJoGP4q_-Ufp15wfJq6pP2BKfFUAC5uRwu_XFW0gSNDMAzSK-bsXk10QP5-lTpM-Ep0C2MfEbIK3rgwTaukMcSW3Yx"
+var yelpQueryURL = "https://api.yelp.com/v3/businesses/search?term=delis&radius=8000&limit=5&location=" + userZipCode + "&sort_by=rating" + yelpApiKey;
+var clientId = "UElyjnDy2hmjnnI9kg612A"
+
+function runQuery(yelpQueryURL) {
+
+}
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://api.yelp.com/v3/businesses/search?term=delis&radius=8000&limit=5&location=" + userZipCode + "&sort_by=rating",
+    "method": "GET",
+    "headers": {
+        "Authorization": "Bearer",
+        "Cache-Control": "no-cache",
+        "Postman-Token": "d7b8520f-832a-45db-bd86-066bfa4db9eb"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+
+
+
+// $("#user-zip").keypress(function (event) {
+//     if (event.which == 13) {
+//         alert("test")
+//     }
+// });
+
+//var userZipCode = $("#user-zip").val()
+
+//create var = restaurant image_url
+// var bizPhotoUrl = businesses.image_url;
+
+// var bizPhoto = $("<img>").attr("src", bizPhotoUrl);
+// var bizName = $("<li>").text(businesses.name);
+// var bizCategories = $("<li>").text(businesses.categories[1].title);
+// var bizRating = $("<li>").text(businesses.rating);
+// var bizPrice = $("<li>").text(businesses.price);
+// var bizAddr = $("<li>").text(businesses.location[7].display_address);
+// var bizPhone = $("<li>").text(businesses.display_phone);
+
+
+
+//$("restaurant-info").append(bizPhoto, bizName, bizCategories, bizRating, bizPrice, bizAddr, bizPhone);
+
+// create a variable that will store the results from userZipCode
+// rstrntOptions = yelpQueryUrl + userZipCode
+
+// append results to div id="restaurant"
+// $("#restaurant").append(rstrntOptions);
+
+
+
+
 
 
 

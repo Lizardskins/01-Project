@@ -6,7 +6,7 @@ var resturauntBodyRow = 0;
 var resturauntBodyCol = 0;
 var movieBodyRow = 0;
 var movieBodyCol = 0;
-var userZipCode = "";
+var userZipCode = 0;
 
 
 var config = {
@@ -263,38 +263,46 @@ movieResponse();
 //Yelp API
 
 
-var yelpApiKey = "6VZ6C3_6qNkbcS8HSEhSHHh8_lS0BHi0TM8ClTiJoGP4q_-Ufp15wfJq6pP2BKfFUAC5uRwu_XFW0gSNDMAzSK-bsXk10QP5-lTpM-Ep0C2MfEbIK3rgwTaukMcSW3Yx"
-var yelpQueryURL = "https://api.yelp.com/v3/businesses/search?term=delis&radius=8000&limit=5&location=" + userZipCode + "&sort_by=rating" + yelpApiKey;
-var clientId = "UElyjnDy2hmjnnI9kg612A"
+// var yelpQueryURL = "https://api.yelp.com/v3/businesses/search?term=delis&radius=8000&limit=5&location=" + userZipCode + "&sort_by=rating" + yelpApiKey;
+// var clientId = "UElyjnDy2hmjnnI9kg612A"
 
-function runQuery(yelpQueryURL) {
+function runQuery() {
+    var yelpApiKey = "XMj-naGXMl6icTElInaXFPwmUXi8YM1ulKFE8p4Y6IN_ia8lvD4-qmDp4EEGWHexFofr5jFGslNRBcDYspVqB1SEdyQiHMLaAanEN-rxLe3Xu8H05YSYgayu_nMZW3Yx";
 
-
+    var userZipCode = $("#user-zip").val().trim()
     var settings = {
-        "async": true,
-        "crossDomain": true,
-        "url": "https://api.yelp.com/v3/businesses/search?term=delis&radius=8000&limit=5&location=" + userZipCode + "&sort_by=rating",
-        "method": "GET",
-        "headers": {
-            "Authorization": "Bearer",
-            "Cache-Control": "no-cache",
-            "Postman-Token": "d7b8520f-832a-45db-bd86-066bfa4db9eb"
+        url: "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=delis&radius=8000&limit=5&location=" + userZipCode + "&sort_by=rating",
+        method: "GET",
+        headers: {
+            "Authorization": "Bearer " + yelpApiKey
         }
     }
 
-    $.ajax(settings).done(function (response) {
-        console.log(response);
+    $.ajax(settings).then(function (response) {
+        console.log(response)
+        var yelpResults = response.businesses;
+
+        for (var i = 0; i < yelpResults.length; i++) {
+            var bizPhotoUrl = yelpResults[i].image_url;
+            var bizName = yelpResults[i].name;
+            var bizCategories = yelpResults[i].categories[1].title;
+            var bizRating = yelpResults[i].rating;
+            var bizPrice = yelpResults[i].price;
+            var bizAddr = yelpResults[i].location[7].display_address;
+            var bizPhone = yelpResults[i].display_phone;
+            console.log(bizName)
+        }
+
+        //console.log(bizName)
     });
 };
 
 
-// $("#user-zip").keypress(function (event) {
-//     if (event.which == 13) {
-//         alert("test")
-//     }
-// });
 
-//var userZipCode = $("#user-zip").val()
+$("#submit-zip").on("click", function () {
+    runQuery();
+
+});
 
 //create var = restaurant image_url
 // var bizPhotoUrl = businesses.image_url;
@@ -306,6 +314,8 @@ function runQuery(yelpQueryURL) {
 // var bizPrice = $("<li>").text(businesses.price);
 // var bizAddr = $("<li>").text(businesses.location[7].display_address);
 // var bizPhone = $("<li>").text(businesses.display_phone);
+
+
 
 
 
@@ -349,6 +359,7 @@ function createColumn(dateSection) {
 function createCard(dateSection, cardTitle, apiImageURL, cardBodyContent) {
 
     //build card
+
     var card = $("<div>");
     card.attr("class", "card");
     card.attr("id", "movie-card");

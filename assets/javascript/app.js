@@ -2,11 +2,14 @@
 
 var acitivityBodyRow = 0;
 var activityBodyCol = 0;
-var resturauntBodyRow = 0;
-var resturauntBodyCol = 0;
+var restaurantBodyRow = 0;
+var restaurantBodyCol = 0;
 var movieBodyRow = 0;
 var movieBodyCol = 0;
 var userZipCode = 0;
+var allMovieTitlesArr = [];
+var posterImage = "";
+var allMyMovies = [];
 
 
 var config = {
@@ -197,6 +200,64 @@ $(document).ready(function () {
 
 });
 
+
+
+function newMovieAPI() {
+    //http://data.tmsapi.com/v1.1/movies/showings?startDate=2018-06-10&zip=84094&radius=20&units=mi&imageSize=Sm&imageText=true&api_key=prqret794d2txbvwk62p3jsv
+    var apiKey = "prqret794d2txbvwk62p3jsv";
+    var zipCode = $("#user-zip").val().trim();
+    var radius = $("#movie-radius").val();
+    var startDate = "2018-06-10"
+    var movieRating = $("#movie-rating").val()
+
+    $("#movie-body").empty();
+
+    $.ajax({
+        url: "http://data.tmsapi.com/v1.1/movies/showings?startDate=" + startDate + "&zip=" + zipCode + "&radius=" + radius + "&units=mi&imageSize=Sm&imageText=true&api_key=" + apiKey,
+        method: "GET",
+    }).then(function (newMovieResponse) {
+        //console.log(newMovieResponse);
+        allMyMovies = newMovieResponse;
+        for (let i = 0; i < newMovieResponse.length; i++) {
+
+            //getMoviePoster(newMovieResponse[i].title);
+
+            //console.log(posterImage);
+            //pass in movie poster
+            createCard("movie", newMovieResponse[i].title, posterImage, newMovieResponse[i].shortDescription, i, newMovieResponse[i].tmsId);
+            posterImage = "";
+        };
+        updateMoviePosters()
+    });
+};
+
+function updateMoviePosters() {
+
+    for (let i = 0; i < allMyMovies.length; i++) {
+        getMoviePoster(allMyMovies[i].title);
+
+    }
+
+}
+
+function getMoviePoster(movieName) {
+    //https://api.themoviedb.org/3/search/movie?api_key=edb8d226b8be97be8b6b5c77df009481&language=en-US&query=black%20panther&page=1&include_adult=false
+    //var apiKey = "edb8d226b8be97be8b6b5c77df009481";
+    //results["0"].poster_path
+    //movieName = movieName.replace(/\s/g, '')
+
+    $.ajax({
+        url: "https://api.themoviedb.org/3/search/movie?api_key=edb8d226b8be97be8b6b5c77df009481&language=en-US&query=" + movieName + "&page=1&include_adult=false",
+        method: "GET",
+    }).then(function (posterResponse) {
+        //console.log(posterResponse);
+        //console.log(posterResponse.results["0"].poster_path);
+        posterImage = "https://image.tmdb.org/t/p/w500" + posterResponse.results["0"].poster_path;
+
+        $("#img-" + movieName.replace(/\s/g, '')).attr("src", posterImage);
+    });
+}
+
 // iShowTime API
 
 function movieResponse() {
@@ -204,8 +265,8 @@ function movieResponse() {
     var iShowTimeApiKey = "U0AkE0yt6yBUiOOb8s9CiGEgK574ZMKD";
     var Latlng = "40.5650,-111.8390";
     var radius = "5";
-    var time_from = "2018-06-07T00:00:00-06:00";
-    var time_to = "2018-06-07T23:59:00-06:00";
+    var time_from = "2018-06-10T00:00:00-06:00";
+    var time_to = "2018-06-10T23:59:00-06:00";
 
     // var settings = {
     //     "async": true,
@@ -236,29 +297,42 @@ function movieResponse() {
         var allMovieTitlesArr = [];
         var movieTitle = "";
         var uniqueMovieTitlesArr = [];
+        var moviesArray = [];
+        console.log(movieResponse)
 
         for (var i = 0; i < showtimeArray.length; i++) {
 
-            console.log(showtimeArray[i].cinema_movie_title);
+            //console.log(showtimeArray[i].cinema_movie_title);
             movieTitle = (showtimeArray[i].cinema_movie_title);
 
             allMovieTitlesArr.push(movieTitle);
 
+            moviesArray.push({
+                cinimaID: showtimeArray[i].cinema_id,
+                movieID: showtimeArray[i].movie_id,
+                title: movieTitle,
+            });
+
+            createCard("movie", showtimeArray.title, "", showtimeArray[i].booking_link, i, showtimeArray[i].id);
+
+
+            //console.log(allMovieTitlesArr)
         }
 
-        console.log(allMovieTitlesArr);
+        //console.log(moviesArray);
 
         $.each(allMovieTitlesArr, function (i, el) {
-            if ($.inArray(el, uniqueMovieTitlesArr) === -1) uniqueMovieTitlesArr.push(el);
+            if ($.inArray(el, uniqueMovieTitlesArr) === -1)
+                uniqueMovieTitlesArr.push(el);
         });
 
-        console.log(uniqueMovieTitlesArr);
+        //console.log(uniqueMovieTitlesArr);
 
     });
 
-
+    // var obj = $.grep(objArray, function(obj){return obj.id === 3;})[0];
 }
-movieResponse();
+//movieResponse();
 
 //Yelp API
 
@@ -271,7 +345,7 @@ function runQuery() {
 
     var userZipCode = $("#user-zip").val().trim()
     var settings = {
-        url: "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=delis&radius=8000&limit=5&location=" + userZipCode + "&sort_by=rating",
+        url: "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=restaurant&radius=8000&limit=15&location=" + userZipCode + "&sort_by=rating",
         method: "GET",
         headers: {
             "Authorization": "Bearer " + yelpApiKey
@@ -279,21 +353,26 @@ function runQuery() {
     }
 
     $.ajax(settings).then(function (response) {
-        console.log(response)
+        //console.log(response)
         var yelpResults = response.businesses;
-
+        console.log(yelpResults)
         for (var i = 0; i < yelpResults.length; i++) {
+
             var bizPhotoUrl = yelpResults[i].image_url;
             var bizName = yelpResults[i].name;
-            var bizCategories = yelpResults[i].categories[1].title;
+            //var bizCategories = yelpResults[i].categories[i].title;
             var bizRating = yelpResults[i].rating;
             var bizPrice = yelpResults[i].price;
-            var bizAddr = yelpResults[i].location[7].display_address;
+            var bizAddr = yelpResults[i].location.address1;
+            var bizCity = yelpResults[i].location.city;
+            var bizState = yelpResults[i].location.state;
+            var bizZip = yelpResults[i].location.zip_code;
             var bizPhone = yelpResults[i].display_phone;
-            console.log(bizName)
+            var cardBody = "<p>Rating: " + bizRating + "</p><p>Price: " + bizPrice + "</p><p>Address:</p><p>" + bizAddr + "</p><p>" + bizCity + ", " + bizState + " " + bizZip + "</p><p>Phone: " + bizPhone + "</p>"
+            createCard("restaurant", bizName, bizPhotoUrl, cardBody, i, yelpResults[i].id);
+
         }
 
-        //console.log(bizName)
     });
 };
 
@@ -356,10 +435,10 @@ function createColumn(dateSection) {
 
 }
 
-function createCard(dateSection, cardTitle, apiImageURL, cardBodyContent) {
+function createCard(dateSection, cardTitle, apiImageURL, cardBodyContent, index, id) {
 
     //build card
-
+    //cardTitle = cardTitle.replace(/\s/g, '')
     var card = $("<div>");
     card.attr("class", "card");
     card.attr("id", "movie-card");
@@ -370,32 +449,55 @@ function createCard(dateSection, cardTitle, apiImageURL, cardBodyContent) {
 
     var cardImgTag = $("<img>")
     cardImgTag.attr("src", apiImageURL);
+    cardImgTag.attr("id", "img-" + cardTitle.replace(/\s/g, ''));
 
     var imageTitle = $("<span>");
-    imageTitle.attr("class", "card-title");
+    imageTitle.attr("class", "card-title orange-text text-darken-4");
     imageTitle.text(cardTitle)
 
 
     var cardContent = $("<div>");
     cardContent.attr("class", "card-content");
+    cardContent.html(cardBodyContent);
 
-    var cardBody = $("<p>");
-    cardBody.text(cardBodyContent);
+    var cardAction = $("<div>");
+    cardAction.attr("class", "card-action");
+    // var cardAa = $("<a>");
+    // cardAa.attr("href", "#");
+    // cardAa.attr("id", "modal")
+    // cardAa.text("ShowTimes");
 
-    console.log(card)
+    //var cardBody = $("<div>");
+    //cardBody.html(cardBodyContent);
+
+
+    //console.log(card)
 
     $("#" + dateSection + "-body").append(card);
     card.append(cardImage);
     cardImage.append(cardImgTag);
-    cardImage.append(imageTitle);
-    cardImage.append("<a class='btn-floating halfway-fab waves-effect waves-light red' data-name=" + cardTitle + "><i class='material-icons'>add</i></a>").appendTo(cardImage);
+    //cardImage.append(imageTitle);
+    cardImage.append("<a class='btn-floating halfway-fab waves-effect waves-light red' data-index=" + index + " data-name=" + id + " id='card-btn'><i class='material-icons'>add</i></a>").appendTo(cardImage);
     card.append(cardContent);
-    cardContent.append(cardBody);
+    cardContent.prepend(imageTitle);
+    card.append(cardAction);
+    cardAction.append("<a class='waves-effect waves-light btn modal-trigger' href='#modal1'>ShowTimes</a>")
+    //cardContent.append(cardBody);
+
 
 };
 
+function selectCard() {
+    console.log($(this).attr("data-name"))
+    console.log($(this).attr("data-index"))
+}
+
 
 $(document).on("click", "#btn", selectDateParam);
+$(document).on("click", "#card-btn", selectCard);
+$(document).on("click", "#movie-search", newMovieAPI);
+// $(document).on("click", "#modal", modal());
+$('.modal').modal();
 
 //$(document).on("click", "#btn-floating", console.log("button"));
 

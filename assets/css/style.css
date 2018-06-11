@@ -1,19 +1,19 @@
 
-#activity, #resturaunt, #movie{
+#activity, #restaurant, #movie{
     visibility: hidden;
 }
 
-img{
+/* img{
     height: 100px;
     width: 100px;
-}
+} */
 
 #movie-card{
     width: 25%;
 
 }
 
-#activity-body{
+#activity-body, #restaurant-body, #movie-body{
     display: flex;
     flex-wrap: wrap;
 }

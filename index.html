@@ -106,8 +106,8 @@
 
                 <br>
                 <a class="waves-effect waves-red btn z-depth-5" id="btn" data-name="activity">Activity</a>
-                <a class="waves-effect waves-dark btn z-depth-5" id="btn" data-name="restaurant">Restaurant</a>
-                <a class="waves-effect waves-dark btn z-depth-5" id="btn" data-name="movie">Movie</a>
+                <a class="waves-effect waves-red btn z-depth-5" id="btn" data-name="restaurant">Restaurant</a>
+                <a class="waves-effect waves-red btn z-depth-5" id="btn" data-name="movie">Movie</a>
                 <!-- <a class="waves-effect waves-light btn z-depth-5">Button</a> -->
 
             </div>
@@ -118,7 +118,6 @@
                 <ul class="collapsible expandable popout">
                     <li id="activity">
                         <div class="collapsible-header">Activity</div>
-
                         <div class="collapsible-body">
                             <div class="row">
                                 <div class="col s12 m12" id="activity-body">
@@ -127,46 +126,70 @@
                             </div>
                         </div>
                     </li>
-
                     <li id="restaurant">
                         <div class="collapsible-header">Restaurant</div>
-                        <div class="collapsible-body" id="restaurant-body">
-                            <p>this is some sweet text</p>
+                        <div class="collapsible-body">
+                            <div class="row">
+                                <div class="col s12 m12" id="restaurant-body">
+
+                                </div>
+                            </div>
                         </div>
                     </li>
 
+
                     <li id="movie">
                         <div class="collapsible-header">Movie</div>
-                        <div class="collapsible-body" id="movie-body">
-
-                            <div class="input-field col s2">
-                                <select multiple>
-                                    <option value="" disabled selected>Rating</option>
-                                    <option value="1">G</option>
-                                    <option value="2">PG</option>
-                                    <option value="3">PG-13</option>
-                                    <option value="3">R</option>
-                                </select>
-                            </div>
+                        <div class="collapsible-body">
                             <div class="row">
-                                <div class="input-field col s2">
-                                    <select multiple>
-                                        <option value="" disabled selected>Distance</option>
-                                        <option value="1">&lt 5</option>
-                                        <option value="2">&lt 10</option>
-                                        <option value="3">&lt 25</option>
-                                    </select>
+                                <div class="row">
+                                    <div class="input-field col s4">
+                                        <select multiple id="movie-rating">
+                                            <option value="" disabled selected>Rating</option>
+                                            <option value="G">G</option>
+                                            <option value="PG">PG</option>
+                                            <option value="PG-13">PG-13</option>
+                                            <option value="R">R</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <select id="movie-radius">
+                                            <option value="" disabled selected>Distance</option>
+                                            <option value="5">&lt 5</option>
+                                            <option value="10">&lt 10</option>
+                                            <option value="25">&lt 25</option>
+                                        </select>
+                                    </div>
+                                    <div class="col s4">
+                                        <a class="waves-effect waves-red btn z-depth-5" id="movie-search">Search Movies</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12 m12" id="movie-body">
+                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem optio accusantium
+                                            provident, consectetur delectus eum odit quasi possimus modi reprehenderit ratione
+                                            neque. Repudiandae nemo eveniet in sed dolorum eaque et.</p>
+                                    </div>
                                 </div>
                             </div>
-
-                            <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem optio accusantium provident,
-                                consectetur delectus eum odit quasi possimus modi reprehenderit ratione neque. Repudiandae
-                                nemo eveniet in sed dolorum eaque et.</span>
                         </div>
                     </li>
                 </ul>
 
             </div>
+        </div>
+    </div>
+    <!-- Modal Trigger -->
+    <!-- <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a> -->
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal bottom-sheet">
+        <div class="modal-content">
+            <h4>Modal Header</h4>
+            <p>A bunch of text</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
         </div>
     </div>
     <!-- </div> -->

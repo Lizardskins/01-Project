@@ -216,7 +216,7 @@ function newMovieAPI() {
         url: "http://data.tmsapi.com/v1.1/movies/showings?startDate=" + startDate + "&zip=" + zipCode + "&radius=" + radius + "&units=mi&imageSize=Sm&imageText=true&api_key=" + apiKey,
         method: "GET",
     }).then(function (newMovieResponse) {
-        //console.log(newMovieResponse);
+        console.log(newMovieResponse);
         allMyMovies = newMovieResponse;
         for (let i = 0; i < newMovieResponse.length; i++) {
 
@@ -228,6 +228,12 @@ function newMovieAPI() {
             posterImage = "";
         };
         updateMoviePosters()
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        // Request failed. Show error message to user. 
+        // errorThrown has error message, or "timeout" in case of timeout.
+
+        alert(jqXHR.responseText);
+
     });
 };
 
@@ -373,7 +379,16 @@ function runQuery() {
 
         }
 
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        // Request failed. Show error message to user. 
+        // errorThrown has error message, or "timeout" in case of timeout.
+
+        alert(jqXHR.responseText);
+        if (textStatus === "error") {
+            $("#user-zip").focus();
+        }
     });
+
 };
 
 
@@ -428,12 +443,6 @@ function selectDateParam() {
     };
 };
 
-function createRow(dateSection) {
-
-}
-function createColumn(dateSection) {
-
-}
 
 function createCard(dateSection, cardTitle, apiImageURL, cardBodyContent, index, id) {
 
@@ -496,6 +505,7 @@ function selectCard() {
 $(document).on("click", "#btn", selectDateParam);
 $(document).on("click", "#card-btn", selectCard);
 $(document).on("click", "#movie-search", newMovieAPI);
+$(document).on("click", "#restaurant-search", runQuery);
 // $(document).on("click", "#modal", modal());
 $('.modal').modal();
 

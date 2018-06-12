@@ -55,143 +55,161 @@
 
 
 
-    <div class="row">
-        <div class="col m3">
-            <!-- Side bar for login and history-->
-            <!-- Container for the demo -->
-            <div class="card blue-grey darken-1">
 
-                <div class="card-content white-text">
-                    <p>Enter an email and password below and either sign in to an existing account or sign up</p>
+    <div class="container">
+        <div class="row">
+            <div class="col m9 s12">
+                <div class="row">
+                    <div class="col m6">
+                        <!-- datepicker -->
+                        <input id="datepicker" type="text" class="datepicker">
+                        <label for="datepicker">
+                            Select-A-Date Above! ^^^
+                        </label>
+                    </div>
+                    <div class="col m3">
+                        <!-- Zipcode can go here -->
+                        <input id="user-zip" type="text" class="form-control">
+                        <!-- <button id="submit-zip" type="button">Check</button> -->
+                        <label for="icon_prefix">
+                            Select-A-Zip Code Above! ^^^
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- header buttons and stuff -->
+                    <a href="#" id="quickstart-sign-in2" data-target="slide-out" class="waves-effect waves-red btn z-depth-5 sidenav-trigger">Login</a>
 
-                    <input class="mdl-textfield__input" type="text" id="email" name="email" placeholder="Email" />
-                    <input class="mdl-textfield__input" type="password" id="password" name="password" placeholder="Password" />
-                    <br/>
-                    <br/>
-                    <button class="waves-effect waves-light btn-small" id="quickstart-sign-in" name="signin">Sign In</button>
+                    <!-- <br> -->
+                    <a class="waves-effect waves-red btn z-depth-5" id="btn" data-name="activity">Activity</a>
+                    <a class="waves-effect waves-red btn z-depth-5" id="btn" data-name="restaurant">Restaurant</a>
+                    <a class="waves-effect waves-red btn z-depth-5" id="btn" data-name="movie">Movie</a>
+                    <!-- <a class="waves-effect waves-light btn z-depth-5">Button</a> -->
 
-                    <button class="waves-effect waves-light btn-small" id="quickstart-sign-up" name="signup">Sign Up</button>
+                </div>
+                <div id="container" class="row">
 
-                    <div class="quickstart-user-details-container">
-                        Firebase sign-in status:
-                        <span id="quickstart-sign-in-status">Unknown</span>
-                        <div>Firebase auth
-                            <code>currentUser</code> object value:</div>
-                        <pre><code class="truncate" id="quickstart-account-details">null</code></pre>
+                    <!-- Activity -->
+
+                    <ul class="collapsible expandable popout">
+                        <li id="activity">
+                            <div class="collapsible-header">Activity</div>
+                            <div class="collapsible-body">
+                                <div class="row">
+                                    <div class="col s12 m12" id="activity-body">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li id="restaurant">
+                            <div class="collapsible-header">Restaurant</div>
+                            <div class="collapsible-body">
+                                <div class="row">
+                                    <div class="col s3">
+                                        Search Term
+                                    </div>
+                                    <div class="col s3">
+                                        Price
+                                    </div>
+                                    <div class="col s3">
+                                        <a class="waves-effect waves-red btn z-depth-5" id="restaurant-search">Find Restaurants</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12 m12" id="restaurant-body">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+
+                        <li id="movie">
+                            <div class="collapsible-header">Movie</div>
+                            <div class="collapsible-body">
+                                <div class="row">
+                                    <div class="row">
+                                        <div class="input-field col s4">
+                                            <select multiple id="movie-rating">
+                                                <option value="" disabled selected>Rating</option>
+                                                <option value="G">G</option>
+                                                <option value="PG">PG</option>
+                                                <option value="PG-13">PG-13</option>
+                                                <option value="R">R</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-field col s4">
+                                            <select id="movie-radius">
+                                                <option value="" disabled selected>Distance</option>
+                                                <option value="5">&lt 5</option>
+                                                <option value="10">&lt 10</option>
+                                                <option value="25">&lt 25</option>
+                                            </select>
+                                        </div>
+                                        <div class="col s4">
+                                            <a class="waves-effect waves-red btn z-depth-5" id="movie-search">Search Movies</a>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s12 m12" id="movie-body">
+                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem optio accusantium
+                                                provident, consectetur delectus eum odit quasi possimus modi reprehenderit
+                                                ratione neque. Repudiandae nemo eveniet in sed dolorum eaque et.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col m3 s12">
+                <div class="row">
+                    <div class="col m12 s12" id="selected-items">
+
                     </div>
                 </div>
             </div>
         </div>
-        <!-- <div class="container"> -->
-        <div class="col m9">
-            <div class="row">
-                <div class="col m6">
-                    <!-- datepicker -->
-                    <input id="datepicker" type="text" class="datepicker">
-                    <label for="datepicker">
-                        Select-A-Date Above! ^^^
-                    </label>
-                </div>
-                <div class="col m3">
-                    <!-- Zipcode can go here -->
-                    <input id="user-zip" type="text" class="form-control">
-                    <!-- <button id="submit-zip" type="button">Check</button> -->
-                    <label for="icon_prefix">
-                        Select-A-Zip Code Above! ^^^
-                    </label>
-                </div>
-            </div>
-            <div class="row">
-                <!-- header buttons and stuff -->
-
-                <br>
-                <a class="waves-effect waves-red btn z-depth-5" id="btn" data-name="activity">Activity</a>
-                <a class="waves-effect waves-red btn z-depth-5" id="btn" data-name="restaurant">Restaurant</a>
-                <a class="waves-effect waves-red btn z-depth-5" id="btn" data-name="movie">Movie</a>
-                <!-- <a class="waves-effect waves-light btn z-depth-5">Button</a> -->
-
-            </div>
-            <div class="row">
-
-                <!-- Activity -->
-
-                <ul class="collapsible expandable popout">
-                    <li id="activity">
-                        <div class="collapsible-header">Activity</div>
-                        <div class="collapsible-body">
-                            <div class="row">
-                                <div class="col s12 m12" id="activity-body">
-
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li id="restaurant">
-                        <div class="collapsible-header">Restaurant</div>
-                        <div class="collapsible-body">
-                            <div class="row">
-                                <div class="col s3">
-                                    Search Term
-                                </div>
-                                <div class="col s3">
-                                    Price
-                                </div>
-                                <div class="col s3">
-                                    <a class="waves-effect waves-red btn z-depth-5" id="restaurant-search">Find Restaurants</a>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col s12 m12" id="restaurant-body">
-
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-
-                    <li id="movie">
-                        <div class="collapsible-header">Movie</div>
-                        <div class="collapsible-body">
-                            <div class="row">
-                                <div class="row">
-                                    <div class="input-field col s4">
-                                        <select multiple id="movie-rating">
-                                            <option value="" disabled selected>Rating</option>
-                                            <option value="G">G</option>
-                                            <option value="PG">PG</option>
-                                            <option value="PG-13">PG-13</option>
-                                            <option value="R">R</option>
-                                        </select>
-                                    </div>
-                                    <div class="input-field col s4">
-                                        <select id="movie-radius">
-                                            <option value="" disabled selected>Distance</option>
-                                            <option value="5">&lt 5</option>
-                                            <option value="10">&lt 10</option>
-                                            <option value="25">&lt 25</option>
-                                        </select>
-                                    </div>
-                                    <div class="col s4">
-                                        <a class="waves-effect waves-red btn z-depth-5" id="movie-search">Search Movies</a>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col s12 m12" id="movie-body">
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem optio accusantium
-                                            provident, consectetur delectus eum odit quasi possimus modi reprehenderit ratione
-                                            neque. Repudiandae nemo eveniet in sed dolorum eaque et.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-
-            </div>
-        </div>
     </div>
+
+
     <!-- Modal Trigger -->
     <!-- <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a> -->
+
+    <!-- side navbar here -->
+
+    <ul id="slide-out" class="sidenav">
+        <div class="row">
+            <div class="col m12 s12">
+                <!-- Side bar for login and history-->
+                <!-- Container for the demo -->
+                <div class="card blue-grey darken-1">
+
+                    <div class="card-content white-text">
+                        <p>Enter an email and password below and either sign in to an existing account or sign up</p>
+
+                        <input class="mdl-textfield__input" type="text" id="email" name="email" placeholder="Email" />
+                        <input class="mdl-textfield__input" type="password" id="password" name="password" placeholder="Password" />
+                        <br/>
+                        <br/>
+                        <button class="waves-effect waves-light btn-small" id="quickstart-sign-in" name="signin">Sign In</button>
+
+                        <button class="waves-effect waves-light btn-small" id="quickstart-sign-up" name="signup">Sign Up</button>
+
+                        <div class="quickstart-user-details-container">
+                            Firebase sign-in status:
+                            <span id="quickstart-sign-in-status">Unknown</span>
+                            <div>Firebase auth
+                                <code>currentUser</code> object value:</div>
+                            <pre><code class="truncate" id="quickstart-account-details">null</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </ul>
+
 
     <!-- Modal Structure -->
     <div id="modal1" class="modal bottom-sheet">

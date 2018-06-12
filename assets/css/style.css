@@ -8,15 +8,21 @@
     width: 100px;
 } */
 
-#movie-card{
-    width: 25%;
-
+#movie-card, #restaurant-card{
+    width: 30%;
+}
+#selected-card{
+    width: 100%;
 }
 
-#activity-body, #restaurant-body, #movie-body{
+#activity-body, #restaurant-body, #movie-body, #selected-items{
     display: flex;
     flex-wrap: wrap;
 }
 .card{
     margin: 0.5rem 5px 1rem 5px;
+}
+
+#container{
+    margin-right: 1px;
 }

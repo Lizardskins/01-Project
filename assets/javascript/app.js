@@ -10,6 +10,8 @@ var userZipCode = 0;
 var allMovieTitlesArr = [];
 var posterImage = "";
 var allMyMovies = [];
+var selectedDateItems = [];
+var yelpResults = [];
 
 
 var config = {
@@ -152,6 +154,7 @@ function initApp() {
             // [START_EXCLUDE]
             document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
             document.getElementById('quickstart-sign-in').textContent = 'Sign out';
+            document.getElementById('quickstart-sign-in2').textContent = 'Sign out';
             document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
             if (!emailVerified) {
                 //document.getElementById('quickstart-verify-email').disabled = false;
@@ -162,6 +165,7 @@ function initApp() {
             // [START_EXCLUDE]
             document.getElementById('quickstart-sign-in-status').textContent = 'Signed out';
             document.getElementById('quickstart-sign-in').textContent = 'Sign in';
+            document.getElementById('quickstart-sign-in2').textContent = 'Sign in';
             document.getElementById('quickstart-account-details').textContent = 'null';
             // [END_EXCLUDE]
         }
@@ -194,23 +198,24 @@ $(document).ready(function () {
     var elems = document.querySelectorAll('.datepicker');
     var instances = M.Datepicker.init(elems, {
         autoClose: true,
-        format: "mm/dd/yy"
+        format: "yyyy-mm-dd"
     });
 
 
 });
 
 
-
+//tmsapi movie api
 function newMovieAPI() {
     //http://data.tmsapi.com/v1.1/movies/showings?startDate=2018-06-10&zip=84094&radius=20&units=mi&imageSize=Sm&imageText=true&api_key=prqret794d2txbvwk62p3jsv
     var apiKey = "prqret794d2txbvwk62p3jsv";
     var zipCode = $("#user-zip").val().trim();
     var radius = $("#movie-radius").val();
-    var startDate = "2018-06-10"
-    var movieRating = $("#movie-rating").val()
+    var startDate = $("#datepicker").val(); //"2018-06-11"
+    var movieRating = $("#movie-rating").val();
 
     $("#movie-body").empty();
+    console.log(radius)
 
     $.ajax({
         url: "http://data.tmsapi.com/v1.1/movies/showings?startDate=" + startDate + "&zip=" + zipCode + "&radius=" + radius + "&units=mi&imageSize=Sm&imageText=true&api_key=" + apiKey,
@@ -228,13 +233,14 @@ function newMovieAPI() {
             posterImage = "";
         };
         updateMoviePosters()
-    }).fail(function (jqXHR, textStatus, errorThrown) {
-        // Request failed. Show error message to user. 
-        // errorThrown has error message, or "timeout" in case of timeout.
+    })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            // Request failed. Show error message to user. 
+            // errorThrown has error message, or "timeout" in case of timeout.
 
-        alert(jqXHR.responseText);
+            alert(jqXHR.responseText + "-" + errorThrown);
 
-    });
+        });
 };
 
 function updateMoviePosters() {
@@ -360,7 +366,7 @@ function runQuery() {
 
     $.ajax(settings).then(function (response) {
         //console.log(response)
-        var yelpResults = response.businesses;
+        yelpResults = response.businesses;
         console.log(yelpResults)
         for (var i = 0; i < yelpResults.length; i++) {
 
@@ -423,7 +429,9 @@ $("#submit-zip").on("click", function () {
 
 
 
-
+function updateShowtimes() {
+    alert("hello!")
+}
 
 
 
@@ -450,7 +458,7 @@ function createCard(dateSection, cardTitle, apiImageURL, cardBodyContent, index,
     //cardTitle = cardTitle.replace(/\s/g, '')
     var card = $("<div>");
     card.attr("class", "card");
-    card.attr("id", "movie-card");
+    card.attr("id", dateSection + "-card");
     card.attr("data-name", cardTitle);
 
     var cardImage = $("<div>");
@@ -486,19 +494,45 @@ function createCard(dateSection, cardTitle, apiImageURL, cardBodyContent, index,
     card.append(cardImage);
     cardImage.append(cardImgTag);
     //cardImage.append(imageTitle);
-    cardImage.append("<a class='btn-floating halfway-fab waves-effect waves-light red' data-index=" + index + " data-name=" + id + " id='card-btn'><i class='material-icons'>add</i></a>").appendTo(cardImage);
+    cardImage.append("<a class='btn-floating halfway-fab waves-effect waves-light red " + id + "' data-section=" + dateSection + " data-index=" + index + " data-name=" + id + " id='card-btn'><i class='material-icons'>add</i></a>");
     card.append(cardContent);
     cardContent.prepend(imageTitle);
     card.append(cardAction);
-    cardAction.append("<a class='waves-effect waves-light btn modal-trigger' href='#modal1'>ShowTimes</a>")
+    if (dateSection === "movies") {
+        cardAction.append("<a class='waves-effect waves-light btn modal-trigger' href='#modal1'>ShowTimes</a>")
+    } else if (dateSection === "restaurant") {
+        cardAction.append("<a class='waves-effect waves-light btn modal-trigger' href='#modal1'>Info</a>")
+    }
     //cardContent.append(cardBody);
 
 
 };
 
 function selectCard() {
-    console.log($(this).attr("data-name"))
-    console.log($(this).attr("data-index"))
+    var index = $(this).data("index");
+    //console.log(index);
+    var id = $(this).data("name");
+
+    if ($(this).data("section") === "restaurant") {
+        console.log(yelpResults[index]);
+        selectedDateItems.push(yelpResults[index])
+    } else if ($(this).data("section") === "movie") {
+        console.log(allMyMovies[index]);
+        selectedDateItems.push(allMyMovies[index])
+    }
+
+
+    //selectedDateItems.push(allMyMovies[index])
+    //console.log($(this).parent().parent().html());
+    var card = $("<div>");
+    card.attr("class", "card");
+    card.attr("id", "selected-card");
+
+    $("#selected-items").append(card);
+    card.append($(this).parent().parent().html());
+    $("." + id).remove("a")
+
+
 }
 
 
@@ -507,7 +541,9 @@ $(document).on("click", "#card-btn", selectCard);
 $(document).on("click", "#movie-search", newMovieAPI);
 $(document).on("click", "#restaurant-search", runQuery);
 // $(document).on("click", "#modal", modal());
-$('.modal').modal();
+$('.modal').modal()
+$('.sidenav').sidenav();
+
 
 //$(document).on("click", "#btn-floating", console.log("button"));
 

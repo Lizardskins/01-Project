@@ -7,13 +7,12 @@ var allMyMovies = [];
 var selectedDateItems = [];
 var yelpResults = [];
 var activityType = "";
-var activities = {
 var sectionsVisable = ["#activity", "#movie", "#restaurant"];
 var yelpAPIRun = "";
 var movieAPIRun = "";
 var activityAPIRun = "";
 var randomNumber = 0
-var activities = [{
+var activities = {
     outdoor: {
         0: "Batting Cages",
         1: "Rent a convertable for the day",
@@ -283,8 +282,8 @@ function activityFunction(activityType) {
     console.log(activityType);
 
     console.log(activities.indoor);
-
-} createCard("activity", activityType, "", activities.activityType.length, activities.activities.length, "");
+    //createCard("activity", activityType, "", activities.activityType.length, activities.activities.length, "");
+}
 
 
 //tmsapi movie api

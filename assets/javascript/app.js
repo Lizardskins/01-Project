@@ -12,6 +12,76 @@ var posterImage = "";
 var allMyMovies = [];
 var selectedDateItems = [];
 var yelpResults = [];
+var activities = [{
+    outdoor: {
+        0: "Batting Cages",
+        1: "Rent a convertable for the day",
+        2: "River Rafting",
+        3: "State Fair or Carnival",
+        4: "Drive-in Movie",
+        5: "Geocaching",
+        6: "Go Fishing",
+        7: "Picnic",
+        8: "Hit the Beach",
+        9: "Outdoor Concert",
+        10: "Cycling",
+        11: "Driving Range",
+        12: "Go for a Hike",
+        13: "Horseback Riding",
+        14: "Boatride"
+    },
+    indoor: {
+        0: "Bowling",
+        1: "Enjoy an Art Museum",
+        2: "Find a Local Bar",
+        3: "Video Game Tournament",
+        4: "Build a Fire",
+        5: "Cook a fancy meal",
+        6: "Bake a cake",
+        7: "Concert",
+        8: "Boardgame",
+        9: "Go to the arcade",
+        10: "Wine and cheese night",
+        11: "Shop at the nicest mall",
+        12: "Rock Climbing",
+        13: "Comedy Show",
+        14: "Aquarium"
+    },
+    cheap: {
+        0: "Picnic",
+        1: "Hiking",
+        2: "Hit the Beach",
+        3: "Go Fishing",
+        4: "Boardgame",
+        5: "Bake a cake",
+        6: "Happy Hour",
+        7: "Do Yoga",
+        8: "Make a bucketlist",
+        9: "Netflix",
+        10: "Go to the thrift store",
+        11: "Make a fire",
+        12: "Stargazing",
+        13: "Bowling",
+        14: "Movie Marathon"
+    },
+    fancy: {
+        0: "Horseback Riding",
+        1: "Boatride",
+        2: "Rent a convertable for the day",
+        3: "Make a fancy meal",
+        4: "Skiing",
+        5: "Hot air balloon ride",
+        6: "Sky Diving",
+        7: "Dinner for two",
+        8: "Go to a concert",
+        9: "Shop at the nicest mall",
+        10: "Go for a weekend getaway",
+        11: "Wine-tasting",
+        12: "Go to the spa",
+        13: "Take a dance class",
+        14: "Hire a private chef"
+    },
+}]
 
 
 var config = {
@@ -242,6 +312,7 @@ function newMovieAPI() {
 
         });
 };
+
 
 function updateMoviePosters() {
 

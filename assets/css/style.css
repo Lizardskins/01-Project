@@ -1,6 +1,6 @@
 
 #activity, #restaurant, #movie{
-    visibility: hidden;
+    visibility: visible;
 }
 
 /* img{

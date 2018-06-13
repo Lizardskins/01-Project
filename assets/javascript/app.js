@@ -6,12 +6,13 @@ var posterImage = "";
 var allMyMovies = [];
 var selectedDateItems = [];
 var yelpResults = [];
+var activityType = "";
+var activities = {
 var sectionsVisable = ["#activity", "#movie", "#restaurant"];
 var yelpAPIRun = "";
 var movieAPIRun = "";
 var activityAPIRun = "";
 var randomNumber = 0
-
 var activities = [{
     outdoor: {
         0: "Batting Cages",
@@ -81,7 +82,9 @@ var activities = [{
         13: "Take a dance class",
         14: "Hire a private chef"
     },
-}]
+};
+
+
 
 
 var config = {
@@ -274,6 +277,15 @@ $(document).ready(function () {
 
 });
 
+function activityFunction(activityType) {
+    activityType = $("#activity-type").val();
+
+    console.log(activityType);
+
+    console.log(activities.indoor);
+
+} createCard("activity", activityType, "", activities.activityType.length, activities.activities.length, "");
+
 
 //tmsapi movie api
 function newMovieAPI() {
@@ -342,82 +354,6 @@ function getMoviePoster(movieName) {
         $("#img-" + movieName.replace(/\s/g, '')).attr("src", posterImage);
     });
 }
-
-// iShowTime API
-
-function movieResponse() {
-
-    var iShowTimeApiKey = "U0AkE0yt6yBUiOOb8s9CiGEgK574ZMKD";
-    var Latlng = "40.5650,-111.8390";
-    var radius = "5";
-    var time_from = "2018-06-10T00:00:00-06:00";
-    var time_to = "2018-06-10T23:59:00-06:00";
-
-    // var settings = {
-    //     "async": true,
-    //     "crossDomain": true,
-    //     "url": "https://api.internationalshowtimes.com/v4/showtimes?location=40.5650,-111.8390&distance=100&time_from=2018-06-07T19:30:00-06:00&time_to=2018-06-08T19:30:00-06:00&apikey=U0AkE0yt6yBUiOOb8s9CiGEgK574ZMKD",
-    //     "method": "GET",
-    //     "headers": {
-    //         "Cache-Control": "no-cache",
-    //         "Postman-Token": "335b76b8-5a61-47b9-92b2-d1797b067cfc"
-    //     }
-    // }
-
-
-    // $.ajax(settings).done(function (response) {
-    //     console.log(response);
-
-    // });
-
-    $.ajax({
-        url: `https://api.internationalshowtimes.com/v4/showtimes?location=${Latlng}&distance=${radius}&time_from=${time_from}&time_to=${time_to}`,
-        method: "GET",
-        headers: {
-            "X-API-Key": iShowTimeApiKey
-        },
-    }).then(function (movieResponse) {
-
-        var showtimeArray = (movieResponse.showtimes);
-        var allMovieTitlesArr = [];
-        var movieTitle = "";
-        var uniqueMovieTitlesArr = [];
-        var moviesArray = [];
-        console.log(movieResponse)
-
-        for (var i = 0; i < showtimeArray.length; i++) {
-
-            //console.log(showtimeArray[i].cinema_movie_title);
-            movieTitle = (showtimeArray[i].cinema_movie_title);
-
-            allMovieTitlesArr.push(movieTitle);
-
-            moviesArray.push({
-                cinimaID: showtimeArray[i].cinema_id,
-                movieID: showtimeArray[i].movie_id,
-                title: movieTitle,
-            });
-
-            createCard("movie", showtimeArray.title, "", showtimeArray[i].booking_link, i, showtimeArray[i].id);
-
-
-            //console.log(allMovieTitlesArr)
-        }
-
-        //console.log(moviesArray);
-
-        $.each(allMovieTitlesArr, function (i, el) {
-            if ($.inArray(el, uniqueMovieTitlesArr) === -1)
-                uniqueMovieTitlesArr.push(el);
-        });
-
-        //console.log(uniqueMovieTitlesArr);
-
-    });
-
-    // var obj = $.grep(objArray, function(obj){return obj.id === 3;})[0];
-}
-//movieResponse();
 
 //Yelp API
 

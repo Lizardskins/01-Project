@@ -8,6 +8,12 @@ var selectedDateItems = [];
 var yelpResults = [];
 var activityType = "";
 var activities = {
+var sectionsVisable = ["#activity", "#movie", "#restaurant"];
+var yelpAPIRun = "";
+var movieAPIRun = "";
+var activityAPIRun = "";
+var randomNumber = 0
+var activities = [{
     outdoor: {
         0: "Batting Cages",
         1: "Rent a convertable for the day",
@@ -309,6 +315,7 @@ function newMovieAPI() {
             posterImage = "";
         };
         updateMoviePosters()
+        movieAPIRun = "#movie"
     })
         .fail(function (jqXHR, textStatus, errorThrown) {
             // Request failed. Show error message to user. 
@@ -317,6 +324,7 @@ function newMovieAPI() {
             alert(jqXHR.responseText + "-" + errorThrown);
 
         });
+
 };
 
 
@@ -383,7 +391,7 @@ function runQuery() {
             var bizPhone = yelpResults[i].display_phone;
             var cardBody = "<p>Rating: " + bizRating + "</p><p>Price: " + bizPrice + "</p><p>Address:</p><p>" + bizAddr + "</p><p>" + bizCity + ", " + bizState + " " + bizZip + "</p><p>Phone: " + bizPhone + "</p>"
             createCard("restaurant", bizName, bizPhotoUrl, cardBody, i, yelpResults[i].id);
-
+            yelpAPIRun = "#restaurant"
         }
 
     }).fail(function (jqXHR, textStatus, errorThrown) {
@@ -405,38 +413,33 @@ $("#submit-zip").on("click", function () {
 
 });
 
-//create var = restaurant image_url
-// var bizPhotoUrl = businesses.image_url;
-
-// var bizPhoto = $("<img>").attr("src", bizPhotoUrl);
-// var bizName = $("<li>").text(businesses.name);
-// var bizCategories = $("<li>").text(businesses.categories[1].title);
-// var bizRating = $("<li>").text(businesses.rating);
-// var bizPrice = $("<li>").text(businesses.price);
-// var bizAddr = $("<li>").text(businesses.location[7].display_address);
-// var bizPhone = $("<li>").text(businesses.display_phone);
-
-
-
-
-
-//$("restaurant-info").append(bizPhoto, bizName, bizCategories, bizRating, bizPrice, bizAddr, bizPhone);
-
-// create a variable that will store the results from userZipCode
-// rstrntOptions = yelpQueryUrl + userZipCode
-
-// append results to div id="restaurant"
-// $("#restaurant").append(rstrntOptions);
-
-
-
 function updateShowtimes() {
     alert("hello!")
 }
 
 
 
+function checkRandomButton() {
+    if (sectionsVisable.indexOf(activityAPIRun)) {
+        console.log(activityAPIRun)
+    }
+    if (sectionsVisable.indexOf(movieAPIRun)) {
+        console.log(movieAPIRun)
+        genRandomNumber(allMyMovies.length);
+        console.log(randomNumber);
+        getMoviePoster(allMyMovies[randomNumber].title)
+        console.log(posterImage);
+        createCard("selected-movie", allMyMovies[randomNumber].title, posterImage, allMyMovies[randomNumber].shortDescription, randomNumber, allMyMovies[randomNumber].tmsId);
+        posterImage = "";
+    }
+    if (sectionsVisable.indexOf(yelpAPIRun)) {
+        console.log(yelpAPIRun)
+    }
+};
 
+function genRandomNumber(length) {
+    randomNumber = Math.floor(Math.random() * Math.floor(length));
+};
 
 //Show/Hide date stuff!
 function selectDateParam() {
@@ -445,10 +448,18 @@ function selectDateParam() {
     //console.log(section);
     if (state === "visible") {
         //console.log(state);
-        $(section).css("visibility", "hidden")
+        $(section).css("visibility", "hidden");
+        if (section != "#random") {
+            sectionsVisable.splice($.inArray(section, sectionsVisable), 1);
+            console.log($.inArray(section, sectionsVisable));
+        }
     } else {
         //console.log(state);
         $(section).css("visibility", "visible")
+        if (section != "#random") {
+            sectionsVisable.push(section);
+            console.log($.inArray(section, sectionsVisable));
+        }
     };
 };
 
@@ -520,6 +531,9 @@ function selectCard() {
     } else if ($(this).data("section") === "movie") {
         console.log(allMyMovies[index]);
         selectedDateItems.push(allMyMovies[index])
+    } else if ($(this).data("section") === "activity") {
+        //console.log(allMyMovies[index]);
+        //selectedDateItems.push(allMyMovies[index])
     }
 
 
@@ -529,7 +543,7 @@ function selectCard() {
     card.attr("class", "card");
     card.attr("id", "selected-card");
 
-    $("#selected-items").append(card);
+    $("#selected-" + $(this).data("section")).append(card);
     card.append($(this).parent().parent().html());
     $("." + id).remove("a")
 

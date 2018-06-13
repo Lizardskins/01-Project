@@ -60,20 +60,23 @@
         <div class="row">
             <div class="col m9 s12">
                 <div class="row">
-                    <div class="col m6">
+                    <div class="col m4">
                         <!-- datepicker -->
-                        <input id="datepicker" type="text" class="datepicker">
-                        <label for="datepicker">
-                            Select-A-Date Above! ^^^
-                        </label>
+                        <input value="2018-06-16" placeholder="Select A Date" id="datepicker" type="text" class="datepicker">
+                        <label for="datepicker">Date Selection</label>
                     </div>
                     <div class="col m3">
                         <!-- Zipcode can go here -->
-                        <input id="user-zip" type="text" class="form-control">
-                        <!-- <button id="submit-zip" type="button">Check</button> -->
-                        <label for="icon_prefix">
-                            Select-A-Zip Code Above! ^^^
-                        </label>
+                        <input value="84094" placeholder="ZipCode" id="user-zip" type="text" class="form-control">
+                        <label for="user-zip">ZipCode</label>
+                    </div>
+                    <div class="col m4">
+                        <select id="movie-radius">
+                            <option value="" disabled selected>Distance</option>
+                            <option value="5">&lt 5</option>
+                            <option value="10">&lt 10</option>
+                            <option value="25">&lt 25</option>
+                        </select>
                     </div>
                 </div>
                 <div class="row">
@@ -137,14 +140,6 @@
                                                 <option value="PG">PG</option>
                                                 <option value="PG-13">PG-13</option>
                                                 <option value="R">R</option>
-                                            </select>
-                                        </div>
-                                        <div class="input-field col s4">
-                                            <select id="movie-radius">
-                                                <option value="" disabled selected>Distance</option>
-                                                <option value="5">&lt 5</option>
-                                                <option value="10">&lt 10</option>
-                                                <option value="25">&lt 25</option>
                                             </select>
                                         </div>
                                         <div class="col s4">

@@ -1,11 +1,5 @@
 //firebase
 
-var acitivityBodyRow = 0;
-var activityBodyCol = 0;
-var restaurantBodyRow = 0;
-var restaurantBodyCol = 0;
-var movieBodyRow = 0;
-var movieBodyCol = 0;
 var userZipCode = 0;
 var allMovieTitlesArr = [];
 var posterImage = "";
@@ -264,8 +258,8 @@ function getMoviePoster(movieName) {
     }).then(function (posterResponse) {
         //console.log(posterResponse);
         //console.log(posterResponse.results["0"].poster_path);
-        posterImage = "https://image.tmdb.org/t/p/w500" + posterResponse.results["0"].poster_path;
-
+        posterImage = "https://image.tmdb.org/t/p/w400" + posterResponse.results["0"].poster_path;
+        console.log(posterImage)
         $("#img-" + movieName.replace(/\s/g, '')).attr("src", posterImage);
     });
 }
@@ -498,11 +492,11 @@ function createCard(dateSection, cardTitle, apiImageURL, cardBodyContent, index,
     card.append(cardContent);
     cardContent.prepend(imageTitle);
     card.append(cardAction);
-    if (dateSection === "movies") {
-        cardAction.append("<a class='waves-effect waves-light btn modal-trigger' href='#modal1'>ShowTimes</a>")
-    } else if (dateSection === "restaurant") {
-        cardAction.append("<a class='waves-effect waves-light btn modal-trigger' href='#modal1'>Info</a>")
-    }
+    // if (dateSection === "movie") {
+    //     cardAction.append("<a class='waves-effect waves-light btn modal-trigger' href='#modal1'>ShowTimes</a>")
+    // } else if (dateSection === "restaurant") {
+    //     cardAction.append("<a class='waves-effect waves-light btn modal-trigger' href='#modal1'>Info</a>")
+    // }
     //cardContent.append(cardBody);
 
 

@@ -100,8 +100,16 @@
                     <a class="waves-effect waves-red btn z-depth-5" id="btn" data-name="restaurant">Restaurant</a>
                     <a class="waves-effect waves-red btn z-depth-5" id="btn" data-name="movie">Movie</a>
                     <a class="waves-effect waves-red btn z-depth-5" id="btn" data-name="random">I'm Feelin' Lucky!!</a>
+                    <a class="waves-effect waves-red btn z-depth-5" id="btn" data-name="random" style="margin-left:75px">Search</a>
                     <!-- <a class="waves-effect waves-light btn z-depth-5">Button</a> -->
-
+                </div>
+                <div>
+                    <h5>Instructions</h5>
+                    <ol>
+                        <li>Log in (optional)</li>
+                        <li>Select one of more options</li>
+                        <li>Can't decide? Select "I'm Feelin' Lucky!!"</li>
+                    </ol>
                 </div>
                 <div id="container" class="row">
 
@@ -190,7 +198,14 @@
                 </div>
             </div>
         </div>
+        <!-- Refresh button  <button type="submit"  onClick="refreshPage()">Refresh Button</button> -->
+        <!-- <input type="button" value="Refresh Page" onClick="window.location.reload()" -->
+
+        <div>
+            <a class="waves-effect waves-red btn z-depth-5" id="btn" data-name="random" value="Refresh Page" onClick="window.location.reload()">Start Over</a>
+        </div>
     </div>
+
 
 
     <!-- Modal Trigger -->
@@ -238,6 +253,7 @@
         <div class="modal-footer">
             <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
         </div>
+
     </div>
     <!-- </div> -->
     <script src="assets/javascript/app.js"></script>

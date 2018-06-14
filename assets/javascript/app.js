@@ -6,7 +6,7 @@ var posterImage = "";
 var allMyMovies = [];
 var selectedDateItems = [];
 var yelpResults = [];
-var activityType = "";
+// var activityType = {};
 var sectionsVisable = ["#activity", "#movie", "#restaurant"];
 var yelpAPIRun = "";
 var movieAPIRun = "";
@@ -278,12 +278,25 @@ $(document).ready(function () {
 
 function activityFunction(activityType) {
     activityType = $("#activity-type").val();
+    // var obj = { "act": activityType }
+    // console.log(obj.activityType)
 
-    console.log(activityType);
+    // activtyTypeObject = JSON.stringify(obj);
+    console.log(activities[activityType])
 
-    console.log([activities].activityType[0]);
-    //createCard("activity", activityType, "", activities.activityType.length, activities.activities.length, "");
+
+    // console.log(activtyTypeObject);
+    // console.log(activityTypeObject["act"]);
+    // console.log(activities.activityTypeObject)
+
+    // for (var i = 0; i < 15; i++) {
+
+    //     createCard("activity", "", "", activities[activityType][i], "", "");
+
+    // }
+
 }
+activityFunction();
 
 
 //tmsapi movie api

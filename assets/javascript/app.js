@@ -281,7 +281,7 @@ function activityFunction(activityType) {
 
     console.log(activityType);
 
-    console.log(activities.indoor);
+    console.log([activities].activityType[0]);
     //createCard("activity", activityType, "", activities.activityType.length, activities.activities.length, "");
 }
 
@@ -335,6 +335,21 @@ function updateMoviePosters() {
     }
 
 }
+
+function addMoviePoster(movieName, callback) {
+    $.ajax({
+        url: "https://api.themoviedb.org/3/search/movie?api_key=edb8d226b8be97be8b6b5c77df009481&language=en-US&query=" + movieName + "&page=1&include_adult=false",
+        method: "GET",
+    }).then(function (posterResponse) {
+        //console.log(posterResponse);
+        //console.log(posterResponse.results["0"].poster_path);
+        posterImage = "https://image.tmdb.org/t/p/w400" + posterResponse.results["0"].poster_path;
+        console.log("in Function " + posterImage)
+        //$("#img-" + movieName.replace(/\s/g, '')).attr("src", posterImage);
+    });
+
+    callback();
+};
 
 function getMoviePoster(movieName) {
     //https://api.themoviedb.org/3/search/movie?api_key=edb8d226b8be97be8b6b5c77df009481&language=en-US&query=black%20panther&page=1&include_adult=false
@@ -425,10 +440,19 @@ function checkRandomButton() {
     if (sectionsVisable.indexOf(movieAPIRun)) {
         console.log(movieAPIRun)
         genRandomNumber(allMyMovies.length);
-        console.log(randomNumber);
         getMoviePoster(allMyMovies[randomNumber].title)
+        console.log(randomNumber);
         console.log(posterImage);
+        // addMoviePoster(allMyMovies[randomNumber].title, function () {
+        //     createCard("selected-movie", allMyMovies[randomNumber].title, posterImage, allMyMovies[randomNumber].shortDescription, randomNumber, allMyMovies[randomNumber].tmsId)
+        // });
+
+        //setTimeout(getMoviePoster(allMyMovies[randomNumber].title), 5000)
+        //getMoviePoster(allMyMovies[randomNumber].title)
+
         createCard("selected-movie", allMyMovies[randomNumber].title, posterImage, allMyMovies[randomNumber].shortDescription, randomNumber, allMyMovies[randomNumber].tmsId);
+        console.log(posterImage);
+        //updateMoviePosters();
         posterImage = "";
     }
     if (sectionsVisable.indexOf(yelpAPIRun)) {

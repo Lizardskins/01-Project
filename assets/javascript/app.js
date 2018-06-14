@@ -6,12 +6,16 @@ var posterImage = "";
 var allMyMovies = [];
 var selectedDateItems = [];
 var yelpResults = [];
+var activityResults = [];
 var sectionsVisable = ["#activity", "#movie", "#restaurant"];
 var yelpAPIRun = "";
 var movieAPIRun = "";
 var activityAPIRun = "";
 var randomNumber = 0;
 var showRandoButton = false;
+var restaurantSelected = false;
+var activitySelected = false;
+var movieSelected = false;
 var activities = {
     outdoor: {
         1: "Batting Cages",
@@ -283,6 +287,7 @@ function activityFunction(activityType) {
 
     // activtyTypeObject = JSON.stringify(obj);
     console.log(activities[activityType])
+    activityResults = activities[activityType]
 
 
     // console.log(activtyTypeObject);
@@ -292,10 +297,10 @@ function activityFunction(activityType) {
     var n = 0;
 
     while (n < 15) {
-
-        console.log(activities[activityType][n])
-        createCard("activity", "", "", activities[activityType][n], "", "");
         n++;
+        console.log(activities[activityType][n])
+        createCard("activity", "", "", activities[activityType][n], n, activities[activityType][n].replace(/\s/g, ''));
+
 
     }
     activityAPIRun = "#activity"
@@ -342,6 +347,7 @@ function newMovieAPI() {
         };
         updateMoviePosters()
         movieAPIRun = "#movie"
+        randomButtonShowHide()
     })
         .fail(function (jqXHR, textStatus, errorThrown) {
             // Request failed. Show error message to user. 
@@ -351,7 +357,7 @@ function newMovieAPI() {
 
         });
 
-    randomButtonShowHide()
+
 
 };
 
@@ -435,6 +441,7 @@ function runQuery() {
             var cardBody = "<p>Rating: " + bizRating + "</p><p>Price: " + bizPrice + "</p><p>Address:</p><p>" + bizAddr + "</p><p>" + bizCity + ", " + bizState + " " + bizZip + "</p><p>Phone: " + bizPhone + "</p>"
             createCard("restaurant", bizName, bizPhotoUrl, cardBody, i, yelpResults[i].id);
             yelpAPIRun = "#restaurant"
+            randomButtonShowHide()
         }
 
     }).fail(function (jqXHR, textStatus, errorThrown) {
@@ -447,7 +454,7 @@ function runQuery() {
         }
     });
 
-    randomButtonShowHide()
+
 
 };
 
@@ -491,6 +498,8 @@ function checkRandomButton() {
         $("#selected-activity-body").append($("#activity-body")["0"].children[randomNumber]);
         $($("#selected-activity-body")["0"].children["activity-card"]).attr("id", "selected-card");
         $($("#selected-activity-body")["0"].children["0"].children["0"].children[1]).remove();
+        console.log(randomNumber);
+        selectedDateItems.push(activityResults[index])
 
     }
     if (sectionsVisable.indexOf(movieAPIRun) != -1) {
@@ -499,6 +508,8 @@ function checkRandomButton() {
         $("#selected-movie-body").append($("#movie-body")["0"].children[randomNumber]);
         $($("#selected-movie-body")["0"].children["movie-card"]).attr("id", "selected-card");
         $($("#selected-movie-body")["0"].children["0"].children["0"].children[1]).remove();
+        console.log(randomNumber);
+        selectedDateItems.push(allMyMovies[index])
 
     }
     if (sectionsVisable.indexOf(yelpAPIRun) != -1) {
@@ -508,6 +519,8 @@ function checkRandomButton() {
         $("#selected-restaurant-body").append($("#restaurant-body")["0"].children[randomNumber]);
         $($("#selected-restaurant-body")["0"].children["restaurant-card"]).attr("id", "selected-card");
         $($("#selected-restaurant-body")["0"].children["0"].children["0"].children[1]).remove();
+        console.log(randomNumber);
+        selectedDateItems.push(yelpResults[index])
     }
 };
 
@@ -599,37 +612,53 @@ function selectCard() {
     var index = $(this).data("index");
     //console.log(index);
     var id = $(this).data("name");
-
+    // console.log("button pressed");
+    // console.log($(this).data("section"));
     if ($(this).data("section") === "restaurant") {
-        console.log(yelpResults[index]);
-        selectedDateItems.push(yelpResults[index])
+        if (restaurantSelected === false) {
+            console.log(yelpResults[index]);
+            selectedDateItems.push(yelpResults[index])
+            $("#selected-restaurant-body").append($("#restaurant-body")["0"].children[index]);
+            $($("#selected-restaurant-body")["0"].children["restaurant-card"]).attr("id", "selected-card");
+            $($("#selected-restaurant-body")["0"].children["0"].children["0"].children[1]).remove();
+            restaurantSelected = true;
+        }
     } else if ($(this).data("section") === "movie") {
-        console.log(allMyMovies[index]);
-        selectedDateItems.push(allMyMovies[index])
+        if (movieSelected === false) {
+            console.log(allMyMovies[index]);
+            selectedDateItems.push(allMyMovies[index])
+            $("#selected-movie-body").append($("#movie-body")["0"].children[index]);
+            $($("#selected-movie-body")["0"].children["movie-card"]).attr("id", "selected-card");
+            $($("#selected-movie-body")["0"].children["0"].children["0"].children[1]).remove();
+            movieSelected = true
+        }
     } else if ($(this).data("section") === "activity") {
-        //console.log(allMyMovies[index]);
-        //selectedDateItems.push(allMyMovies[index])
+        if (activitySelected === false) {
+            //console.log(allMyMovies[index]);
+            selectedDateItems.push(activityResults[index])
+            // activityResults
+            console.log(index - 1)
+            $("#selected-activity-body").append($("#activity-body")["0"].children[index - 1]);
+            $($("#selected-activity-body")["0"].children["activity-card"]).attr("id", "selected-card");
+            $($("#selected-activity-body")["0"].children["0"].children["0"].children[1]).remove();
+            activitySelected = true
+        }
     }
-
-    // if (movieSelected === false) {
-
-    // }
-
-    console.log($("#restaurant-body")["0"].children["0"]);
-    console.log($("#selected-" + $(this).data("section") + "-body").append($("#" + $(this).data("section") + "-body")["0"].children[index]));
-    // $($("#selected-movie-body")["0"].children["movie-card"]).attr("id", "selected-card");
-
+    // console.log(activitySelected);
 
 }
 
+//$("select[required]").css({ display: "block", height: 0, padding: 0, width: 0, position: 'absolute' });
 
 $(document).on("click", "#btn", selectDateParam);
 $(document).on("click", "#card-btn", selectCard);
 $(document).on("click", "#movie-search", newMovieAPI);
 $(document).on("click", "#restaurant-search", runQuery);
+$(document).on("click", ".randoButton", checkRandomButton)
 // $(document).on("click", "#modal", modal());
 $('.modal').modal()
 $('.sidenav').sidenav();
+$('#activity-type').css("border-bottom: 1px solid green !important")
 
 
 //$(document).on("click", "#btn-floating", console.log("button"));

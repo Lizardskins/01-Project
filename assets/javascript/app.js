@@ -6,7 +6,6 @@ var posterImage = "";
 var allMyMovies = [];
 var selectedDateItems = [];
 var yelpResults = [];
-// var activityType = {};
 var sectionsVisable = ["#activity", "#movie", "#restaurant"];
 var yelpAPIRun = "";
 var movieAPIRun = "";
@@ -296,7 +295,7 @@ function activityFunction(activityType) {
     // }
 
 }
-activityFunction();
+//activityFunction();
 
 
 //tmsapi movie api
@@ -434,12 +433,6 @@ function runQuery() {
 };
 
 
-
-$("#submit-zip").on("click", function () {
-    runQuery();
-
-});
-
 function updateShowtimes() {
     alert("hello!")
 }
@@ -451,11 +444,13 @@ function checkRandomButton() {
         console.log(activityAPIRun)
     }
     if (sectionsVisable.indexOf(movieAPIRun)) {
-        console.log(movieAPIRun)
-        genRandomNumber(allMyMovies.length);
-        getMoviePoster(allMyMovies[randomNumber].title)
-        console.log(randomNumber);
-        console.log(posterImage);
+
+        /**
+        //console.log(movieAPIRun)
+        // genRandomNumber(allMyMovies.length);
+        //getMoviePoster(allMyMovies[randomNumber].title)
+        // console.log(randomNumber);
+        //console.log(posterImage);
         // addMoviePoster(allMyMovies[randomNumber].title, function () {
         //     createCard("selected-movie", allMyMovies[randomNumber].title, posterImage, allMyMovies[randomNumber].shortDescription, randomNumber, allMyMovies[randomNumber].tmsId)
         // });
@@ -463,10 +458,16 @@ function checkRandomButton() {
         //setTimeout(getMoviePoster(allMyMovies[randomNumber].title), 5000)
         //getMoviePoster(allMyMovies[randomNumber].title)
 
-        createCard("selected-movie", allMyMovies[randomNumber].title, posterImage, allMyMovies[randomNumber].shortDescription, randomNumber, allMyMovies[randomNumber].tmsId);
-        console.log(posterImage);
+        // createCard("selected-movie", allMyMovies[randomNumber].title, posterImage, allMyMovies[randomNumber].shortDescription, randomNumber, allMyMovies[randomNumber].tmsId);
+        // console.log(posterImage);
         //updateMoviePosters();
-        posterImage = "";
+        //posterImage = "";
+        */
+
+        $("#selected-movie-body").append($("#movie-body")["0"].children[randomNumber]);
+
+
+
     }
     if (sectionsVisable.indexOf(yelpAPIRun)) {
         console.log(yelpAPIRun)

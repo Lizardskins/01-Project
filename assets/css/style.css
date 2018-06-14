@@ -8,7 +8,7 @@
     width: 100px;
 } */
 
-#movie-card, #restaurant-card{
+#movie-card, #restaurant-card, #activity-card{
     width: 30%;
 }
 #selected-card{

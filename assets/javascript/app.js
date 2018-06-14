@@ -299,16 +299,8 @@ function activityFunction(activityType) {
 
     }
 
-
-
-    // for (var i = 0; i < 15; i++) {
-
-    //     createCard("activity", "", "", activities[activityType][i], "", "");
-
-    // }
-
 }
-activityFunction();
+
 
 
 //tmsapi movie api
@@ -579,6 +571,8 @@ $(document).on("click", "#btn", selectDateParam);
 $(document).on("click", "#card-btn", selectCard);
 $(document).on("click", "#movie-search", newMovieAPI);
 $(document).on("click", "#restaurant-search", runQuery);
+$(document).on("click", "#btn", activityFunction);
+;
 // $(document).on("click", "#modal", modal());
 $('.modal').modal()
 $('.sidenav').sidenav();

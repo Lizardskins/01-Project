@@ -10,7 +10,8 @@ var sectionsVisable = ["#activity", "#movie", "#restaurant"];
 var yelpAPIRun = "";
 var movieAPIRun = "";
 var activityAPIRun = "";
-var randomNumber = 0
+var randomNumber = 0;
+var showRandoButton = false;
 var activities = {
     outdoor: {
         1: "Batting Cages",
@@ -272,7 +273,7 @@ $(document).ready(function () {
         format: "yyyy-mm-dd"
     });
 
-
+    randomButtonShowHide()
 });
 
 function activityFunction(activityType) {
@@ -291,12 +292,14 @@ function activityFunction(activityType) {
     var n = 0;
 
     while (n < 15) {
-        n++;
 
         console.log(activities[activityType][n])
         createCard("activity", "", "", activities[activityType][n], "", "");
+        n++;
 
     }
+    activityAPIRun = "#activity"
+    randomButtonShowHide()
 
 }
 
@@ -339,6 +342,8 @@ function newMovieAPI() {
             alert(jqXHR.responseText + "-" + errorThrown);
 
         });
+
+    randomButtonShowHide()
 
 };
 
@@ -434,6 +439,8 @@ function runQuery() {
         }
     });
 
+    randomButtonShowHide()
+
 };
 
 
@@ -441,40 +448,58 @@ function updateShowtimes() {
     alert("hello!")
 }
 
+function randomButtonShowHide() {
 
+    for (let i = 0; i < sectionsVisable.length; i++) {
+        var matchyMatch = 0
+        if (sectionsVisable.indexOf(activityAPIRun) != -1) {
+            matchyMatch++
+        }
+        if (sectionsVisable.indexOf(movieAPIRun) != -1) {
+            matchyMatch++
+        }
+        if (sectionsVisable.indexOf(yelpAPIRun) != -1) {
+            matchyMatch++
+        }
+
+    }
+    if (matchyMatch === sectionsVisable.length) {
+        $(".randoButton").css("visibility", "visible")
+        showRandoButton = true
+    } else {
+        showRandoButton = false
+        $(".randoButton").css("visibility", "hidden")
+    }
+
+}
 
 function checkRandomButton() {
-    if (sectionsVisable.indexOf(activityAPIRun)) {
-        console.log(activityAPIRun)
+    if (sectionsVisable.indexOf(activityAPIRun) != -1) {
+        //console.log(activityAPIRun)
+        activityType = $("#activity-type").val();
+        genRandomNumber(Object.keys(activities[activityType]).length)
+        // console.log(randomNumber)
+        // console.log(activities[activityType].length)
+        $("#selected-activity-body").append($("#activity-body")["0"].children[randomNumber]);
+        $($("#selected-activity-body")["0"].children["activity-card"]).attr("id", "selected-card");
+        $($("#selected-activity-body")["0"].children["0"].children["0"].children[1]).remove();
+
     }
-    if (sectionsVisable.indexOf(movieAPIRun)) {
-
-        /**
-        //console.log(movieAPIRun)
-        // genRandomNumber(allMyMovies.length);
-        //getMoviePoster(allMyMovies[randomNumber].title)
-        // console.log(randomNumber);
-        //console.log(posterImage);
-        // addMoviePoster(allMyMovies[randomNumber].title, function () {
-        //     createCard("selected-movie", allMyMovies[randomNumber].title, posterImage, allMyMovies[randomNumber].shortDescription, randomNumber, allMyMovies[randomNumber].tmsId)
-        // });
-
-        //setTimeout(getMoviePoster(allMyMovies[randomNumber].title), 5000)
-        //getMoviePoster(allMyMovies[randomNumber].title)
-
-        // createCard("selected-movie", allMyMovies[randomNumber].title, posterImage, allMyMovies[randomNumber].shortDescription, randomNumber, allMyMovies[randomNumber].tmsId);
-        // console.log(posterImage);
-        //updateMoviePosters();
-        //posterImage = "";
-        */
+    if (sectionsVisable.indexOf(movieAPIRun) != -1) {
+        genRandomNumber(allMyMovies.length)
 
         $("#selected-movie-body").append($("#movie-body")["0"].children[randomNumber]);
-
-
+        $($("#selected-movie-body")["0"].children["movie-card"]).attr("id", "selected-card");
+        $($("#selected-movie-body")["0"].children["0"].children["0"].children[1]).remove();
 
     }
-    if (sectionsVisable.indexOf(yelpAPIRun)) {
-        console.log(yelpAPIRun)
+    if (sectionsVisable.indexOf(yelpAPIRun) != -1) {
+        //console.log(yelpAPIRun)
+        genRandomNumber(yelpResults.length);
+
+        $("#selected-restaurant-body").append($("#restaurant-body")["0"].children[randomNumber]);
+        $($("#selected-restaurant-body")["0"].children["restaurant-card"]).attr("id", "selected-card");
+        $($("#selected-restaurant-body")["0"].children["0"].children["0"].children[1]).remove();
     }
 };
 
@@ -502,6 +527,7 @@ function selectDateParam() {
             console.log($.inArray(section, sectionsVisable));
         }
     };
+    randomButtonShowHide()
 };
 
 
@@ -577,16 +603,13 @@ function selectCard() {
         //selectedDateItems.push(allMyMovies[index])
     }
 
+    // if (movieSelected === false) {
 
-    //selectedDateItems.push(allMyMovies[index])
-    //console.log($(this).parent().parent().html());
-    var card = $("<div>");
-    card.attr("class", "card");
-    card.attr("id", "selected-card");
+    // }
 
-    $("#selected-" + $(this).data("section")).append(card);
-    card.append($(this).parent().parent().html());
-    $("." + id).remove("a")
+    console.log($("#restaurant-body")["0"].children["0"]);
+    console.log($("#selected-" + $(this).data("section") + "-body").append($("#" + $(this).data("section") + "-body")["0"].children[index]));
+    // $($("#selected-movie-body")["0"].children["movie-card"]).attr("id", "selected-card");
 
 
 }

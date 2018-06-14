@@ -6,7 +6,6 @@ var posterImage = "";
 var allMyMovies = [];
 var selectedDateItems = [];
 var yelpResults = [];
-// var activityType = {};
 var sectionsVisable = ["#activity", "#movie", "#restaurant"];
 var yelpAPIRun = "";
 var movieAPIRun = "";
@@ -353,6 +352,21 @@ function updateMoviePosters() {
 
 }
 
+function addMoviePoster(movieName, callback) {
+    $.ajax({
+        url: "https://api.themoviedb.org/3/search/movie?api_key=edb8d226b8be97be8b6b5c77df009481&language=en-US&query=" + movieName + "&page=1&include_adult=false",
+        method: "GET",
+    }).then(function (posterResponse) {
+        //console.log(posterResponse);
+        //console.log(posterResponse.results["0"].poster_path);
+        posterImage = "https://image.tmdb.org/t/p/w400" + posterResponse.results["0"].poster_path;
+        console.log("in Function " + posterImage)
+        //$("#img-" + movieName.replace(/\s/g, '')).attr("src", posterImage);
+    });
+
+    callback();
+};
+
 function getMoviePoster(movieName) {
     //https://api.themoviedb.org/3/search/movie?api_key=edb8d226b8be97be8b6b5c77df009481&language=en-US&query=black%20panther&page=1&include_adult=false
     //var apiKey = "edb8d226b8be97be8b6b5c77df009481";
@@ -423,12 +437,6 @@ function runQuery() {
 };
 
 
-
-$("#submit-zip").on("click", function () {
-    runQuery();
-
-});
-
 function updateShowtimes() {
     alert("hello!")
 }
@@ -440,13 +448,30 @@ function checkRandomButton() {
         console.log(activityAPIRun)
     }
     if (sectionsVisable.indexOf(movieAPIRun)) {
-        console.log(movieAPIRun)
-        genRandomNumber(allMyMovies.length);
-        console.log(randomNumber);
-        getMoviePoster(allMyMovies[randomNumber].title)
-        console.log(posterImage);
-        createCard("selected-movie", allMyMovies[randomNumber].title, posterImage, allMyMovies[randomNumber].shortDescription, randomNumber, allMyMovies[randomNumber].tmsId);
-        posterImage = "";
+
+        /**
+        //console.log(movieAPIRun)
+        // genRandomNumber(allMyMovies.length);
+        //getMoviePoster(allMyMovies[randomNumber].title)
+        // console.log(randomNumber);
+        //console.log(posterImage);
+        // addMoviePoster(allMyMovies[randomNumber].title, function () {
+        //     createCard("selected-movie", allMyMovies[randomNumber].title, posterImage, allMyMovies[randomNumber].shortDescription, randomNumber, allMyMovies[randomNumber].tmsId)
+        // });
+
+        //setTimeout(getMoviePoster(allMyMovies[randomNumber].title), 5000)
+        //getMoviePoster(allMyMovies[randomNumber].title)
+
+        // createCard("selected-movie", allMyMovies[randomNumber].title, posterImage, allMyMovies[randomNumber].shortDescription, randomNumber, allMyMovies[randomNumber].tmsId);
+        // console.log(posterImage);
+        //updateMoviePosters();
+        //posterImage = "";
+        */
+
+        $("#selected-movie-body").append($("#movie-body")["0"].children[randomNumber]);
+
+
+
     }
     if (sectionsVisable.indexOf(yelpAPIRun)) {
         console.log(yelpAPIRun)

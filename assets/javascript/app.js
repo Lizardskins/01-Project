@@ -14,72 +14,72 @@ var activityAPIRun = "";
 var randomNumber = 0
 var activities = {
     outdoor: {
-        0: "Batting Cages",
-        1: "Rent a convertable for the day",
-        2: "River Rafting",
-        3: "State Fair or Carnival",
-        4: "Drive-in Movie",
-        5: "Geocaching",
-        6: "Go Fishing",
-        7: "Picnic",
-        8: "Hit the Beach",
-        9: "Outdoor Concert",
-        10: "Cycling",
-        11: "Driving Range",
-        12: "Go for a Hike",
-        13: "Horseback Riding",
-        14: "Boatride"
+        1: "Batting Cages",
+        2: "Rent a convertable for the day",
+        3: "River Rafting",
+        4: "State Fair or Carnival",
+        5: "Drive-in Movie",
+        6: "Geocaching",
+        7: "Go Fishing",
+        8: "Picnic",
+        9: "Hit the Beach",
+        10: "Outdoor Concert",
+        11: "Cycling",
+        12: "Driving Range",
+        13: "Go for a Hike",
+        14: "Horseback Riding",
+        15: "Boatride"
     },
     indoor: {
-        0: "Bowling",
-        1: "Enjoy an Art Museum",
-        2: "Find a Local Bar",
-        3: "Video Game Tournament",
-        4: "Build a Fire",
-        5: "Cook a fancy meal",
-        6: "Bake a cake",
-        7: "Concert",
-        8: "Boardgame",
-        9: "Go to the arcade",
-        10: "Wine and cheese night",
-        11: "Shop at the nicest mall",
-        12: "Rock Climbing",
-        13: "Comedy Show",
-        14: "Aquarium"
+        1: "Bowling",
+        2: "Enjoy an Art Museum",
+        3: "Find a Local Bar",
+        4: "Video Game Tournament",
+        5: "Build a Fire",
+        6: "Cook a fancy meal",
+        7: "Bake a cake",
+        8: "Concert",
+        9: "Boardgame",
+        10: "Go to the arcade",
+        11: "Wine and cheese night",
+        12: "Shop at the nicest mall",
+        13: "Rock Climbing",
+        14: "Comedy Show",
+        15: "Aquarium"
     },
     cheap: {
-        0: "Picnic",
-        1: "Hiking",
-        2: "Hit the Beach",
-        3: "Go Fishing",
-        4: "Boardgame",
-        5: "Bake a cake",
-        6: "Happy Hour",
-        7: "Do Yoga",
-        8: "Make a bucketlist",
-        9: "Netflix",
-        10: "Go to the thrift store",
-        11: "Make a fire",
-        12: "Stargazing",
-        13: "Bowling",
-        14: "Movie Marathon"
+        1: "Picnic",
+        2: "Hiking",
+        3: "Hit the Beach",
+        4: "Go Fishing",
+        5: "Boardgame",
+        6: "Bake a cake",
+        7: "Happy Hour",
+        8: "Do Yoga",
+        9: "Make a bucketlist",
+        10: "Netflix",
+        11: "Go to the thrift store",
+        12: "Make a fire",
+        13: "Stargazing",
+        14: "Bowling",
+        15: "Movie Marathon"
     },
     fancy: {
-        0: "Horseback Riding",
-        1: "Boatride",
-        2: "Rent a convertable for the day",
-        3: "Make a fancy meal",
-        4: "Skiing",
-        5: "Hot air balloon ride",
-        6: "Sky Diving",
-        7: "Dinner for two",
-        8: "Go to a concert",
-        9: "Shop at the nicest mall",
-        10: "Go for a weekend getaway",
-        11: "Wine-tasting",
-        12: "Go to the spa",
-        13: "Take a dance class",
-        14: "Hire a private chef"
+        1: "Horseback Riding",
+        2: "Boatride",
+        3: "Rent a convertable for the day",
+        4: "Make a fancy meal",
+        5: "Skiing",
+        6: "Hot air balloon ride",
+        7: "Sky Diving",
+        8: "Dinner for two",
+        9: "Go to a concert",
+        10: "Shop at the nicest mall",
+        11: "Go for a weekend getaway",
+        12: "Wine-tasting",
+        13: "Go to the spa",
+        14: "Take a dance class",
+        15: "Hire a private chef"
     },
 };
 
@@ -288,6 +288,18 @@ function activityFunction(activityType) {
     // console.log(activtyTypeObject);
     // console.log(activityTypeObject["act"]);
     // console.log(activities.activityTypeObject)
+
+    var n = 0;
+
+    while (n < 15) {
+        n++;
+
+        console.log(activities[activityType][n])
+        createCard("activity", "", "", activities[activityType][n], "", "");
+
+    }
+
+
 
     // for (var i = 0; i < 15; i++) {
 

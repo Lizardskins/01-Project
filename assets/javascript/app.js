@@ -16,6 +16,7 @@ var showRandoButton = false;
 var restaurantSelected = false;
 var activitySelected = false;
 var movieSelected = false;
+var signedInUser = "";
 var activities = {
     outdoor: {
         1: "Batting Cages",
@@ -100,6 +101,7 @@ var config = {
 };
 firebase.initializeApp(config);
 
+var dataRef = firebase.database();
 /**
  * Handles the sign in button press.
  */
@@ -132,7 +134,7 @@ function toggleSignIn() {
                 alert(errorMessage);
             }
             console.log(error);
-            document.getElementById('quickstart-sign-in').disabled = false;
+
             // [END_EXCLUDE]
         });
         // [END authwithemail]
@@ -227,6 +229,7 @@ function initApp() {
             var isAnonymous = user.isAnonymous;
             var uid = user.uid;
             var providerData = user.providerData;
+            signedInUser = user.uid
             // [START_EXCLUDE]
             document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
             document.getElementById('quickstart-sign-in').textContent = 'Sign out';
@@ -243,6 +246,7 @@ function initApp() {
             document.getElementById('quickstart-sign-in').textContent = 'Sign in';
             document.getElementById('quickstart-sign-in2').textContent = 'Sign in';
             document.getElementById('quickstart-account-details').textContent = 'null';
+            signedInUser = ""
             // [END_EXCLUDE]
         }
         // [START_EXCLUDE silent]
@@ -499,7 +503,7 @@ function checkRandomButton() {
         $($("#selected-activity-body")["0"].children["activity-card"]).attr("id", "selected-card");
         $($("#selected-activity-body")["0"].children["0"].children["0"].children[1]).remove();
         console.log(randomNumber);
-        selectedDateItems.push(activityResults[index])
+        selectedDateItems.push(activityResults[randomNumber])
 
     }
     if (sectionsVisable.indexOf(movieAPIRun) != -1) {
@@ -509,7 +513,7 @@ function checkRandomButton() {
         $($("#selected-movie-body")["0"].children["movie-card"]).attr("id", "selected-card");
         $($("#selected-movie-body")["0"].children["0"].children["0"].children[1]).remove();
         console.log(randomNumber);
-        selectedDateItems.push(allMyMovies[index])
+        selectedDateItems.push(allMyMovies[randomNumber])
 
     }
     if (sectionsVisable.indexOf(yelpAPIRun) != -1) {
@@ -520,7 +524,7 @@ function checkRandomButton() {
         $($("#selected-restaurant-body")["0"].children["restaurant-card"]).attr("id", "selected-card");
         $($("#selected-restaurant-body")["0"].children["0"].children["0"].children[1]).remove();
         console.log(randomNumber);
-        selectedDateItems.push(yelpResults[index])
+        selectedDateItems.push(yelpResults[randomNumber])
     }
 };
 
@@ -648,13 +652,35 @@ function selectCard() {
 
 }
 
+function saveToFirebase() {
+    event.preventDefault();
+    var startDate = $("#datepicker").val();
+
+    // YOUR TASK!!!
+    // Code in the logic for storing and retrieving the most recent user.
+    // Don't forget to provide initial data to your Firebase database.
+    //date = startDate;
+    // email = $("#email-input").val().trim();
+    // age = $("#age-input").val().trim();
+    // comment = $("#comment-input").val().trim();
+
+    // Code for the push
+    dataRef.ref(signedInUser).push({
+
+        date: startDate,
+
+        dateAdded: firebase.database.ServerValue.TIMESTAMP
+    });
+};
+
 //$("select[required]").css({ display: "block", height: 0, padding: 0, width: 0, position: 'absolute' });
 
 $(document).on("click", "#btn", selectDateParam);
 $(document).on("click", "#card-btn", selectCard);
 $(document).on("click", "#movie-search", newMovieAPI);
 $(document).on("click", "#restaurant-search", runQuery);
-$(document).on("click", ".randoButton", checkRandomButton)
+$(document).on("click", ".randoButton", checkRandomButton);
+$(document).on("click", "#save-date", saveToFirebase);
 // $(document).on("click", "#modal", modal());
 $('.modal').modal()
 $('.sidenav').sidenav();

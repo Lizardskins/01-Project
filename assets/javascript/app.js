@@ -11,6 +11,8 @@ var yelpAPIRun = "";
 var movieAPIRun = "";
 var activityAPIRun = "";
 var randomNumber = 0;
+var activityTypeField = false;
+var movieRadiusField = false;
 var showRandoButton = false;
 var activities = {
     outdoor: {
@@ -284,10 +286,38 @@ $(document).ready(function () {
 
 $("#movie-radius").change(function () {
 
-    //if (activityType = true) && ( )
-    $("#searchButton").attr("class", "btn waves-effect waves-red z-depth-5")
-    console.log("hello")
+    movieRadiusField = true
+    console.log(movieRadiusField)
+
+
+    // $("#searchButton").attr("class", "btn waves-effect waves-red z-depth-5")
+    // console.log("hello")
+    if (movieRadiusField == true && activityTypeField == true) {
+        // function enableBtn() {
+        $("#searchButton").attr("class", "btn waves-effect waves-red z-depth-5")
+        $("#searchButton").removeClass('disabled')
+    }
 });
+
+$("#activity-type").change(function () {
+
+    activityTypeField = true
+    console.log(activityTypeField)
+
+
+    // $("#searchButton").attr("class", "btn waves-effect waves-red z-depth-5")
+    // console.log("hello")
+    if (movieRadiusField == true && activityTypeField == true) {
+        // function enableBtn() {
+        $("#searchButton").attr("class", "btn waves-effect waves-red z-depth-5")
+        $("#searchButton").removeClass('disabled')
+    }
+
+});
+
+
+
+// enableBtn()
 
 function activityFunction(activityType) {
     activityType = $("#activity-type").val();

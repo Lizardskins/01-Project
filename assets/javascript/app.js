@@ -310,16 +310,8 @@ function activityFunction(activityType) {
     activityAPIRun = "#activity"
     randomButtonShowHide()
 
-
-
-    // for (var i = 0; i < 15; i++) {
-
-    //     createCard("activity", "", "", activities[activityType][i], "", "");
-
-    // }
-
 }
-//activityFunction();
+
 
 
 //tmsapi movie api
@@ -681,6 +673,7 @@ $(document).on("click", "#movie-search", newMovieAPI);
 $(document).on("click", "#restaurant-search", runQuery);
 $(document).on("click", ".randoButton", checkRandomButton);
 $(document).on("click", "#save-date", saveToFirebase);
+$(document).on("click", "#btn", activityFunction);
 // $(document).on("click", "#modal", modal());
 $('.modal').modal()
 $('.sidenav').sidenav();

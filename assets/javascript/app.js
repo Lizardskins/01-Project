@@ -371,7 +371,7 @@ function newMovieAPI() {
     console.log(radius)
 
     $.ajax({
-        url: "http://data.tmsapi.com/v1.1/movies/showings?startDate=" + startDate + "&zip=" + zipCode + "&radius=" + radius + "&units=mi&imageSize=Sm&imageText=true&api_key=" + apiKey,
+        url: "https://data.tmsapi.com/v1.1/movies/showings?startDate=" + startDate + "&zip=" + zipCode + "&radius=" + radius + "&units=mi&imageSize=Sm&imageText=true&api_key=" + apiKey,
         method: "GET",
     }).then(function (newMovieResponse) {
         console.log(newMovieResponse);

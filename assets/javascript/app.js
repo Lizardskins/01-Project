@@ -717,6 +717,9 @@ function runAllAPIs() {
     newMovieAPI();
     runQuery();
     activityFunction();
+    activitySelected = true;
+    movieSelected = true;
+    restaurantSelected = true;
 }
 
 //$("select[required]").css({ display: "block", height: 0, padding: 0, width: 0, position: 'absolute' });

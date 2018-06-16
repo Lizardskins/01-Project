@@ -713,6 +713,11 @@ function saveToFirebase() {
         dateAdded: firebase.database.ServerValue.TIMESTAMP
     });
 };
+function runAllAPIs() {
+    newMovieAPI();
+    runQuery();
+    activityFunction();
+}
 
 //$("select[required]").css({ display: "block", height: 0, padding: 0, width: 0, position: 'absolute' });
 
@@ -723,6 +728,7 @@ $(document).on("click", "#restaurant-search", runQuery);
 $(document).on("click", ".randoButton", checkRandomButton);
 $(document).on("click", "#save-date", saveToFirebase);
 $(document).on("click", "#btn", activityFunction);
+$(document).on("click", "#searchButton", runAllAPIs);
 // $(document).on("click", "#modal", modal());
 $('.modal').modal()
 $('.sidenav').sidenav();

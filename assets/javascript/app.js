@@ -323,7 +323,7 @@ $("#activity-type").change(function () {
     }
 
 });
-
+// add in the date and zipcode to check if everything is filled out. Maybe change the check button into a function for shorter code
 
 
 // enableBtn()
@@ -341,7 +341,7 @@ function activityFunction(activityType) {
     // console.log(activtyTypeObject);
     // console.log(activityTypeObject["act"]);
     // console.log(activities.activityTypeObject)
-
+    $("#activity-body").empty();
     var n = 0;
 
     while (n < 15) {
@@ -452,7 +452,9 @@ function getMoviePoster(movieName) {
 function runQuery() {
     var yelpApiKey = "XMj-naGXMl6icTElInaXFPwmUXi8YM1ulKFE8p4Y6IN_ia8lvD4-qmDp4EEGWHexFofr5jFGslNRBcDYspVqB1SEdyQiHMLaAanEN-rxLe3Xu8H05YSYgayu_nMZW3Yx";
 
-    var userZipCode = $("#user-zip").val().trim()
+    var userZipCode = $("#user-zip").val().trim();
+
+    $("#restaurant-body").empty();
     var settings = {
         url: "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=restaurant&radius=8000&limit=15&location=" + userZipCode + "&sort_by=rating",
         method: "GET",
@@ -700,8 +702,8 @@ function saveToFirebase() {
     // if (movieSelected === false) {
 
     // }
-
-    console.log($("#restaurant-body")["0"].children["0"]);
+    var html =
+        console.log($("#restaurant-body")["0"].children["0"]);
     console.log($("#selected-" + $(this).data("section") + "-body").append($("#" + $(this).data("section") + "-body")["0"].children[index]));
     // $($("#selected-movie-body")["0"].children["movie-card"]).attr("id", "selected-card");
 

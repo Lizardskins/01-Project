@@ -367,7 +367,7 @@ $("#activity-type").change(function () {
 
 function searchBtnFunction() {
 
-// add in the date and zipcode to check if everything is filled out. Maybe change the check button into a function for shorter code
+    // add in the date and zipcode to check if everything is filled out. Maybe change the check button into a function for shorter code
 
 
     if (movieRadiusField == true && activityTypeField == true && dateSelectionField == true && zipCodeSelectField == true) {

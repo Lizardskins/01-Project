@@ -540,6 +540,7 @@ function checkRandomButton() {
         $($("#selected-activity-body")["0"].children["0"].children["0"].children[1]).remove();
         console.log(randomNumber);
         selectedDateItems.push(activityResults[randomNumber])
+        activitySelected = true;
 
     }
     if (sectionsVisable.indexOf(movieAPIRun) != -1) {
@@ -550,6 +551,7 @@ function checkRandomButton() {
         $($("#selected-movie-body")["0"].children["0"].children["0"].children[1]).remove();
         console.log(randomNumber);
         selectedDateItems.push(allMyMovies[randomNumber])
+        movieSelected = true;
 
     }
     if (sectionsVisable.indexOf(yelpAPIRun) != -1) {
@@ -561,6 +563,7 @@ function checkRandomButton() {
         $($("#selected-restaurant-body")["0"].children["0"].children["0"].children[1]).remove();
         console.log(randomNumber);
         selectedDateItems.push(yelpResults[randomNumber])
+        restaurantSelected = true;
     }
 };
 
@@ -719,9 +722,6 @@ function runAllAPIs() {
     newMovieAPI();
     runQuery();
     activityFunction();
-    activitySelected = true;
-    movieSelected = true;
-    restaurantSelected = true;
 }
 
 //$("select[required]").css({ display: "block", height: 0, padding: 0, width: 0, position: 'absolute' });

@@ -28,7 +28,7 @@
 
     <nav class="nav-extended blue-grey darken-1">
         <div class="nav-wrapper">
-            <a href="#" class="brand-logo">Logo</a>
+            <!--<a href="#" class="brand-logo">Logo</a>
         </div>
         <div class="nav-content">
             <ul class="tabs tabs-transparent">
@@ -44,7 +44,7 @@
                 <li class="tab">
                     <a href="#test4">Test 4</a>
                 </li>
-            </ul>
+            </ul> -->
         </div>
     </nav>
     <!-- to autoscroll use below as ref -->
@@ -105,6 +105,9 @@
                             <a class="waves-effect waves-red btn z-depth-5" id="btn" data-name="movie">Movie</a>
                             <a class="waves-effect waves-red btn z-depth-5 randoButton" id="btn" data-name="random">I'm Feelin' Lucky!!</a>
                             <a class="waves-effect waves-red btn z-depth-5" id="btn" data-name="random" style="margin-left:75px">Search</a>
+                            <button class="btn waves-effect waves-red z-depth-5 disabled" id="searchButton" type="submit" name="action">Search
+                                <i class="material-icons right">send</i>
+                            </button>
                             <!-- <a class="waves-effect waves-light btn z-depth-5">Button</a> -->
                         </div>
                     </div>
@@ -112,8 +115,18 @@
                 <div>
                     <h5>Instructions</h5>
                     <ol>
-                        <li>Log in (optional)</li>
+                        <li>Log in or create an account (optional)</li>
+                        <li>Select a date
+                            <span style="color: red">(required)</span>
+                        </li>
+                        <li>Enter zipcode
+                            <span style="color: red">(required)</span>
+                        </li>
+                        <li>Select your distance
+                            <span style="color: red">(required)</span>
+                        </li>
                         <li>Select one of more options</li>
+                        <li>Click the "Search" button</li>
                         <li>Can't decide? Select "I'm Feelin' Lucky!!"</li>
                     </ol>
                 </div>

@@ -17,6 +17,9 @@ var restaurantSelected = false;
 var activitySelected = false;
 var movieSelected = false;
 var signedInUser = "";
+var activityTypeField = false;
+var movieRadiusField = false;
+var showRandoButton = false;
 var activities = {
     outdoor: {
         1: "Batting Cages",
@@ -282,7 +285,48 @@ $(document).ready(function () {
     });
 
     randomButtonShowHide()
+
+
+
+
 });
+
+//$("#searchButton").disabled = true;
+
+$("#movie-radius").change(function () {
+
+    movieRadiusField = true
+    console.log(movieRadiusField)
+
+
+    // $("#searchButton").attr("class", "btn waves-effect waves-red z-depth-5")
+    // console.log("hello")
+    if (movieRadiusField == true && activityTypeField == true) {
+        // function enableBtn() {
+        $("#searchButton").attr("class", "btn waves-effect waves-red z-depth-5")
+        $("#searchButton").removeClass('disabled')
+    }
+});
+
+$("#activity-type").change(function () {
+
+    activityTypeField = true
+    console.log(activityTypeField)
+
+
+    // $("#searchButton").attr("class", "btn waves-effect waves-red z-depth-5")
+    // console.log("hello")
+    if (movieRadiusField == true && activityTypeField == true) {
+        // function enableBtn() {
+        $("#searchButton").attr("class", "btn waves-effect waves-red z-depth-5")
+        $("#searchButton").removeClass('disabled')
+    }
+
+});
+
+
+
+// enableBtn()
 
 function activityFunction(activityType) {
     activityType = $("#activity-type").val();
@@ -352,7 +396,6 @@ function newMovieAPI() {
             alert(jqXHR.responseText + "-" + errorThrown);
 
         });
-
 
 
 };
@@ -449,7 +492,6 @@ function runQuery() {
             $("#user-zip").focus();
         }
     });
-
 
 
 };
@@ -655,6 +697,13 @@ function saveToFirebase() {
     // email = $("#email-input").val().trim();
     // age = $("#age-input").val().trim();
     // comment = $("#comment-input").val().trim();
+    // if (movieSelected === false) {
+
+    // }
+
+    console.log($("#restaurant-body")["0"].children["0"]);
+    console.log($("#selected-" + $(this).data("section") + "-body").append($("#" + $(this).data("section") + "-body")["0"].children[index]));
+    // $($("#selected-movie-body")["0"].children["movie-card"]).attr("id", "selected-card");
 
     // Code for the push
     dataRef.ref(signedInUser).push({

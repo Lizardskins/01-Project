@@ -31,18 +31,14 @@
     visibility: hidden;
 }
 
-/* style all input elements with a required attribute */
-
-  input:required {
-    border-bottom: 1px solid red;
-    outline: none;
-  }
-  .select-wrapper input.select-dropdown{
-    border-bottom: 1px solid red !important;
-  }
-
-/* [type="input"].select-dropdown:not(value)+label:after{
-    border: 2px solid #da4d4d !important;
-} */
-
-/* <input class="select-dropdown dropdown-trigger" type="text" readonly="true" data-target="select-options-e6898d24-9636-bd5b-e1b1-5c72bf54f52f"> */
+.nav-extended{
+    background: url("../images/header2.png");
+    width: auto;
+    height: auto;
+    border: 1px solid;
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-bottom: 50px;
+    margin-bottom: 25px;
+}

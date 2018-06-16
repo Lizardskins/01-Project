@@ -19,6 +19,8 @@ var movieSelected = false;
 var signedInUser = "";
 var activityTypeField = false;
 var movieRadiusField = false;
+var dateSelectionField = false;
+var zipCodeSelectField = false;
 var showRandoButton = false;
 var activities = {
     outdoor: {
@@ -292,41 +294,85 @@ $(document).ready(function () {
 });
 
 //$("#searchButton").disabled = true;
+$("#datepicker").change(function () {
+
+    dateSelectionField = true;
+    console.log(dateSelectionField);
+
+    searchBtnFunction();
+
+
+
+
+    // if (movieRadiusField == true && activityTypeField == true && dateSelectionField == true && zipCodeSelectField == true) {
+    //     // function enableBtn() {
+    //     $("#searchButton").attr("class", "btn waves-effect waves-red z-depth-5")
+    //     $("#searchButton").removeClass('disabled')
+    // }
+
+});
+
+$("#user-zip").change(function () {
+
+    zipCodeSelectField = true;
+    console.log(zipCodeSelectField);
+
+    searchBtnFunction();
+
+    // if (movieRadiusField == true && activityTypeField == true && dateSelectionField == true && zipCodeSelectField == true) {
+    //     // function enableBtn() {
+    //     $("#searchButton").attr("class", "btn waves-effect waves-red z-depth-5")
+    //     $("#searchButton").removeClass('disabled')
+    // }
+
+});
+
+
 
 $("#movie-radius").change(function () {
 
-    movieRadiusField = true
-    console.log(movieRadiusField)
+    movieRadiusField = true;
+    console.log(movieRadiusField);
+
+    searchBtnFunction();
 
 
     // $("#searchButton").attr("class", "btn waves-effect waves-red z-depth-5")
     // console.log("hello")
-    if (movieRadiusField == true && activityTypeField == true) {
-        // function enableBtn() {
-        $("#searchButton").attr("class", "btn waves-effect waves-red z-depth-5")
-        $("#searchButton").removeClass('disabled')
-    }
+    // if (movieRadiusField == true && activityTypeField == true && dateSelectionField == true && zipCodeSelectField == true) {
+    //     // function enableBtn() {
+    //     $("#searchButton").attr("class", "btn waves-effect waves-red z-depth-5")
+    //     $("#searchButton").removeClass('disabled')
+    // }
 });
 
 $("#activity-type").change(function () {
 
-    activityTypeField = true
-    console.log(activityTypeField)
+    activityTypeField = true;
+    console.log(activityTypeField);
+
+    searchBtnFunction();
 
 
     // $("#searchButton").attr("class", "btn waves-effect waves-red z-depth-5")
     // console.log("hello")
-    if (movieRadiusField == true && activityTypeField == true) {
+    // if (movieRadiusField == true && activityTypeField == true && dateSelectionField == true && zipCodeSelectField == true) {
+    //     // function enableBtn() {
+    //     $("#searchButton").attr("class", "btn waves-effect waves-red z-depth-5")
+    //     $("#searchButton").removeClass('disabled')
+    // }
+
+});
+
+function searchBtnFunction() {
+
+    if (movieRadiusField == true && activityTypeField == true && dateSelectionField == true && zipCodeSelectField == true) {
         // function enableBtn() {
         $("#searchButton").attr("class", "btn waves-effect waves-red z-depth-5")
         $("#searchButton").removeClass('disabled')
     }
 
-});
-
-
-
-// enableBtn()
+};
 
 function activityFunction(activityType) {
     activityType = $("#activity-type").val();

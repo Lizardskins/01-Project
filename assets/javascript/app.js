@@ -314,9 +314,12 @@ $("#datepicker").change(function () {
 
 $("#user-zip").change(function () {
 
-    zipCodeSelectField = true;
-    console.log(zipCodeSelectField);
-
+    if ($("#user-zip").val() == "") {
+        zipCodeSelectField = false;
+    } else {
+        zipCodeSelectField = true;
+        console.log(zipCodeSelectField);
+    }
     searchBtnFunction();
 
     // if (movieRadiusField == true && activityTypeField == true && dateSelectionField == true && zipCodeSelectField == true) {
@@ -331,8 +334,13 @@ $("#user-zip").change(function () {
 
 $("#movie-radius").change(function () {
 
-    movieRadiusField = true;
-    console.log(movieRadiusField);
+    if ($("#movie-radius").val() == "") {
+        movieRadiusField = false;
+    } else {
+        movieRadiusField = true;
+        console.log(movieRadiusField);
+    }
+
 
     searchBtnFunction();
 
@@ -348,8 +356,12 @@ $("#movie-radius").change(function () {
 
 $("#activity-type").change(function () {
 
-    activityTypeField = true;
-    console.log(activityTypeField);
+    if ($("#activity-type").val() == "") {
+        activityTypeField = false;
+    } else {
+        activityTypeField = true;
+        console.log(activityTypeField);
+    }
 
     searchBtnFunction();
 
@@ -367,13 +379,15 @@ $("#activity-type").change(function () {
 
 function searchBtnFunction() {
 
-// add in the date and zipcode to check if everything is filled out. Maybe change the check button into a function for shorter code
+    // add in the date and zipcode to check if everything is filled out. Maybe change the check button into a function for shorter code
 
 
     if (movieRadiusField == true && activityTypeField == true && dateSelectionField == true && zipCodeSelectField == true) {
         // function enableBtn() {
         $("#searchButton").attr("class", "btn waves-effect waves-red z-depth-5")
         $("#searchButton").removeClass('disabled')
+    } else {
+        $("#searchButton").attr("class", "btn waves-effect waves-red z-depth-5 disabled")
     }
 
 };

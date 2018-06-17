@@ -314,9 +314,12 @@ $("#datepicker").change(function () {
 
 $("#user-zip").change(function () {
 
-    zipCodeSelectField = true;
-    console.log(zipCodeSelectField);
-
+    if ($("#user-zip").val() == "") {
+        zipCodeSelectField = false;
+    } else {
+        zipCodeSelectField = true;
+        console.log(zipCodeSelectField);
+    }
     searchBtnFunction();
 
     // if (movieRadiusField == true && activityTypeField == true && dateSelectionField == true && zipCodeSelectField == true) {
@@ -331,8 +334,13 @@ $("#user-zip").change(function () {
 
 $("#movie-radius").change(function () {
 
-    movieRadiusField = true;
-    console.log(movieRadiusField);
+    if ($("#movie-radius").val() == "") {
+        movieRadiusField = false;
+    } else {
+        movieRadiusField = true;
+        console.log(movieRadiusField);
+    }
+
 
     searchBtnFunction();
 
@@ -348,8 +356,12 @@ $("#movie-radius").change(function () {
 
 $("#activity-type").change(function () {
 
-    activityTypeField = true;
-    console.log(activityTypeField);
+    if ($("#activity-type").val() == "") {
+        activityTypeField = false;
+    } else {
+        activityTypeField = true;
+        console.log(activityTypeField);
+    }
 
     searchBtnFunction();
 
@@ -374,6 +386,8 @@ function searchBtnFunction() {
         // function enableBtn() {
         $("#searchButton").attr("class", "btn waves-effect waves-red z-depth-5")
         $("#searchButton").removeClass('disabled')
+    } else {
+        $("#searchButton").attr("class", "btn waves-effect waves-red z-depth-5 disabled")
     }
 
 };
@@ -554,7 +568,7 @@ function updateShowtimes() {
 }
 
 function randomButtonShowHide() {
-
+    //console.log("randoButton")
     for (let i = 0; i < sectionsVisable.length; i++) {
         var matchyMatch = 0
         if (sectionsVisable.indexOf(activityAPIRun) != -1) {
@@ -566,14 +580,18 @@ function randomButtonShowHide() {
         if (sectionsVisable.indexOf(yelpAPIRun) != -1) {
             matchyMatch++
         }
+        console.log(matchyMatch)
 
     }
     if (matchyMatch === sectionsVisable.length) {
-        $(".randoButton").css("visibility", "visible")
+        //$(".randoButton").css("visibility", "visible")
+        //$(".randoButton").removeClass('disabled')
         showRandoButton = true
+        $("#randoBtn").removeClass('disabled')
     } else {
+        $("#randoBtn").attr("class", "btn waves-effect waves-red z-depth-5 disabled")
         showRandoButton = false
-        $(".randoButton").css("visibility", "hidden")
+        //$(".randoButton").css("visibility", "hidden")
     }
 
 }
@@ -587,7 +605,7 @@ function checkRandomButton() {
         // console.log(activities[activityType].length)
         $("#selected-activity-body").append($("#activity-body")["0"].children[randomNumber]);
         $($("#selected-activity-body")["0"].children["activity-card"]).attr("id", "selected-card");
-        $($("#selected-activity-body")["0"].children["0"].children["0"].children[1]).remove();
+        $($("#selected-activity-body")["0"].children[1].children["0"].children[1]).remove();
         console.log(randomNumber);
         selectedDateItems.push(activityResults[randomNumber])
         activitySelected = true;
@@ -598,7 +616,7 @@ function checkRandomButton() {
 
         $("#selected-movie-body").append($("#movie-body")["0"].children[randomNumber]);
         $($("#selected-movie-body")["0"].children["movie-card"]).attr("id", "selected-card");
-        $($("#selected-movie-body")["0"].children["0"].children["0"].children[1]).remove();
+        $($("#selected-movie-body")["0"].children[1].children["0"].children[1]).remove();
         console.log(randomNumber);
         selectedDateItems.push(allMyMovies[randomNumber])
         movieSelected = true;
@@ -610,7 +628,7 @@ function checkRandomButton() {
 
         $("#selected-restaurant-body").append($("#restaurant-body")["0"].children[randomNumber]);
         $($("#selected-restaurant-body")["0"].children["restaurant-card"]).attr("id", "selected-card");
-        $($("#selected-restaurant-body")["0"].children["0"].children["0"].children[1]).remove();
+        $($("#selected-restaurant-body")["0"].children[1].children["0"].children[1]).remove();
         console.log(randomNumber);
         selectedDateItems.push(yelpResults[randomNumber])
         restaurantSelected = true;
@@ -713,7 +731,7 @@ function selectCard() {
             selectedDateItems.push(yelpResults[index])
             $("#selected-restaurant-body").append($("#restaurant-body")["0"].children[index]);
             $($("#selected-restaurant-body")["0"].children["restaurant-card"]).attr("id", "selected-card");
-            $($("#selected-restaurant-body")["0"].children["0"].children["0"].children[1]).remove();
+            $($("#selected-restaurant-body")["0"].children[1].children["0"].children[1]).remove();
             restaurantSelected = true;
         }
     } else if ($(this).data("section") === "movie") {
@@ -722,7 +740,7 @@ function selectCard() {
             selectedDateItems.push(allMyMovies[index])
             $("#selected-movie-body").append($("#movie-body")["0"].children[index]);
             $($("#selected-movie-body")["0"].children["movie-card"]).attr("id", "selected-card");
-            $($("#selected-movie-body")["0"].children["0"].children["0"].children[1]).remove();
+            $($("#selected-movie-body")["0"].children[1].children["0"].children[1]).remove();
             movieSelected = true
         }
     } else if ($(this).data("section") === "activity") {
@@ -733,7 +751,7 @@ function selectCard() {
             console.log(index - 1)
             $("#selected-activity-body").append($("#activity-body")["0"].children[index - 1]);
             $($("#selected-activity-body")["0"].children["activity-card"]).attr("id", "selected-card");
-            $($("#selected-activity-body")["0"].children["0"].children["0"].children[1]).remove();
+            $($("#selected-activity-body")["0"].children[1].children["0"].children[1]).remove();
             activitySelected = true
         }
     }
@@ -742,47 +760,51 @@ function selectCard() {
 }
 
 function saveToFirebase() {
-    event.preventDefault();
-    var startDate = $("#datepicker").val();
-
-    // YOUR TASK!!!
-    // Code in the logic for storing and retrieving the most recent user.
-    // Don't forget to provide initial data to your Firebase database.
-    //date = startDate;
-    // email = $("#email-input").val().trim();
-    // age = $("#age-input").val().trim();
-    // comment = $("#comment-input").val().trim();
-    // if (movieSelected === false) {
-
-    // }
-    var html =
-        console.log($("#restaurant-body")["0"].children["0"]);
-    console.log($("#selected-" + $(this).data("section") + "-body").append($("#" + $(this).data("section") + "-body")["0"].children[index]));
-    // $($("#selected-movie-body")["0"].children["movie-card"]).attr("id", "selected-card");
-
-    // Code for the push
-    dataRef.ref(signedInUser).push({
-
-        date: startDate,
-
-        dateAdded: firebase.database.ServerValue.TIMESTAMP
-    });
+    if (signedInUser != "") {
+        var startDate = $("#datepicker").val();
+        var html = $($("#Selected-date-items")["0"]).html()
+        var activityCard = $($("#Selected-date-items")["0"].children["0"].children["0"].children["0"].children["0"].children[1]).html();
+        var restaurantCard = $($("#Selected-date-items")["0"].children[1].children["0"].children["0"].children["0"].children[1]).html();
+        var movieCard = $($("#Selected-date-items")["0"].children[2].children["0"].children["0"].children["0"].children[1]).html();
+        // Code for the push
+        dataRef.ref(signedInUser + "/" + startDate).set({
+            date: startDate,
+            html: html,
+            activity: JSON.stringify(activityCard),
+            restaurant: JSON.stringify(restaurantCard),
+            movie: JSON.stringify(movieCard),
+            dateAdded: firebase.database.ServerValue.TIMESTAMP
+        });
+    };
 };
+
 function runAllAPIs() {
-    newMovieAPI();
-    runQuery();
-    activityFunction();
+    if (sectionsVisable.indexOf("#movie") != -1) {
+        newMovieAPI();
+    }
+    if (sectionsVisable.indexOf("#restaurant") != -1) {
+        runQuery();
+    }
+    if (sectionsVisable.indexOf("#activity") != -1) {
+        activityFunction();
+    }
 }
+//Activity Card
+//$("#Selected-date-items")["0"].children["0"].children["0"].children["0"].children["0"].children[1]
+//Restaurant Card
+//$("#Selected-date-items")["0"].children[1].children["0"].children["0"].children["0"].children[1]
+//MovieCard
+//$("#Selected-date-items")["0"].children[2].children["0"].children["0"].children["0"].children[1]
 
 //$("select[required]").css({ display: "block", height: 0, padding: 0, width: 0, position: 'absolute' });
 
 $(document).on("click", "#btn", selectDateParam);
 $(document).on("click", "#card-btn", selectCard);
-$(document).on("click", "#movie-search", newMovieAPI);
-$(document).on("click", "#restaurant-search", runQuery);
-$(document).on("click", ".randoButton", checkRandomButton);
+//$(document).on("click", "#movie-search", newMovieAPI);
+//$(document).on("click", "#restaurant-search", runQuery);
+$(document).on("click", "#randoBtn", checkRandomButton);
 $(document).on("click", "#save-date", saveToFirebase);
-$(document).on("click", "#btn", activityFunction);
+//$(document).on("click", "#btn", activityFunction);
 $(document).on("click", "#searchButton", runAllAPIs);
 // $(document).on("click", "#modal", modal());
 $('.modal').modal()

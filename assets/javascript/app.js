@@ -138,7 +138,7 @@ function toggleSignIn() {
             } else {
                 alert(errorMessage);
             }
-            console.log(error);
+            // console.log(error);
 
             // [END_EXCLUDE]
         });
@@ -172,7 +172,7 @@ function handleSignUp() {
         } else {
             alert(errorMessage);
         }
-        console.log(error);
+        // console.log(error);
         // [END_EXCLUDE]
     });
     // [END createwithemail]
@@ -208,7 +208,7 @@ function sendPasswordReset() {
         } else if (errorCode == 'auth/user-not-found') {
             alert(errorMessage);
         }
-        console.log(error);
+        // console.log(error);
         // [END_EXCLUDE]
     });
     // [END sendpasswordemail];
@@ -297,7 +297,7 @@ $(document).ready(function () {
 $("#datepicker").change(function () {
 
     dateSelectionField = true;
-    console.log(dateSelectionField);
+    // console.log(dateSelectionField);
 
     searchBtnFunction();
 
@@ -318,7 +318,7 @@ $("#user-zip").change(function () {
         zipCodeSelectField = false;
     } else {
         zipCodeSelectField = true;
-        console.log(zipCodeSelectField);
+        // console.log(zipCodeSelectField);
     }
     searchBtnFunction();
 
@@ -338,7 +338,7 @@ $("#movie-radius").change(function () {
         movieRadiusField = false;
     } else {
         movieRadiusField = true;
-        console.log(movieRadiusField);
+        // console.log(movieRadiusField);
     }
 
 
@@ -360,7 +360,7 @@ $("#activity-type").change(function () {
         activityTypeField = false;
     } else {
         activityTypeField = true;
-        console.log(activityTypeField);
+        // console.log(activityTypeField);
     }
 
     searchBtnFunction();
@@ -398,7 +398,7 @@ function activityFunction(activityType) {
     // console.log(obj.activityType)
 
     // activtyTypeObject = JSON.stringify(obj);
-    console.log(activities[activityType])
+    // console.log(activities[activityType])
     activityResults = activities[activityType]
 
 
@@ -410,7 +410,7 @@ function activityFunction(activityType) {
 
     while (n < 15) {
         n++;
-        console.log(activities[activityType][n])
+        // console.log(activities[activityType][n])
         createCard("activity", "", "", activities[activityType][n], n, activities[activityType][n].replace(/\s/g, ''));
 
 
@@ -432,13 +432,13 @@ function newMovieAPI() {
     var movieRating = $("#movie-rating").val();
 
     $("#movie-body").empty();
-    console.log(radius)
+    // console.log(radius)
 
     $.ajax({
         url: "https://data.tmsapi.com/v1.1/movies/showings?startDate=" + startDate + "&zip=" + zipCode + "&radius=" + radius + "&units=mi&imageSize=Sm&imageText=true&api_key=" + apiKey,
         method: "GET",
     }).then(function (newMovieResponse) {
-        console.log(newMovieResponse);
+        // console.log(newMovieResponse);
         allMyMovies = newMovieResponse;
         for (let i = 0; i < newMovieResponse.length; i++) {
 
@@ -482,7 +482,7 @@ function addMoviePoster(movieName, callback) {
         //console.log(posterResponse);
         //console.log(posterResponse.results["0"].poster_path);
         posterImage = "https://image.tmdb.org/t/p/w400" + posterResponse.results["0"].poster_path;
-        console.log("in Function " + posterImage)
+        // console.log("in Function " + posterImage)
         //$("#img-" + movieName.replace(/\s/g, '')).attr("src", posterImage);
     });
 
@@ -502,7 +502,7 @@ function getMoviePoster(movieName) {
         //console.log(posterResponse);
         //console.log(posterResponse.results["0"].poster_path);
         posterImage = "https://image.tmdb.org/t/p/w400" + posterResponse.results["0"].poster_path;
-        console.log(posterImage)
+        // console.log(posterImage)
         $("#img-" + movieName.replace(/\s/g, '')).attr("src", posterImage);
     });
 }
@@ -530,7 +530,7 @@ function runQuery() {
     $.ajax(settings).then(function (response) {
         //console.log(response)
         yelpResults = response.businesses;
-        console.log(yelpResults)
+        // console.log(yelpResults)
         for (var i = 0; i < yelpResults.length; i++) {
 
             var bizPhotoUrl = yelpResults[i].image_url;
@@ -580,7 +580,7 @@ function randomButtonShowHide() {
         if (sectionsVisable.indexOf(yelpAPIRun) != -1) {
             matchyMatch++
         }
-        console.log(matchyMatch)
+        // console.log(matchyMatch)
 
     }
     if (matchyMatch === sectionsVisable.length) {
@@ -597,39 +597,43 @@ function randomButtonShowHide() {
 }
 
 function checkRandomButton() {
+
     if (sectionsVisable.indexOf(activityAPIRun) != -1) {
         //console.log(activityAPIRun)
+        $("#selected-activity-body").empty()
         activityType = $("#activity-type").val();
         genRandomNumber(Object.keys(activities[activityType]).length)
         // console.log(randomNumber)
         // console.log(activities[activityType].length)
         $("#selected-activity-body").append($("#activity-body")["0"].children[randomNumber]);
         $($("#selected-activity-body")["0"].children["activity-card"]).attr("id", "selected-card");
-        $($("#selected-activity-body")["0"].children[1].children["0"].children[1]).remove();
-        console.log(randomNumber);
+        $($("#selected-activity-body")["0"].children["0"].children["0"].children[1]).remove();
+        // console.log(randomNumber);
         selectedDateItems.push(activityResults[randomNumber])
         activitySelected = true;
 
     }
     if (sectionsVisable.indexOf(movieAPIRun) != -1) {
+        $("#selected-movie-body").empty()
         genRandomNumber(allMyMovies.length)
 
         $("#selected-movie-body").append($("#movie-body")["0"].children[randomNumber]);
         $($("#selected-movie-body")["0"].children["movie-card"]).attr("id", "selected-card");
-        $($("#selected-movie-body")["0"].children[1].children["0"].children[1]).remove();
-        console.log(randomNumber);
+        $($("#selected-movie-body")["0"].children["0"].children["0"].children[1]).remove();
+        // console.log(randomNumber);
         selectedDateItems.push(allMyMovies[randomNumber])
         movieSelected = true;
 
     }
     if (sectionsVisable.indexOf(yelpAPIRun) != -1) {
         //console.log(yelpAPIRun)
+        $("#selected-restaurant-body").empty()
         genRandomNumber(yelpResults.length);
 
         $("#selected-restaurant-body").append($("#restaurant-body")["0"].children[randomNumber]);
         $($("#selected-restaurant-body")["0"].children["restaurant-card"]).attr("id", "selected-card");
-        $($("#selected-restaurant-body")["0"].children[1].children["0"].children[1]).remove();
-        console.log(randomNumber);
+        $($("#selected-restaurant-body")["0"].children["0"].children["0"].children[1]).remove();
+        // console.log(randomNumber);
         selectedDateItems.push(yelpResults[randomNumber])
         restaurantSelected = true;
     }
@@ -642,6 +646,7 @@ function genRandomNumber(length) {
 //Show/Hide date stuff!
 function selectDateParam() {
     var section = "#" + $(this).data("name");
+    var dataName = $(this).data("name");
     var state = $(section).css("visibility")
     //console.log(section);
     if (state === "visible") {
@@ -649,14 +654,16 @@ function selectDateParam() {
         $(section).css("visibility", "hidden");
         if (section != "#random") {
             sectionsVisable.splice($.inArray(section, sectionsVisable), 1);
-            console.log($.inArray(section, sectionsVisable));
+            $("#btn-" + dataName).attr("class", "waves-effect waves-red btn z-depth-5 red")
+            // console.log($.inArray(section, sectionsVisable));
         }
     } else {
         //console.log(state);
         $(section).css("visibility", "visible")
         if (section != "#random") {
             sectionsVisable.push(section);
-            console.log($.inArray(section, sectionsVisable));
+            $("#btn-" + dataName).attr("class", "waves-effect waves-red btn z-depth-5")
+            // console.log($.inArray(section, sectionsVisable));
         }
     };
     randomButtonShowHide()
@@ -727,7 +734,7 @@ function selectCard() {
     // console.log($(this).data("section"));
     if ($(this).data("section") === "restaurant") {
         if (restaurantSelected === false) {
-            console.log(yelpResults[index]);
+            // console.log(yelpResults[index]);
             selectedDateItems.push(yelpResults[index])
             $("#selected-restaurant-body").append($("#restaurant-body")["0"].children[index]);
             $($("#selected-restaurant-body")["0"].children["restaurant-card"]).attr("id", "selected-card");
@@ -736,7 +743,7 @@ function selectCard() {
         }
     } else if ($(this).data("section") === "movie") {
         if (movieSelected === false) {
-            console.log(allMyMovies[index]);
+            // console.log(allMyMovies[index]);
             selectedDateItems.push(allMyMovies[index])
             $("#selected-movie-body").append($("#movie-body")["0"].children[index]);
             $($("#selected-movie-body")["0"].children["movie-card"]).attr("id", "selected-card");
@@ -748,7 +755,7 @@ function selectCard() {
             //console.log(allMyMovies[index]);
             selectedDateItems.push(activityResults[index])
             // activityResults
-            console.log(index - 1)
+            // console.log(index - 1)
             $("#selected-activity-body").append($("#activity-body")["0"].children[index - 1]);
             $($("#selected-activity-body")["0"].children["activity-card"]).attr("id", "selected-card");
             $($("#selected-activity-body")["0"].children[1].children["0"].children[1]).remove();
@@ -763,9 +770,9 @@ function saveToFirebase() {
     if (signedInUser != "") {
         var startDate = $("#datepicker").val();
         var html = $($("#Selected-date-items")["0"]).html()
-        var activityCard = $($("#Selected-date-items")["0"].children["0"].children["0"].children["0"].children["0"].children[1]).html();
-        var restaurantCard = $($("#Selected-date-items")["0"].children[1].children["0"].children["0"].children["0"].children[1]).html();
-        var movieCard = $($("#Selected-date-items")["0"].children[2].children["0"].children["0"].children["0"].children[1]).html();
+        var activityCard = $($("#Selected-date-items")["0"].children["0"].children["0"].children["0"].children["0"].children["0"]).html();
+        var restaurantCard = $($("#Selected-date-items")["0"].children[1].children["0"].children["0"].children["0"].children["0"]).html();
+        var movieCard = $($("#Selected-date-items")["0"].children[2].children["0"].children["0"].children["0"].children["0"]).html();
         // Code for the push
         dataRef.ref(signedInUser + "/" + startDate).set({
             date: startDate,
@@ -798,7 +805,9 @@ function runAllAPIs() {
 
 //$("select[required]").css({ display: "block", height: 0, padding: 0, width: 0, position: 'absolute' });
 
-$(document).on("click", "#btn", selectDateParam);
+$(document).on("click", "#btn-activity", selectDateParam);
+$(document).on("click", "#btn-movie", selectDateParam);
+$(document).on("click", "#btn-restaurant", selectDateParam);
 $(document).on("click", "#card-btn", selectCard);
 //$(document).on("click", "#movie-search", newMovieAPI);
 //$(document).on("click", "#restaurant-search", runQuery);

@@ -59,38 +59,7 @@
     <div class="container">
         <div class="row">
             <div class="col m9 s12">
-                <div class="row">
-                    <div class="col m3">
-                        <!-- datepicker -->
-                        <label for="datepicker">Date Selection</label>
-                        <input value="" placeholder="Select A Date" id="datepicker" type="text" class="datepicker validate">
-                    </div>
-                    <div class="col m3">
-                        <!-- Zipcode can go here -->
-                        <label for="user-zip">ZipCode</label>
-                        <input value="" placeholder="ZipCode" id="user-zip" type="text" class="validate">
 
-                    </div>
-                    <div class="col m3">
-                        <label for="movie-radius">Distance</label>
-                        <select id="movie-radius" class="validate">
-                            <option value="" disabled selected>Distance</option>
-                            <option value="5">&lt 5</option>
-                            <option value="10">&lt 10</option>
-                            <option value="25">&lt 25</option>
-                        </select>
-                    </div>
-                    <div class="col m3">
-                        <label for="activity">Activity Type</label>
-                        <select id="activity-type" class="validate">
-                            <option value="" disabled selected>Activity Type</option>
-                            <option value="outdoor">outdoor</option>
-                            <option value="indoor">indoor</option>
-                            <option value="cheap">cheap</option>
-                            <option value="fancy">fancy</option>
-                        </select>
-                    </div>
-                </div>
                 <div class="row">
                     <!-- header buttons and stuff -->
                     <a href="#" id="quickstart-sign-in2" data-target="slide-out" class="waves-effect waves-red btn z-depth-5 sidenav-trigger">Login</a>
@@ -101,9 +70,45 @@
                         <div class="row">
                             <!-- <br> -->
                             <div class="col s12 m12 l12">
-                                <a class="waves-effect waves-red btn z-depth-5" id="btn" data-name="activity">Activity</a>
-                                <a class="waves-effect waves-red btn z-depth-5" id="btn" data-name="restaurant">Restaurant</a>
-                                <a class="waves-effect waves-red btn z-depth-5" id="btn" data-name="movie">Movie</a>
+                                <p>Select Date Options Below:</p>
+                                <a class="waves-effect waves-red btn z-depth-5" id="btn-activity" data-name="activity">Activity</a>
+                                <a class="waves-effect waves-red btn z-depth-5" id="btn-restaurant" data-name="restaurant">Restaurant</a>
+                                <a class="waves-effect waves-red btn z-depth-5" id="btn-movie" data-name="movie">Movie</a>
+                            </div>
+                        </div>
+                        <div class="section">
+                            <div class="divider"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col m3">
+                                <!-- datepicker -->
+                                <label for="datepicker">Date Selection</label>
+                                <input value="" placeholder="Select A Date" id="datepicker" type="text" class="datepicker validate">
+                            </div>
+                            <div class="col m3">
+                                <!-- Zipcode can go here -->
+                                <label for="user-zip">ZipCode</label>
+                                <input value="" placeholder="ZipCode" id="user-zip" type="text" class="validate">
+
+                            </div>
+                            <div class="col m3">
+                                <label for="movie-radius">Distance</label>
+                                <select id="movie-radius" class="validate">
+                                    <option value="" disabled selected>Distance</option>
+                                    <option value="5">&lt 5</option>
+                                    <option value="10">&lt 10</option>
+                                    <option value="25">&lt 25</option>
+                                </select>
+                            </div>
+                            <div class="col m3">
+                                <label for="activity">Activity Type</label>
+                                <select id="activity-type" class="validate">
+                                    <option value="" disabled selected>Activity Type</option>
+                                    <option value="outdoor">outdoor</option>
+                                    <option value="indoor">indoor</option>
+                                    <option value="cheap">cheap</option>
+                                    <option value="fancy">fancy</option>
+                                </select>
                             </div>
                         </div>
                         <div class="section">
@@ -111,7 +116,8 @@
                         </div>
                         <div class="row">
                             <div class="col s12 m12 l12">
-                                <a class="waves-effect waves-red btn z-depth-5 randoButton disabled" id="randoBtn" data-name="random">I'm Feelin' Lucky!!</a>
+                                <!-- I'm Feelin' Lucky!! -->
+                                <a class="waves-effect waves-red btn z-depth-5 randoButton disabled" id="randoBtn" data-name="random">The IDK Button</a>
                                 <!-- <a class="waves-effect waves-red btn z-depth-5" id="btn" data-name="random" style="margin-left:75px">Search</a> -->
                                 <button class="btn waves-effect waves-red z-depth-5 disabled" id="searchButton" type="submit" name="action">Search
                                     <i class="material-icons right">send</i>
@@ -122,7 +128,7 @@
                         </div>
                     </div>
                 </div>
-                <div>
+                <!-- <div>
                     <h5>Instructions</h5>
                     <ol>
                         <li>Log in or create an account (optional)</li>
@@ -139,14 +145,15 @@
                         <li>Click the "Search" button</li>
                         <li>Can't decide? Select "I'm Feelin' Lucky!!" AKA: The "I Don't Know" Button...</li>
                     </ol>
-                </div>
+                </div> -->
                 <div id="container" class="row">
 
                     <!-- Activity -->
 
                     <ul class="collapsible expandable popout">
                         <li id="activity">
-                            <div class="collapsible-header">Activity (click to expand)</div>
+                            <div class="collapsible-header">
+                                <i class='material-icons'>add</i>Activities</div>
                             <div class="collapsible-body">
                                 <div class="row">
                                     <div class="col s12 m12" id="activity-body">
@@ -156,18 +163,11 @@
                             </div>
                         </li>
                         <li id="restaurant">
-                            <div class="collapsible-header">Restaurant (click to expand)</div>
+                            <div class="collapsible-header">
+                                <i class='material-icons'>add</i>Restaurants</div>
                             <div class="collapsible-body">
                                 <div class="row">
-                                    <!-- <div class="col s3">
-                                        Search Term
-                                    </div>
-                                    <div class="col s3">
-                                        Price
-                                    </div>
-                                    <div class="col s3">
-                                        <a class="waves-effect waves-red btn z-depth-5" id="restaurant-search">Find Restaurants</a>
-                                    </div> -->
+
                                 </div>
                                 <div class="row">
                                     <div class="col s12 m12" id="restaurant-body">
@@ -179,7 +179,8 @@
 
 
                         <li id="movie">
-                            <div class="collapsible-header">Movie (click to expand)</div>
+                            <div class="collapsible-header">
+                                <i class='material-icons'>add</i>Movies</div>
                             <div class="collapsible-body">
                                 <div class="row">
                                     <div class="row">

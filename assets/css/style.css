@@ -30,7 +30,7 @@
 /* .randoButton{
     visibility: hidden;
 } */
-#save-date{
+#save-date, #btn-past-dates{
     visibility: hidden;
 }
 
@@ -44,4 +44,8 @@
     background-size: cover;
     padding-bottom: 50px;
     margin-bottom: 25px;
+}
+
+#email, #password{
+    visibility: visible;
 }

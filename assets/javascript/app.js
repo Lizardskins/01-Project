@@ -236,11 +236,15 @@ function initApp() {
             var providerData = user.providerData;
             signedInUser = user.uid
             $("#save-date").css("visibility", "visible");
+            $("#email").css("visibility", "hidden");
+            $("#password").css("visibility", "hidden");
+            $("#btn-past-dates").css("visibility", "visible");
             // [START_EXCLUDE]
             document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
             document.getElementById('quickstart-sign-in').textContent = 'Sign out';
             document.getElementById('quickstart-sign-in2').textContent = 'Sign out';
-            document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
+            console.log(JSON.stringify(user, null, '  '))
+            //document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
             if (!emailVerified) {
                 //document.getElementById('quickstart-verify-email').disabled = false;
             }
@@ -254,6 +258,9 @@ function initApp() {
             document.getElementById('quickstart-account-details').textContent = 'null';
             signedInUser = ""
             $("#save-date").css("visibility", "hidden");
+            $("#email").css("visibility", "visible");
+            $("#password").css("visibility", "visible");
+            $("#btn-past-dates").css("visibility", "hidden");
             // [END_EXCLUDE]
         }
         // [START_EXCLUDE silent]
@@ -273,20 +280,20 @@ function initApp() {
 
 $(document).ready(function () {
 
-    var elem = document.querySelector('.collapsible.expandable');
-    var instance = M.Collapsible.init(elem, {
-        accordion: false
-    });
+    // var elem = document.querySelector('.collapsible.expandable');
+    // var instance = M.Collapsible.init(elem, {
+    //     accordion: false
+    // });
 
 
     $('select').formSelect();
 
 
-    var elems = document.querySelectorAll('.datepicker');
-    var instances = M.Datepicker.init(elems, {
-        autoClose: true,
-        format: "yyyy-mm-dd"
-    });
+    // var elems = document.querySelectorAll('.datepicker');
+    // var instances = M.Datepicker.init(elems, {
+    //     autoClose: true,
+    //     format: "yyyy-mm-dd"
+    // });
 
     randomButtonShowHide()
 
@@ -799,39 +806,63 @@ function runAllAPIs() {
     }
 }
 
-function createColapsable(date, activityHTML, restaurantHTML, movieHTML) {
+//date, activityHTML, restaurantHTML, movieHTML
+function createColapsable() {
 
-    var ul = $("ul");
-    ul.attr("class", "collapsible expandable popout");
+    var li = $("<li>");
+    li.attr("class", "");
 
-    var li = $("li");
+    var divHead = $("<div>");
+    divHead.attr("class", "collapsible-header");
+    divHead.attr("tabindex", "0")
+    divHead.html("<i class='material-icons'>add</i>");
 
-    var header = $("div");
-    header.attr("class", "collapsible-header")
+    var divBody = $("<div>");
+    divBody.attr("class", "collapsible-body");
 
-    //     <li>
-    //         <div class="collapsible-header">
-    //             <i class="material-icons">add</i>First</div>
-    //         <div class="collapsible-body">
-    //             <span>Lorem ipsum dolor sit amet.</span>
-    //         </div>
-    //     </li>
-    // </ul>
+    var bodyContent = $("<span>");
+    bodyContent.text("Lorem ipsum dolor sit amet.")
 
-    $("#" + dateSection + "-body").append(card);
-    card.append(cardImage);
-    cardImage.append(cardImgTag);
-    //cardImage.append(imageTitle);
-    cardImage.append("<a class='btn-floating halfway-fab waves-effect waves-light red " + id + "' data-section=" + dateSection + " data-index=" + index + " data-name=" + id + " id='card-btn'><i class='material-icons'>add</i></a>");
-    card.append(cardContent);
-    cardContent.prepend(imageTitle);
+    $("#myDates").append(li);
+    // ul.append(li);
+    li.append(divHead);
+    li.append(divBody);
+    divBody.append(bodyContent);
+    $("ul").attr("class", "collapsible expandable popout scale-transition scale-in");
+
+    M.AutoInit();
+
+    var elems = document.querySelectorAll('.collapsible.expandable');
+    var instances = M.Collapsible.init(elems, {
+        accordion: false
+    });
+
 }
+
+
 
 function getFirebaseDates() {
 
 
 
 }
+document.addEventListener('DOMContentLoaded', function () {
+    //preventDefault();
+    var elems = document.querySelectorAll('.collapsible.expandable');
+    var instances = M.Collapsible.init(elems, {
+        accordion: false,
+    });
+    //console.log("contentLoaded")
+
+    var elems = document.querySelectorAll('.datepicker');
+    var instances = M.Datepicker.init(elems, {
+        format: "yyyy-mm-dd",
+        autoClose: true
+    });
+
+});
+
+
 //Activity Card
 //$("#Selected-date-items")["0"].children["0"].children["0"].children["0"].children["0"].children[1]
 //Restaurant Card

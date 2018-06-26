@@ -9,7 +9,7 @@
 } */
 
 #movie-card, #restaurant-card, #activity-card{
-    width: 30%;
+    width: min-content;
 }
 #selected-card{
     width: 100%;
@@ -30,6 +30,9 @@
 /* .randoButton{
     visibility: hidden;
 } */
+#save-date, #btn-past-dates{
+    visibility: hidden;
+}
 
 .nav-extended{
     background: url("../images/header2.png");
@@ -41,4 +44,8 @@
     background-size: cover;
     padding-bottom: 50px;
     margin-bottom: 25px;
+}
+
+#email, #password{
+    visibility: visible;
 }

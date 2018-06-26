@@ -7,7 +7,7 @@ var allMyMovies = [];
 var selectedDateItems = [];
 var yelpResults = [];
 var activityResults = [];
-var sectionsVisable = ["#activity", "#movie", "#restaurant"];
+var sectionsVisible = ["#activity", "#movie", "#restaurant"];
 var yelpAPIRun = "";
 var movieAPIRun = "";
 var activityAPIRun = "";
@@ -235,11 +235,16 @@ function initApp() {
             var uid = user.uid;
             var providerData = user.providerData;
             signedInUser = user.uid
+            $("#save-date").css("visibility", "visible");
+            $("#email").css("visibility", "hidden");
+            $("#password").css("visibility", "hidden");
+            $("#btn-past-dates").css("visibility", "visible");
             // [START_EXCLUDE]
             document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
             document.getElementById('quickstart-sign-in').textContent = 'Sign out';
             document.getElementById('quickstart-sign-in2').textContent = 'Sign out';
-            document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
+            console.log(JSON.stringify(user, null, '  '))
+            //document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
             if (!emailVerified) {
                 //document.getElementById('quickstart-verify-email').disabled = false;
             }
@@ -252,6 +257,10 @@ function initApp() {
             document.getElementById('quickstart-sign-in2').textContent = 'Sign in';
             document.getElementById('quickstart-account-details').textContent = 'null';
             signedInUser = ""
+            $("#save-date").css("visibility", "hidden");
+            $("#email").css("visibility", "visible");
+            $("#password").css("visibility", "visible");
+            $("#btn-past-dates").css("visibility", "hidden");
             // [END_EXCLUDE]
         }
         // [START_EXCLUDE silent]
@@ -271,20 +280,20 @@ function initApp() {
 
 $(document).ready(function () {
 
-    var elem = document.querySelector('.collapsible.expandable');
-    var instance = M.Collapsible.init(elem, {
-        accordion: false
-    });
+    // var elem = document.querySelector('.collapsible.expandable');
+    // var instance = M.Collapsible.init(elem, {
+    //     accordion: false
+    // });
 
 
     $('select').formSelect();
 
 
-    var elems = document.querySelectorAll('.datepicker');
-    var instances = M.Datepicker.init(elems, {
-        autoClose: true,
-        format: "yyyy-mm-dd"
-    });
+    // var elems = document.querySelectorAll('.datepicker');
+    // var instances = M.Datepicker.init(elems, {
+    //     autoClose: true,
+    //     format: "yyyy-mm-dd"
+    // });
 
     randomButtonShowHide()
 
@@ -569,21 +578,21 @@ function updateShowtimes() {
 
 function randomButtonShowHide() {
     //console.log("randoButton")
-    for (let i = 0; i < sectionsVisable.length; i++) {
+    for (let i = 0; i < sectionsVisible.length; i++) {
         var matchyMatch = 0
-        if (sectionsVisable.indexOf(activityAPIRun) != -1) {
+        if (sectionsVisible.indexOf(activityAPIRun) != -1) {
             matchyMatch++
         }
-        if (sectionsVisable.indexOf(movieAPIRun) != -1) {
+        if (sectionsVisible.indexOf(movieAPIRun) != -1) {
             matchyMatch++
         }
-        if (sectionsVisable.indexOf(yelpAPIRun) != -1) {
+        if (sectionsVisible.indexOf(yelpAPIRun) != -1) {
             matchyMatch++
         }
         // console.log(matchyMatch)
 
     }
-    if (matchyMatch === sectionsVisable.length) {
+    if (matchyMatch === sectionsVisible.length) {
         //$(".randoButton").css("visibility", "visible")
         //$(".randoButton").removeClass('disabled')
         showRandoButton = true
@@ -598,7 +607,7 @@ function randomButtonShowHide() {
 
 function checkRandomButton() {
 
-    if (sectionsVisable.indexOf(activityAPIRun) != -1) {
+    if (sectionsVisible.indexOf(activityAPIRun) != -1) {
         //console.log(activityAPIRun)
         $("#selected-activity-body").empty()
         activityType = $("#activity-type").val();
@@ -613,7 +622,7 @@ function checkRandomButton() {
         activitySelected = true;
 
     }
-    if (sectionsVisable.indexOf(movieAPIRun) != -1) {
+    if (sectionsVisible.indexOf(movieAPIRun) != -1) {
         $("#selected-movie-body").empty()
         genRandomNumber(allMyMovies.length)
 
@@ -625,7 +634,7 @@ function checkRandomButton() {
         movieSelected = true;
 
     }
-    if (sectionsVisable.indexOf(yelpAPIRun) != -1) {
+    if (sectionsVisible.indexOf(yelpAPIRun) != -1) {
         //console.log(yelpAPIRun)
         $("#selected-restaurant-body").empty()
         genRandomNumber(yelpResults.length);
@@ -653,17 +662,17 @@ function selectDateParam() {
         //console.log(state);
         $(section).css("visibility", "hidden");
         if (section != "#random") {
-            sectionsVisable.splice($.inArray(section, sectionsVisable), 1);
+            sectionsVisible.splice($.inArray(section, sectionsVisible), 1);
             $("#btn-" + dataName).attr("class", "waves-effect waves-red btn z-depth-5 red")
-            // console.log($.inArray(section, sectionsVisable));
+            // console.log($.inArray(section, sectionsVisible));
         }
     } else {
         //console.log(state);
         $(section).css("visibility", "visible")
         if (section != "#random") {
-            sectionsVisable.push(section);
+            sectionsVisible.push(section);
             $("#btn-" + dataName).attr("class", "waves-effect waves-red btn z-depth-5")
-            // console.log($.inArray(section, sectionsVisable));
+            // console.log($.inArray(section, sectionsVisible));
         }
     };
     randomButtonShowHide()
@@ -695,8 +704,8 @@ function createCard(dateSection, cardTitle, apiImageURL, cardBodyContent, index,
     cardContent.attr("class", "card-content");
     cardContent.html(cardBodyContent);
 
-    var cardAction = $("<div>");
-    cardAction.attr("class", "card-action");
+    // var cardAction = $("<div>");
+    // cardAction.attr("class", "card-action");
     // var cardAa = $("<a>");
     // cardAa.attr("href", "#");
     // cardAa.attr("id", "modal")
@@ -715,7 +724,7 @@ function createCard(dateSection, cardTitle, apiImageURL, cardBodyContent, index,
     cardImage.append("<a class='btn-floating halfway-fab waves-effect waves-light red " + id + "' data-section=" + dateSection + " data-index=" + index + " data-name=" + id + " id='card-btn'><i class='material-icons'>add</i></a>");
     card.append(cardContent);
     cardContent.prepend(imageTitle);
-    card.append(cardAction);
+    // card.append(cardAction);
     // if (dateSection === "movie") {
     //     cardAction.append("<a class='waves-effect waves-light btn modal-trigger' href='#modal1'>ShowTimes</a>")
     // } else if (dateSection === "restaurant") {
@@ -786,16 +795,74 @@ function saveToFirebase() {
 };
 
 function runAllAPIs() {
-    if (sectionsVisable.indexOf("#movie") != -1) {
+    if (sectionsVisible.indexOf("#movie") != -1) {
         newMovieAPI();
     }
-    if (sectionsVisable.indexOf("#restaurant") != -1) {
+    if (sectionsVisible.indexOf("#restaurant") != -1) {
         runQuery();
     }
-    if (sectionsVisable.indexOf("#activity") != -1) {
+    if (sectionsVisible.indexOf("#activity") != -1) {
         activityFunction();
     }
 }
+
+//date, activityHTML, restaurantHTML, movieHTML
+function createColapsable() {
+
+    var li = $("<li>");
+    li.attr("class", "");
+
+    var divHead = $("<div>");
+    divHead.attr("class", "collapsible-header");
+    divHead.attr("tabindex", "0")
+    divHead.html("<i class='material-icons'>add</i>");
+
+    var divBody = $("<div>");
+    divBody.attr("class", "collapsible-body");
+
+    var bodyContent = $("<span>");
+    bodyContent.text("Lorem ipsum dolor sit amet.")
+
+    $("#myDates").append(li);
+    // ul.append(li);
+    li.append(divHead);
+    li.append(divBody);
+    divBody.append(bodyContent);
+    $("ul").attr("class", "collapsible expandable popout scale-transition scale-in");
+
+    M.AutoInit();
+
+    var elems = document.querySelectorAll('.collapsible.expandable');
+    var instances = M.Collapsible.init(elems, {
+        accordion: false
+    });
+
+}
+
+
+
+function getFirebaseDates() {
+
+
+
+}
+document.addEventListener('DOMContentLoaded', function () {
+    //preventDefault();
+    var elems = document.querySelectorAll('.collapsible.expandable');
+    var instances = M.Collapsible.init(elems, {
+        accordion: false,
+    });
+    //console.log("contentLoaded")
+
+    var elems = document.querySelectorAll('.datepicker');
+    var instances = M.Datepicker.init(elems, {
+        format: "yyyy-mm-dd",
+        autoClose: true
+    });
+
+});
+
+
 //Activity Card
 //$("#Selected-date-items")["0"].children["0"].children["0"].children["0"].children["0"].children[1]
 //Restaurant Card

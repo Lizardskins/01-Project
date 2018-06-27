@@ -243,7 +243,7 @@ function initApp() {
             document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
             document.getElementById('quickstart-sign-in').textContent = 'Sign out';
             document.getElementById('quickstart-sign-in2').textContent = 'Sign out';
-            console.log(JSON.stringify(user, null, '  '))
+            //console.log(JSON.stringify(user, null, '  '))
             //document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
             if (!emailVerified) {
                 //document.getElementById('quickstart-verify-email').disabled = false;
@@ -680,7 +680,7 @@ function selectDateParam() {
 
 
 function createCard(dateSection, cardTitle, apiImageURL, cardBodyContent, index, id) {
-
+    var activityType = $("#activity-type").val();
     //build card
     //cardTitle = cardTitle.replace(/\s/g, '')
     var card = $("<div>");
@@ -692,7 +692,12 @@ function createCard(dateSection, cardTitle, apiImageURL, cardBodyContent, index,
     cardImage.attr("class", "card-image");
 
     var cardImgTag = $("<img>")
-    cardImgTag.attr("src", apiImageURL);
+    if (dateSection === "activity") {
+        cardImgTag.attr("src", "assets/images/" + activityType + ".png");
+
+    } else {
+        cardImgTag.attr("src", apiImageURL);
+    }
     cardImgTag.attr("id", "img-" + cardTitle.replace(/\s/g, ''));
 
     var imageTitle = $("<span>");
@@ -778,10 +783,10 @@ function selectCard() {
 function saveToFirebase() {
     if (signedInUser != "") {
         var startDate = $("#datepicker").val();
-        var html = $($("#Selected-date-items")["0"]).html()
-        var activityCard = $($("#Selected-date-items")["0"].children["0"].children["0"].children["0"].children["0"].children["0"]).html();
-        var restaurantCard = $($("#Selected-date-items")["0"].children[1].children["0"].children["0"].children["0"].children["0"]).html();
-        var movieCard = $($("#Selected-date-items")["0"].children[2].children["0"].children["0"].children["0"].children["0"]).html();
+        var html = $("#Selected-date-items").html()
+        var activityCard = $($("#Selected-date-items")["0"].children["0"].children["0"].children["0"]).html();
+        var restaurantCard = $($("#Selected-date-items")["0"].children[1].children["0"].children["0"]).html();
+        var movieCard = $($("#Selected-date-items")["0"].children[2].children["0"].children["0"]).html();
         // Code for the push
         dataRef.ref(signedInUser + "/" + startDate).set({
             date: startDate,
@@ -807,7 +812,7 @@ function runAllAPIs() {
 }
 
 //date, activityHTML, restaurantHTML, movieHTML
-function createColapsable() {
+function createColapsable(dateID) {
 
     var li = $("<li>");
     li.attr("class", "");
@@ -815,20 +820,22 @@ function createColapsable() {
     var divHead = $("<div>");
     divHead.attr("class", "collapsible-header");
     divHead.attr("tabindex", "0")
-    divHead.html("<i class='material-icons'>add</i>");
+    divHead.html("<i class='material-icons'>add</i>" + dateID);
+    //divHead.text(dateID);
 
     var divBody = $("<div>");
     divBody.attr("class", "collapsible-body");
 
     var bodyContent = $("<span>");
-    bodyContent.text("Lorem ipsum dolor sit amet.")
+    bodyContent.attr("id", dateID)
+    //bodyContent.text("Lorem ipsum dolor sit amet.")
 
     $("#myDates").append(li);
     // ul.append(li);
     li.append(divHead);
     li.append(divBody);
     divBody.append(bodyContent);
-    $("ul").attr("class", "collapsible expandable popout scale-transition scale-in");
+    $("#myDates").attr("class", "collapsible expandable popout scale-transition scale-in");
 
     M.AutoInit();
 
@@ -843,9 +850,28 @@ function createColapsable() {
 
 function getFirebaseDates() {
 
-
+    dataRef.ref(signedInUser).once('value', function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+            var childKey = childSnapshot.key;
+            var dates = childSnapshot.val().date;
+            var html = childSnapshot.val().html;
+            var activity = childSnapshot.val().activity;
+            var movie = childSnapshot.val().movie;
+            var restaurant = childSnapshot.val().restaurant;
+            // console.log(dates);
+            // console.log(html);
+            // console.log(activity);
+            // console.log(movie);
+            //console.log(restaurant);
+            createColapsable(dates);
+            $("#" + dates).append(JSON.parse(activity));
+            $("#" + dates).append(JSON.parse(restaurant));
+            $("#" + dates).append(JSON.parse(movie));
+        });
+    });
 
 }
+
 document.addEventListener('DOMContentLoaded', function () {
     //preventDefault();
     var elems = document.querySelectorAll('.collapsible.expandable');
@@ -882,6 +908,8 @@ $(document).on("click", "#randoBtn", checkRandomButton);
 $(document).on("click", "#save-date", saveToFirebase);
 //$(document).on("click", "#btn", activityFunction);
 $(document).on("click", "#searchButton", runAllAPIs);
+$(document).on("click", "#loadDates", getFirebaseDates);
+
 // $(document).on("click", "#modal", modal());
 $('.modal').modal()
 $('.sidenav').sidenav();

@@ -32,24 +32,58 @@
     </nav>
 
     <div class="container">
-        <a class="waves-effect waves-red btn z-depth-3" id="make-a-date">Make-A-Date</a>
+        <a href="index.html" class="waves-effect waves-red btn z-depth-3" id="make-a-date">Make-A-Date</a>
+        <a href="#" id="quickstart-sign-in2" data-target="slide-out" class="waves-effect waves-red btn z-depth-5 sidenav-trigger">Login</a>
+        <div class="section">
+            <div class="divider"></div>
+        </div>
+        <a href="#" class="waves-effect waves-red btn z-depth-3" id="loadDates">Load My Dates</a>
         <div class="section">
             <div class="divider"></div>
         </div>
         <div>
-            <ul class="collapsible expandable popout scale-transition scale-out" id="myDates">
-                <!-- <li>
-                    <div class="collapsible-header">
-                        <i class="material-icons">add</i>First</div>
-                    <div class="collapsible-body">
-                        <span>Lorem ipsum dolor sit amet.</span>
-                    </div>
-                </li> -->
-            </ul>
+            <div id="container" class="row">
+
+                <ul class="collapsible expandable popout scale-transition scale-out" id="myDates">
+
+                </ul>
+            </div>
         </div>
     </div>
+    <!-- Sign in slide control -->
+    <ul id="slide-out" class="sidenav">
+        <div class="row">
+            <div class="col m12 s12">
+                <!-- Side bar for login and history-->
+                <!-- Container for the demo -->
+                <div class="card blue-grey darken-1">
+
+                    <div class="card-content white-text">
+                        <p>Enter an email and password below and either sign in to an existing account or sign up</p>
+
+                        <input class="mdl-textfield__input" type="text" id="email" name="email" placeholder="Email" />
+                        <input class="mdl-textfield__input" type="password" id="password" name="password" placeholder="Password" />
+                        <br/>
+                        <br/>
+                        <button class="waves-effect waves-light btn-small" id="quickstart-sign-in" name="signin">Sign In</button>
+
+                        <button class="waves-effect waves-light btn-small" id="quickstart-sign-up" name="signup">Sign Up</button>
+
+                        <div class="quickstart-user-details-container">
+                            Firebase sign-in status:
+                            <span id="quickstart-sign-in-status">Unknown</span>
+                            <!-- <div>Firebase auth
+                                <code>currentUser</code> object value:</div>
+                            <pre><code class="truncate" id="quickstart-account-details">null</code></pre> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </ul>
     <script src="assets/javascript/app.js"></script>
 </body>
-
+<script>
+    initApp();
+</script>
 
 </html>

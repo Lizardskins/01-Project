@@ -8,14 +8,15 @@
     width: 100px;
 } */
 
-#movie-card, #restaurant-card, #activity-card{
+#movie-card, #restaurant-card, #activity-card, span{
     width: min-content;
+    width: 30%
 }
 #selected-card{
     width: 100%;
 }
 
-#activity-body, #restaurant-body, #movie-body, #selected-items{
+#restaurant-body, #movie-body, #activity-body, #selected-items, span{
     display: flex;
     flex-wrap: wrap;
 }
@@ -49,3 +50,14 @@
 #email, #password{
     visibility: visible;
 }
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+      

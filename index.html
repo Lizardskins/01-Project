@@ -98,10 +98,13 @@
                                 <button class="btn waves-effect waves-red z-depth-5 disabled" id="searchButton" type="submit" name="action">Search
                                     <i class="material-icons right">send</i>
                                 </button>
-
                             </div>
                             <!-- <a class="waves-effect waves-light btn z-depth-5">Button</a> -->
                         </div>
+                        <div class="section" id="progress">
+                            <!-- progressbar goes here -->
+                        </div>
+
                     </div>
                 </div>
                 <!-- <div>
@@ -186,6 +189,11 @@
                 </div>
                 <div class="col m3 s12" id="Selected-date-items">
                     <div class="row">
+                        <div class="col m12 s12" id="Save">
+                            <button class="waves-effect waves-red btn z-depth-5" id="save-date">Save This Date</button>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col m12 s12">
                             <div class="card">
                                 <div class="card-content" id="selected-activity-body">
@@ -212,18 +220,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col m12 s12" id="Save">
-                            <!-- <button class="waves-effect waves-red btn z-depth-5" id="save-date">Save This Date</button> -->
-                        </div>
-                    </div>
                 </div>
             </div>
             <!-- Refresh button  <button type="submit"  onClick="refreshPage()">Refresh Button</button> -->
             <!-- <input type="button" value="Refresh Page" onClick="window.location.reload()" -->
 
             <div>
-                <!-- <a class="waves-effect waves-red btn z-depth-5" id="btn" data-name="random" value="Refresh Page" onClick="window.location.reload()">Start Over</a> -->
+                <a class="waves-effect waves-red btn z-depth-5" id="btn" data-name="random" value="Refresh Page" onClick="window.location.reload()">Start Over</a>
             </div>
         </div>
 
@@ -266,10 +269,27 @@
 
 
         <!-- Modal Structure -->
-        <div id="modal1" class="modal bottom-sheet">
+        <div id="movieModal" class="modal bottom-sheet">
             <div class="modal-content">
-                <h4>Modal Header</h4>
-                <p>A bunch of text</p>
+                <h4>Movie Times!</h4>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="striped highlight" id='showtime-table'>
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Theater</th>
+                                        <th scope="col">Date/Time</th>
+                                        <th scope="col">Ticket Link</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-striped">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
@@ -277,39 +297,6 @@
 
         </div>
 
-        <footer class="page-footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col l6 s12">
-                        <a class="waves-effect waves-red btn z-depth-5" id="btn" data-name="random" value="Refresh Page" onClick="window.location.reload()">Start Over</a>
-                    </div>
-                    <div class="col l4 offset-l2 s12">
-                        <button class="waves-effect waves-red btn z-depth-5" id="save-date">Save This Date</button>
-                        <!-- <h5 class="white-text">Links</h5>
-                        <ul>
-                            <li>
-                                <a class="grey-text text-lighten-3" href="#!">Link 1</a>
-                            </li>
-                            <li>
-                                <a class="grey-text text-lighten-3" href="#!">Link 2</a>
-                            </li>
-                            <li>
-                                <a class="grey-text text-lighten-3" href="#!">Link 3</a>
-                            </li>
-                            <li>
-                                <a class="grey-text text-lighten-3" href="#!">Link 4</a>
-                            </li>
-                        </ul> -->
-                    </div>
-                </div>
-            </div>
-            <div class="footer-copyright">
-                <div class="container">
-                    © 2018 Copyright
-                    <!-- <a class="grey-text text-lighten-4 right" href="#!">More Links</a> -->
-                </div>
-            </div>
-        </footer>
         <!-- </div> -->
         <script src="assets/javascript/app.js"></script>
 </body>

@@ -22,6 +22,7 @@ var movieRadiusField = false;
 var dateSelectionField = false;
 var zipCodeSelectField = false;
 var showRandoButton = false;
+//var instance = M.TapTarget.getInstance(elem);
 var activities = {
     outdoor: {
         1: "Batting Cages",
@@ -302,94 +303,58 @@ $(document).ready(function () {
 
 });
 
-//$("#searchButton").disabled = true;
 $("#datepicker").change(function () {
-
+    var date = $("#datepicker").val();
+    localStorage.setItem("date", date);
     dateSelectionField = true;
-    // console.log(dateSelectionField);
-
     searchBtnFunction();
-
-
-
-
-    // if (movieRadiusField == true && activityTypeField == true && dateSelectionField == true && zipCodeSelectField == true) {
-    //     // function enableBtn() {
-    //     $("#searchButton").attr("class", "btn waves-effect waves-red z-depth-5")
-    //     $("#searchButton").removeClass('disabled')
-    // }
-
 });
 
 $("#user-zip").change(function () {
-
-    if ($("#user-zip").val() == "") {
-        zipCodeSelectField = false;
-    } else {
+    //console.log("Zip Ran")
+    var zip = $("#user-zip").val();
+    if ($("#user-zip").val() != "") {
         zipCodeSelectField = true;
-        // console.log(zipCodeSelectField);
-    }
-    searchBtnFunction();
+        localStorage.setItem("zip", zip);
+        //console.log(zipCodeSelectField);
+    } else {
+        zipCodeSelectField = false;
+    };
+    //console.log("Zip Ran")
 
-    // if (movieRadiusField == true && activityTypeField == true && dateSelectionField == true && zipCodeSelectField == true) {
-    //     // function enableBtn() {
-    //     $("#searchButton").attr("class", "btn waves-effect waves-red z-depth-5")
-    //     $("#searchButton").removeClass('disabled')
-    // }
+    searchBtnFunction();
 
 });
 
-
-
 $("#movie-radius").change(function () {
-
+    var radius = $("#movie-radius").val();
     if ($("#movie-radius").val() == "") {
         movieRadiusField = false;
     } else {
         movieRadiusField = true;
+        localStorage.setItem("radius", radius);
         // console.log(movieRadiusField);
     }
-
-
     searchBtnFunction();
 
-
-    // $("#searchButton").attr("class", "btn waves-effect waves-red z-depth-5")
-    // console.log("hello")
-    // if (movieRadiusField == true && activityTypeField == true && dateSelectionField == true && zipCodeSelectField == true) {
-    //     // function enableBtn() {
-    //     $("#searchButton").attr("class", "btn waves-effect waves-red z-depth-5")
-    //     $("#searchButton").removeClass('disabled')
-    // }
 });
 
 $("#activity-type").change(function () {
 
+    var activityType = $("#activity-type").val();
     if ($("#activity-type").val() == "") {
         activityTypeField = false;
     } else {
+        localStorage.setItem("activity-type", activityType);
         activityTypeField = true;
-        // console.log(activityTypeField);
     }
 
     searchBtnFunction();
-
-
-    // $("#searchButton").attr("class", "btn waves-effect waves-red z-depth-5")
-    // console.log("hello")
-    // if (movieRadiusField == true && activityTypeField == true && dateSelectionField == true && zipCodeSelectField == true) {
-    //     // function enableBtn() {
-    //     $("#searchButton").attr("class", "btn waves-effect waves-red z-depth-5")
-    //     $("#searchButton").removeClass('disabled')
-    // }
 
 });
 
 
 function searchBtnFunction() {
-
-    // add in the date and zipcode to check if everything is filled out. Maybe change the check button into a function for shorter code
-
 
     if (movieRadiusField == true && activityTypeField == true && dateSelectionField == true && zipCodeSelectField == true) {
         // function enableBtn() {
@@ -402,18 +367,10 @@ function searchBtnFunction() {
 };
 
 function activityFunction(activityType) {
+    M.toast({ html: 'Activity Loading!', classes: 'rounded' });
     activityType = $("#activity-type").val();
-    // var obj = { "act": activityType }
-    // console.log(obj.activityType)
-
-    // activtyTypeObject = JSON.stringify(obj);
-    // console.log(activities[activityType])
     activityResults = activities[activityType]
 
-
-    // console.log(activtyTypeObject);
-    // console.log(activityTypeObject["act"]);
-    // console.log(activities.activityTypeObject)
     $("#activity-body").empty();
     var n = 0;
 
@@ -423,9 +380,10 @@ function activityFunction(activityType) {
         createCard("activity", "", "", activities[activityType][n], n, activities[activityType][n].replace(/\s/g, ''));
 
 
-    }
-    activityAPIRun = "#activity"
-    randomButtonShowHide()
+    };
+    activityAPIRun = "#activity";
+    randomButtonShowHide();
+    M.toast({ html: 'Activity Content Loaded!', classes: 'rounded' });
 
 }
 
@@ -433,6 +391,7 @@ function activityFunction(activityType) {
 
 //tmsapi movie api
 function newMovieAPI() {
+    M.toast({ html: 'Movie Content Loading!', classes: 'rounded' });
     //http://data.tmsapi.com/v1.1/movies/showings?startDate=2018-06-10&zip=84094&radius=20&units=mi&imageSize=Sm&imageText=true&api_key=prqret794d2txbvwk62p3jsv
     var apiKey = "prqret794d2txbvwk62p3jsv";
     var zipCode = $("#user-zip").val().trim();
@@ -451,15 +410,12 @@ function newMovieAPI() {
         allMyMovies = newMovieResponse;
         for (let i = 0; i < newMovieResponse.length; i++) {
 
-            //getMoviePoster(newMovieResponse[i].title);
-
-            //console.log(posterImage);
-            //pass in movie poster
             createCard("movie", newMovieResponse[i].title, posterImage, newMovieResponse[i].shortDescription, i, newMovieResponse[i].tmsId);
             posterImage = "";
         };
         updateMoviePosters()
         movieAPIRun = "#movie"
+        M.toast({ html: 'Movie Content Loaded!', classes: 'rounded' });
         randomButtonShowHide()
     })
         .fail(function (jqXHR, textStatus, errorThrown) {
@@ -477,42 +433,29 @@ function newMovieAPI() {
 function updateMoviePosters() {
 
     for (let i = 0; i < allMyMovies.length; i++) {
-        getMoviePoster(allMyMovies[i].title);
+        var title = allMyMovies[i].title;
+        getMoviePoster(title);
 
     }
 
 }
 
-function addMoviePoster(movieName, callback) {
-    $.ajax({
-        url: "https://api.themoviedb.org/3/search/movie?api_key=edb8d226b8be97be8b6b5c77df009481&language=en-US&query=" + movieName + "&page=1&include_adult=false",
-        method: "GET",
-    }).then(function (posterResponse) {
-        //console.log(posterResponse);
-        //console.log(posterResponse.results["0"].poster_path);
-        posterImage = "https://image.tmdb.org/t/p/w400" + posterResponse.results["0"].poster_path;
-        // console.log("in Function " + posterImage)
-        //$("#img-" + movieName.replace(/\s/g, '')).attr("src", posterImage);
-    });
-
-    callback();
-};
 
 function getMoviePoster(movieName) {
-    //https://api.themoviedb.org/3/search/movie?api_key=edb8d226b8be97be8b6b5c77df009481&language=en-US&query=black%20panther&page=1&include_adult=false
-    //var apiKey = "edb8d226b8be97be8b6b5c77df009481";
-    //results["0"].poster_path
-    //movieName = movieName.replace(/\s/g, '')
+
+    movieURLName = movieName.replace("3D", "").replace(/^w/g, "%20")
 
     $.ajax({
-        url: "https://api.themoviedb.org/3/search/movie?api_key=edb8d226b8be97be8b6b5c77df009481&language=en-US&query=" + movieName + "&page=1&include_adult=false",
+        async: true,
+        crossDomain: true,
+        url: "https://api.themoviedb.org/3/search/movie?api_key=edb8d226b8be97be8b6b5c77df009481&language=en-US&query=" + movieURLName + "&page=1&include_adult=false",
         method: "GET",
     }).then(function (posterResponse) {
         //console.log(posterResponse);
         //console.log(posterResponse.results["0"].poster_path);
         posterImage = "https://image.tmdb.org/t/p/w400" + posterResponse.results["0"].poster_path;
         // console.log(posterImage)
-        $("#img-" + movieName.replace(/\s/g, '')).attr("src", posterImage);
+        $("#img-" + movieName.replace(/[^\w]/gi, '')).attr("src", posterImage);
     });
 }
 
@@ -523,10 +466,9 @@ function getMoviePoster(movieName) {
 // var clientId = "UElyjnDy2hmjnnI9kg612A"
 
 function runQuery() {
+    M.toast({ html: 'Restaurants Loading!', classes: 'rounded' });
     var yelpApiKey = "XMj-naGXMl6icTElInaXFPwmUXi8YM1ulKFE8p4Y6IN_ia8lvD4-qmDp4EEGWHexFofr5jFGslNRBcDYspVqB1SEdyQiHMLaAanEN-rxLe3Xu8H05YSYgayu_nMZW3Yx";
-
     var userZipCode = $("#user-zip").val().trim();
-
     $("#restaurant-body").empty();
     var settings = {
         url: "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=restaurant&radius=8000&limit=15&location=" + userZipCode + "&sort_by=rating",
@@ -537,9 +479,7 @@ function runQuery() {
     }
 
     $.ajax(settings).then(function (response) {
-        //console.log(response)
         yelpResults = response.businesses;
-        // console.log(yelpResults)
         for (var i = 0; i < yelpResults.length; i++) {
 
             var bizPhotoUrl = yelpResults[i].image_url;
@@ -557,10 +497,8 @@ function runQuery() {
             yelpAPIRun = "#restaurant"
             randomButtonShowHide()
         }
-
+        M.toast({ html: 'Restaurant Content Loaded!', classes: 'rounded' });
     }).fail(function (jqXHR, textStatus, errorThrown) {
-        // Request failed. Show error message to user. 
-        // errorThrown has error message, or "timeout" in case of timeout.
 
         alert(jqXHR.responseText);
         if (textStatus === "error") {
@@ -589,14 +527,15 @@ function randomButtonShowHide() {
         if (sectionsVisible.indexOf(yelpAPIRun) != -1) {
             matchyMatch++
         }
-        // console.log(matchyMatch)
+
 
     }
     if (matchyMatch === sectionsVisible.length) {
         //$(".randoButton").css("visibility", "visible")
         //$(".randoButton").removeClass('disabled')
-        showRandoButton = true
-        $("#randoBtn").removeClass('disabled')
+        showRandoButton = true;
+        $("#randoBtn").removeClass('disabled');
+        $("#progress").empty();
     } else {
         $("#randoBtn").attr("class", "btn waves-effect waves-red z-depth-5 disabled")
         showRandoButton = false
@@ -609,7 +548,7 @@ function checkRandomButton() {
 
     if (sectionsVisible.indexOf(activityAPIRun) != -1) {
         //console.log(activityAPIRun)
-        $("#selected-activity-body").empty()
+        $("#selected-activity-body").empty();
         activityType = $("#activity-type").val();
         genRandomNumber(Object.keys(activities[activityType]).length)
         // console.log(randomNumber)
@@ -623,12 +562,13 @@ function checkRandomButton() {
 
     }
     if (sectionsVisible.indexOf(movieAPIRun) != -1) {
-        $("#selected-movie-body").empty()
-        genRandomNumber(allMyMovies.length)
+        $("#selected-movie-body").empty();
+        genRandomNumber(allMyMovies.length);
 
         $("#selected-movie-body").append($("#movie-body")["0"].children[randomNumber]);
         $($("#selected-movie-body")["0"].children["movie-card"]).attr("id", "selected-card");
         $($("#selected-movie-body")["0"].children["0"].children["0"].children[1]).remove();
+        $("#selected-movie-body").append("<a class='waves-effect waves-light btn modal-trigger' id='showtimeBtn' data-index=" + index + " href='#movieModal'>ShowTimes</a>");
         // console.log(randomNumber);
         selectedDateItems.push(allMyMovies[randomNumber])
         movieSelected = true;
@@ -636,14 +576,13 @@ function checkRandomButton() {
     }
     if (sectionsVisible.indexOf(yelpAPIRun) != -1) {
         //console.log(yelpAPIRun)
-        $("#selected-restaurant-body").empty()
+        $("#selected-restaurant-body").empty();
         genRandomNumber(yelpResults.length);
 
         $("#selected-restaurant-body").append($("#restaurant-body")["0"].children[randomNumber]);
         $($("#selected-restaurant-body")["0"].children["restaurant-card"]).attr("id", "selected-card");
         $($("#selected-restaurant-body")["0"].children["0"].children["0"].children[1]).remove();
-        // console.log(randomNumber);
-        selectedDateItems.push(yelpResults[randomNumber])
+        selectedDateItems.push(yelpResults[randomNumber]);
         restaurantSelected = true;
     }
 };
@@ -698,7 +637,7 @@ function createCard(dateSection, cardTitle, apiImageURL, cardBodyContent, index,
     } else {
         cardImgTag.attr("src", apiImageURL);
     }
-    cardImgTag.attr("id", "img-" + cardTitle.replace(/\s/g, ''));
+    cardImgTag.attr("id", "img-" + cardTitle.replace(/[^\w]/gi, ''));
 
     var imageTitle = $("<span>");
     imageTitle.attr("class", "card-title orange-text text-darken-4");
@@ -709,23 +648,9 @@ function createCard(dateSection, cardTitle, apiImageURL, cardBodyContent, index,
     cardContent.attr("class", "card-content");
     cardContent.html(cardBodyContent);
 
-    // var cardAction = $("<div>");
-    // cardAction.attr("class", "card-action");
-    // var cardAa = $("<a>");
-    // cardAa.attr("href", "#");
-    // cardAa.attr("id", "modal")
-    // cardAa.text("ShowTimes");
-
-    //var cardBody = $("<div>");
-    //cardBody.html(cardBodyContent);
-
-
-    //console.log(card)
-
     $("#" + dateSection + "-body").append(card);
     card.append(cardImage);
     cardImage.append(cardImgTag);
-    //cardImage.append(imageTitle);
     cardImage.append("<a class='btn-floating halfway-fab waves-effect waves-light red " + id + "' data-section=" + dateSection + " data-index=" + index + " data-name=" + id + " id='card-btn'><i class='material-icons'>add</i></a>");
     card.append(cardContent);
     cardContent.prepend(imageTitle);
@@ -736,7 +661,6 @@ function createCard(dateSection, cardTitle, apiImageURL, cardBodyContent, index,
     //     cardAction.append("<a class='waves-effect waves-light btn modal-trigger' href='#modal1'>Info</a>")
     // }
     //cardContent.append(cardBody);
-
 
 };
 
@@ -761,9 +685,21 @@ function selectCard() {
             selectedDateItems.push(allMyMovies[index])
             $("#selected-movie-body").append($("#movie-body")["0"].children[index]);
             $($("#selected-movie-body")["0"].children["movie-card"]).attr("id", "selected-card");
+            // $($("#selected-movie-body")["0"].children["movie-card"]).attr("data-index", index);
+            $("#selected-movie-body").append("<a class='waves-effect waves-light btn modal-trigger' id='showtimeBtn' data-index=" + index + " href='#movieModal'>ShowTimes</a>")
             $($("#selected-movie-body")["0"].children[1].children["0"].children[1]).remove();
             movieSelected = true
         }
+        // else {
+        //     $("#selected-movie-body").empty();
+        //     selectedDateItems.push(allMyMovies[index])
+        //     $("#selected-movie-body").append($("#movie-body")["0"].children[index]);
+        //     $($("#selected-movie-body")["0"].children["movie-card"]).attr("id", "selected-card");
+        //     // $($("#selected-movie-body")["0"].children["movie-card"]).attr("data-index", index);
+        //     $("#selected-movie-body").append("<a class='waves-effect waves-light btn modal-trigger' id='showtimeBtn' data-index=" + index + " href='#movieModal'>ShowTimes</a>")
+        //     $($("#selected-movie-body")["0"].children[1].children["0"].children[1]).remove();
+        //     movieSelected = true
+        // }
     } else if ($(this).data("section") === "activity") {
         if (activitySelected === false) {
             //console.log(allMyMovies[index]);
@@ -800,6 +736,7 @@ function saveToFirebase() {
 };
 
 function runAllAPIs() {
+    $("#progress").html("<div class='progress' id='progressBar'><div class='indeterminate'></div></div>")
     if (sectionsVisible.indexOf("#movie") != -1) {
         newMovieAPI();
     }
@@ -874,6 +811,9 @@ function getFirebaseDates() {
 
 document.addEventListener('DOMContentLoaded', function () {
     //preventDefault();
+    // var elems = document.querySelectorAll('.modal');
+    // var instances = M.Modal.init(elems, options);
+
     var elems = document.querySelectorAll('.collapsible.expandable');
     var instances = M.Collapsible.init(elems, {
         accordion: false,
@@ -886,17 +826,46 @@ document.addEventListener('DOMContentLoaded', function () {
         autoClose: true
     });
 
+
+    var date = localStorage.getItem("date");
+    var zip = localStorage.getItem("zip");
+    var radius = localStorage.getItem("radius");
+    var activity = localStorage.getItem("activity-type");
+    if (date != "") {
+        $("#datepicker").val(date);
+        dateSelectionField = true;
+    }
+    if (zip != "") {
+        $("#user-zip").val(zip);
+        zipCodeSelectField = true;
+    }
+    if (radius != "") {
+        $("#movie-radius").val(radius);
+        movieRadiusField = true;
+    }
+    if (activity != "") {
+        $("#activity-type").val(activity);
+        activityTypeField = true;
+    }
+    searchBtnFunction();
 });
 
+function addMovieTimes() {
 
-//Activity Card
-//$("#Selected-date-items")["0"].children["0"].children["0"].children["0"].children["0"].children[1]
-//Restaurant Card
-//$("#Selected-date-items")["0"].children[1].children["0"].children["0"].children["0"].children[1]
-//MovieCard
-//$("#Selected-date-items")["0"].children[2].children["0"].children["0"].children["0"].children[1]
+    $('#movieModal').modal('open');
+    //var index = test
+    var index = $(this).data("index");
+    var movieShowTimes = allMyMovies[index].showtimes;
 
-//$("select[required]").css({ display: "block", height: 0, padding: 0, width: 0, position: 'absolute' });
+    for (let i = 0; i < movieShowTimes.length; i++) {
+        var theatre = movieShowTimes[i].theatre.name;
+        var dateTime = movieShowTimes[i].dateTime.replace("T", " -- ");
+        var ticketLink = movieShowTimes[i].ticketURI;
+        $("#showtime-table > tbody").append("<tr><td>" + theatre + "</td><td>" + dateTime + "</td><td><a href=" + ticketLink + " target='_blank'>BUY TICKETS!</a></td></tr>");
+    }
+
+};
+
 
 $(document).on("click", "#btn-activity", selectDateParam);
 $(document).on("click", "#btn-movie", selectDateParam);
@@ -909,8 +878,7 @@ $(document).on("click", "#save-date", saveToFirebase);
 //$(document).on("click", "#btn", activityFunction);
 $(document).on("click", "#searchButton", runAllAPIs);
 $(document).on("click", "#loadDates", getFirebaseDates);
-
-// $(document).on("click", "#modal", modal());
+$(document).on("click", "#showtimeBtn", addMovieTimes);
 $('.modal').modal()
 $('.sidenav').sidenav();
 $('#activity-type').css("border-bottom: 1px solid green !important")

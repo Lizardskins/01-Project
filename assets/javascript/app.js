@@ -368,6 +368,7 @@ function searchBtnFunction() {
 
 function activityFunction(activityType) {
     M.toast({ html: 'Activity Loading!', classes: 'rounded' });
+    $('.collapsible').collapsible('open', 0);
     activityType = $("#activity-type").val();
     activityResults = activities[activityType]
 
@@ -392,6 +393,7 @@ function activityFunction(activityType) {
 //tmsapi movie api
 function newMovieAPI() {
     M.toast({ html: 'Movie Content Loading!', classes: 'rounded' });
+    $('.collapsible').collapsible('open', 2);
     //http://data.tmsapi.com/v1.1/movies/showings?startDate=2018-06-10&zip=84094&radius=20&units=mi&imageSize=Sm&imageText=true&api_key=prqret794d2txbvwk62p3jsv
     var apiKey = "prqret794d2txbvwk62p3jsv";
     var zipCode = $("#user-zip").val().trim();
@@ -467,6 +469,7 @@ function getMoviePoster(movieName) {
 
 function runQuery() {
     M.toast({ html: 'Restaurants Loading!', classes: 'rounded' });
+    $('.collapsible').collapsible('open', 1);
     var yelpApiKey = "XMj-naGXMl6icTElInaXFPwmUXi8YM1ulKFE8p4Y6IN_ia8lvD4-qmDp4EEGWHexFofr5jFGslNRBcDYspVqB1SEdyQiHMLaAanEN-rxLe3Xu8H05YSYgayu_nMZW3Yx";
     var userZipCode = $("#user-zip").val().trim();
     $("#restaurant-body").empty();
@@ -536,8 +539,10 @@ function randomButtonShowHide() {
         showRandoButton = true;
         $("#randoBtn").removeClass('disabled');
         $("#progress").empty();
+
     } else {
-        $("#randoBtn").attr("class", "btn waves-effect waves-red z-depth-5 disabled")
+        $("#randoBtn").attr("class", "btn waves-effect waves-red z-depth-5 disabled");
+        $("#save-date").attr("class", "btn waves-effect waves-red z-depth-5 disabled")
         showRandoButton = false
         //$(".randoButton").css("visibility", "hidden")
     }
@@ -545,6 +550,8 @@ function randomButtonShowHide() {
 }
 
 function checkRandomButton() {
+    $("#save-date").attr("class", "btn waves-effect waves-red z-depth-5")
+    $("#save-date").removeClass('disabled')
 
     if (sectionsVisible.indexOf(activityAPIRun) != -1) {
         //console.log(activityAPIRun)
@@ -585,6 +592,8 @@ function checkRandomButton() {
         selectedDateItems.push(yelpResults[randomNumber]);
         restaurantSelected = true;
     }
+
+    //here
 };
 
 function genRandomNumber(length) {
@@ -678,6 +687,7 @@ function selectCard() {
             $($("#selected-restaurant-body")["0"].children["restaurant-card"]).attr("id", "selected-card");
             $($("#selected-restaurant-body")["0"].children[1].children["0"].children[1]).remove();
             restaurantSelected = true;
+            $('.collapsible').collapsible('close', 1);
         }
     } else if ($(this).data("section") === "movie") {
         if (movieSelected === false) {
@@ -689,6 +699,7 @@ function selectCard() {
             $("#selected-movie-body").append("<a class='waves-effect waves-light btn modal-trigger' id='showtimeBtn' data-index=" + index + " href='#movieModal'>ShowTimes</a>")
             $($("#selected-movie-body")["0"].children[1].children["0"].children[1]).remove();
             movieSelected = true
+            $('.collapsible').collapsible('close', 2);
         }
         // else {
         //     $("#selected-movie-body").empty();
@@ -710,10 +721,12 @@ function selectCard() {
             $($("#selected-activity-body")["0"].children["activity-card"]).attr("id", "selected-card");
             $($("#selected-activity-body")["0"].children[1].children["0"].children[1]).remove();
             activitySelected = true
+            $('.collapsible').collapsible('close', 0);
         }
     }
     // console.log(activitySelected);
-
+    $("#save-date").attr("class", "btn waves-effect waves-red z-depth-5")
+    $("#save-date").removeClass('disabled')
 }
 
 function saveToFirebase() {
@@ -851,7 +864,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function addMovieTimes() {
-
+    $("#showtime-table > tbody").empty();
     $('#movieModal').modal('open');
     //var index = test
     var index = $(this).data("index");

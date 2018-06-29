@@ -51,10 +51,10 @@
     visibility: visible;
 }
 
-tbody{
+/* tbody{
 background: linen;
-};
-table.striped>tbody>tr:nth-child(odd){
+}; */
+/* table.striped>tbody>tr:nth-child(odd){
     background-color: #4ed0c3ee;
     color: white;
     font-style: oblique;
@@ -62,5 +62,5 @@ table.striped>tbody>tr:nth-child(odd){
 thead{
     background: darkgray;
     color: white;
-}
+} */
       

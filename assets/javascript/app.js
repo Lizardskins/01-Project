@@ -575,16 +575,22 @@ function checkRandomButton() {
         $("#selected-movie-body").append($("#movie-body")["0"].children[randomNumber]);
         $($("#selected-movie-body")["0"].children["movie-card"]).attr("id", "selected-card");
         $($("#selected-movie-body")["0"].children["0"].children["0"].children[1]).remove();
-        $("#selected-movie-body").append("<a class='waves-effect waves-light btn modal-trigger' id='showtimeBtn' data-index=" + index + " href='#movieModal'>ShowTimes</a>");
+        $("#selected-movie-body").append("<a class='waves-effect waves-light btn modal-trigger' id='showtimeBtn' data-index=" + randomNumber + " href='#movieModal'>ShowTimes</a>");
         // console.log(randomNumber);
         selectedDateItems.push(allMyMovies[randomNumber])
         movieSelected = true;
 
     }
     if (sectionsVisible.indexOf(yelpAPIRun) != -1) {
-        //console.log(yelpAPIRun)
+        console.log(yelpAPIRun)
+        console.log(randomNumber);
         $("#selected-restaurant-body").empty();
         genRandomNumber(yelpResults.length);
+
+
+        // $("#selected-restaurant-body").append($("#restaurant-body")["0"].children[randomNumber]);
+        // $($("#selected-restaurant-body")["0"].children["restaurant-card"]).attr("id", "selected-card");
+        // $($("#selected-restaurant-body")["0"].children[1].children["0"].children[1]).remove();
 
         $("#selected-restaurant-body").append($("#restaurant-body")["0"].children[randomNumber]);
         $($("#selected-restaurant-body")["0"].children["restaurant-card"]).attr("id", "selected-card");
